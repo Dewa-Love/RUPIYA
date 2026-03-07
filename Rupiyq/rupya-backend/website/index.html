@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RUPYA — Smart Loan Marketplace</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HERO ── */
+#hero{width:100%;height:100vh;position:relative;overflow:hidden;background:linear-gradient(180deg,#87CEEB 0%,#b8e0f7 45%,#e8d5a3 70%,#c8a96e 100%)}
+.sun{position:absolute;top:10%;right:12%;width:90px;height:90px;background:radial-gradient(circle,#ffe066 40%,rgba(255,224,102,0));border-radius:50%;animation:sunPulse 4s ease-in-out infinite}
+.clouds{position:absolute;top:8%;width:200%;height:120px;animation:cloudDrift 40s linear infinite}
+.hero-txt{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:50;pointer-events:none;animation:fadeUp .9s ease both}
+.h-kicker{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:rgba(26,26,26,.55);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.pdot{width:7px;height:7px;background:#e85d2b;border-radius:50%;animation:throb 2s ease infinite;display:inline-block}
+.h1{font-size:clamp(4rem,10vw,9.5rem);font-weight:900;line-height:.9;color:#1a1a1a;letter-spacing:-.03em}
+.h1 em{font-family:'Playfair Display',serif;font-style:italic;color:#e85d2b;font-weight:400}
+.hero-btns{display:flex;gap:1rem;justify-content:center;margin-top:2rem;pointer-events:all}
+.hero-chips{position:absolute;right:3rem;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:.9rem;animation:fadeIn 1.2s ease .5s both}
+.hchip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(12px);padding:.9rem 1.3rem;min-width:160px;border-radius:4px;transition:background .3s}
+.hchip:hover{background:rgba(255,255,255,.28)}
+.hchip-lbl{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.55;margin-bottom:.15rem}
+.hchip-val{font-size:1.7rem;font-weight:900;color:#e85d2b;line-height:1}
+.hchip-desc{font-size:.67rem;opacity:.5;margin-top:.12rem}
+.scroll-cue{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:bounce 2s ease-in-out infinite}
+.scroll-cue span{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;opacity:.4}
+.scroll-arr{width:22px;height:22px;border-right:2.5px solid rgba(26,26,26,.35);border-bottom:2.5px solid rgba(26,26,26,.35);transform:rotate(45deg)}
+#car-scene{position:absolute;bottom:0;width:100%;height:100%;z-index:30;pointer-events:none}
+/* ── LOAN GRID ── */
+.loan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(255,255,255,.08);margin-top:3.5rem}
+.lc{background:#1a1a1a;padding:2.2rem 1.8rem;min-height:330px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;cursor:none;transition:background .4s}
+.lc::after{content:'';position:absolute;inset:0;background:#e85d2b;transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.76,0,.24,1);z-index:0}
+.lc:nth-child(2){background:#e85d2b}.lc:nth-child(2)::after{background:#1a1a1a}
+.lc>*{position:relative;z-index:1}
+.lc:hover::after{transform:scaleY(1)}
+.lc:hover .lc-n,.lc:hover .lc-r,.lc:hover .lc-d,.lc:hover .lc-ar{color:#fff}
+.lc:nth-child(2) .lc-n,.lc:nth-child(2) .lc-r,.lc:nth-child(2) .lc-d,.lc:nth-child(2) .lc-ar{color:#fff}
+.lc-ic{font-size:2rem;margin-bottom:1.1rem}
+.lc-n{font-size:1.3rem;font-weight:900;color:rgba(255,255,255,.9);transition:color .3s}
+.lc-d{font-size:.77rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:.3rem;flex:1;transition:color .3s}
+.lc-bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:1.2rem}
+.lc-rl{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.1rem;transition:color .3s}
+.lc-r{font-size:2rem;font-weight:900;color:rgba(255,255,255,.9);line-height:1;transition:color .3s}
+.lc-ar{font-size:1.5rem;opacity:.2;transition:opacity .3s,transform .3s,color .3s}
+.lc:hover .lc-ar{opacity:1;transform:translate(4px,-4px)}
+/* ── HOW IT WORKS ── */
+.step{display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;padding:1.6rem 0;border-bottom:2px solid rgba(255,255,255,.12);transition:padding-left .3s;cursor:default}
+.step:hover{padding-left:.6rem}.step:hover .sn{color:#e8b84b}
+.sn{font-size:2.8rem;font-weight:900;color:rgba(255,255,255,.12);line-height:1;transition:color .3s}
+.st{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:.25rem}
+.sd{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="sun"></div>
+  <svg class="clouds" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+    <g fill="white" opacity=".88">
+      <ellipse cx="120" cy="58" rx="80" ry="34"/><ellipse cx="162" cy="48" rx="54" ry="26"/><ellipse cx="78" cy="56" rx="44" ry="21"/>
+      <ellipse cx="400" cy="68" rx="65" ry="28"/><ellipse cx="444" cy="56" rx="44" ry="22"/>
+      <ellipse cx="750" cy="52" rx="88" ry="36"/><ellipse cx="800" cy="40" rx="58" ry="24"/>
+      <ellipse cx="1100" cy="62" rx="70" ry="30"/><ellipse cx="1150" cy="50" rx="46" ry="21"/>
+      <ellipse cx="1560" cy="58" rx="80" ry="34"/><ellipse cx="1840" cy="68" rx="65" ry="28"/>
+      <ellipse cx="2190" cy="52" rx="88" ry="36"/><ellipse cx="2540" cy="62" rx="70" ry="30"/>
+    </g>
+  </svg>
+  <svg style="position:absolute;top:15%;left:18%;z-index:10;animation:birdFly 14s ease-in-out infinite" width="60" height="20" viewBox="0 0 60 20">
+    <path d="M0 10 Q5 4 10 10 Q15 16 20 10" stroke="#1a1a1a" stroke-width="1.5" fill="none" opacity=".35"/>
+    <path d="M26 8 Q31 2 36 8 Q41 14 46 8" stroke="#1a1a1a" stroke-width="1.5" fill="none" opacity=".25"/>
+  </svg>
+  <div style="position:absolute;top:20%;right:22%;z-index:10;animation:sway 4s ease-in-out infinite">
+    <svg width="40" height="70" viewBox="0 0 40 70"><polygon points="20,2 38,20 20,38 2,20" fill="#e85d2b" opacity=".8"/>
+    <line x1="20" y1="38" x2="20" y2="68" stroke="rgba(26,26,26,.25)" stroke-width="1.5"/>
+    <line x1="6" y1="46" x2="34" y2="54" stroke="rgba(26,26,26,.15)" stroke-width="1"/></svg>
+  </div>
+
+  <!-- STREET SCENE -->
+  <svg style="position:absolute;bottom:0;width:100%;z-index:20" viewBox="0 0 1440 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="rd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8a8070"/><stop offset="100%" stop-color="#6a6058"/></linearGradient>
+      <pattern id="brk" patternUnits="userSpaceOnUse" width="40" height="20">
+        <rect width="40" height="20" fill="#c8724a"/>
+        <rect x="1" y="1" width="18" height="8" fill="#d4865a" rx="1"/><rect x="21" y="1" width="18" height="8" fill="#d4865a" rx="1"/>
+        <rect x="11" y="11" width="18" height="8" fill="#d4865a" rx="1"/>
+      </pattern>
+    </defs>
+    <!-- Ground -->
+    <rect x="0" y="360" width="1440" height="160" fill="#c8a96e"/>
+    <ellipse cx="200" cy="368" rx="255" ry="78" fill="#7ab060" opacity=".5"/>
+    <ellipse cx="1250" cy="373" rx="195" ry="63" fill="#7ab060" opacity=".4"/>
+    <!-- Left building -->
+    <rect x="30" y="120" width="180" height="250" fill="#e8c896"/>
+    <rect x="30" y="120" width="180" height="18" fill="#d4a870"/>
+    <g fill="#87CEEB" stroke="#c09060" stroke-width="1.5">
+      <rect x="55" y="155" width="32" height="38" rx="2" style="animation:windowBlink 8s ease infinite 2s"/>
+      <rect x="105" y="155" width="32" height="38" rx="2" style="animation:windowBlink 8s ease infinite 1s"/>
+      <rect x="155" y="155" width="32" height="38" rx="2"/>
+      <rect x="55" y="210" width="32" height="38" rx="2"/>
+      <rect x="105" y="210" width="32" height="38" rx="2" style="animation:windowBlink 10s ease infinite"/>
+      <rect x="155" y="210" width="32" height="38" rx="2"/>
+    </g>
+    <g fill="#fde68a" opacity=".8" stroke="#c09060" stroke-width="1.5">
+      <rect x="55" y="265" width="32" height="38" rx="2"/><rect x="155" y="265" width="32" height="38" rx="2"/>
+    </g>
+    <rect x="105" y="265" width="32" height="38" rx="2" fill="#87CEEB" stroke="#c09060" stroke-width="1.5"/>
+    <path d="M106 370 L106 330 Q120 310 134 330 L134 370 Z" fill="#8B4513"/>
+    <rect x="90" y="305" width="60" height="8" fill="#d4a870"/>
+    <rect x="92" y="295" width="56" height="10" fill="#c84040" rx="2"/>
+    <ellipse cx="100" cy="292" rx="5" ry="8" fill="#e85d2b"/><ellipse cx="115" cy="290" rx="5" ry="9" fill="#ff8c40"/>
+    <ellipse cx="130" cy="291" rx="5" ry="8" fill="#e85d2b"/><ellipse cx="145" cy="290" rx="5" ry="9" fill="#ff8c40"/>
+    <!-- CENTRE HERO HOUSE -->
+    <rect x="520" y="370" width="400" height="20" fill="#c0a060" rx="3"/>
+    <rect x="550" y="175" width="340" height="195" fill="#f5e6c8"/>
+    <rect x="550" y="175" width="60" height="195" fill="url(#brk)" opacity=".6"/>
+    <rect x="830" y="175" width="60" height="195" fill="url(#brk)" opacity=".6"/>
+    <polygon points="520,185 720,80 920,185" fill="#c84832"/>
+    <g fill="#b03a28">
+      <ellipse cx="660" cy="120" rx="18" ry="9"/><ellipse cx="700" cy="115" rx="18" ry="9"/><ellipse cx="740" cy="113" rx="18" ry="9"/><ellipse cx="620" cy="127" rx="18" ry="9"/>
+      <ellipse cx="585" cy="148" rx="18" ry="9"/><ellipse cx="623" cy="143" rx="18" ry="9"/><ellipse cx="661" cy="140" rx="18" ry="9"/><ellipse cx="699" cy="137" rx="18" ry="9"/>
+      <ellipse cx="737" cy="135" rx="18" ry="9"/><ellipse cx="775" cy="137" rx="18" ry="9"/><ellipse cx="813" cy="140" rx="18" ry="9"/><ellipse cx="851" cy="143" rx="18" ry="9"/><ellipse cx="889" cy="148" rx="18" ry="9"/>
+      <ellipse cx="560" cy="168" rx="18" ry="9"/><ellipse cx="598" cy="163" rx="18" ry="9"/><ellipse cx="636" cy="160" rx="18" ry="9"/><ellipse cx="674" cy="157" rx="18" ry="9"/>
+      <ellipse cx="712" cy="155" rx="18" ry="9"/><ellipse cx="750" cy="155" rx="18" ry="9"/><ellipse cx="788" cy="157" rx="18" ry="9"/><ellipse cx="826" cy="160" rx="18" ry="9"/><ellipse cx="864" cy="163" rx="18" ry="9"/><ellipse cx="902" cy="168" rx="18" ry="9"/>
+    </g>
+    <rect x="708" y="50" width="24" height="30" fill="#8B4513"/><rect x="704" y="46" width="32" height="10" fill="#6a3410" rx="2"/>
+    <circle cx="720" cy="30" r="10" fill="rgba(200,200,200,.5)" style="animation:smokePuff 3s ease-out infinite"/>
+    <circle cx="725" cy="14" r="7" fill="rgba(200,200,200,.35)" style="animation:smokePuff 3s ease-out infinite .5s"/>
+    <path d="M685 370 L685 285 Q720 255 755 285 L755 370 Z" fill="#e85d2b"/>
+    <path d="M695 370 L695 292 Q720 268 745 292 L745 370 Z" fill="#c84030"/>
+    <rect x="697" y="310" width="22" height="28" fill="#a83028" rx="2" opacity=".6"/>
+    <rect x="721" y="310" width="22" height="28" fill="#a83028" rx="2" opacity=".6"/>
+    <circle cx="717" cy="335" r="4" fill="#e8b84b"/>
+    <rect x="678" y="368" width="84" height="8" fill="#c0a060" rx="2"/>
+    <rect x="572" y="205" width="80" height="90" rx="3" fill="#87CEEB" stroke="#d4a870" stroke-width="2"/>
+    <rect x="570" y="203" width="16" height="94" rx="2" fill="#c84030"/>
+    <rect x="636" y="203" width="16" height="94" rx="2" fill="#c84030"/>
+    <line x1="612" y1="205" x2="612" y2="295" stroke="#d4a870" stroke-width="1.5"/>
+    <line x1="572" y1="250" x2="652" y2="250" stroke="#d4a870" stroke-width="1.5"/>
+    <rect x="788" y="205" width="80" height="90" rx="3" fill="#fde68a" opacity=".8" stroke="#d4a870" stroke-width="2" style="animation:windowBlink 9s ease infinite 3s"/>
+    <rect x="786" y="203" width="16" height="94" rx="2" fill="#c84030"/>
+    <rect x="852" y="203" width="16" height="94" rx="2" fill="#c84030"/>
+    <line x1="828" y1="205" x2="828" y2="295" stroke="#d4a870" stroke-width="1.5"/>
+    <line x1="788" y1="250" x2="868" y2="250" stroke="#d4a870" stroke-width="1.5"/>
+    <rect x="610" y="130" width="50" height="40" rx="2" fill="#87CEEB" opacity=".7" stroke="#d4a870" stroke-width="1.5"/>
+    <rect x="780" y="130" width="50" height="40" rx="2" fill="#fde68a" opacity=".7" stroke="#d4a870" stroke-width="1.5"/>
+    <rect x="630" y="345" width="180" height="26" fill="#e85d2b" rx="3"/>
+    <text x="720" y="363" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="12" fill="white" letter-spacing="1">RUPYA HOME LOANS</text>
+    <rect x="668" y="355" width="14" height="16" fill="#c84030" rx="2"/><ellipse cx="675" cy="352" rx="10" ry="14" fill="#2d7a3a"/>
+    <rect x="758" y="355" width="14" height="16" fill="#c84030" rx="2"/><ellipse cx="765" cy="352" rx="10" ry="14" fill="#2d7a3a"/>
+    <!-- Right building -->
+    <rect x="1200" y="160" width="210" height="210" fill="#dde8d4"/>
+    <rect x="1200" y="160" width="210" height="20" fill="#4a8a2a" opacity=".6"/>
+    <g fill="#87CEEB" stroke="#aac090" stroke-width="1">
+      <rect x="1218" y="192" width="36" height="42" rx="1"/><rect x="1268" y="192" width="36" height="42" rx="1"/>
+      <rect x="1318" y="192" width="36" height="42" rx="1" style="animation:windowBlink 7s ease infinite 1s"/>
+      <rect x="1218" y="248" width="36" height="42" rx="1" style="animation:windowBlink 7s ease infinite 4s"/>
+      <rect x="1268" y="248" width="36" height="42" rx="1"/>
+      <rect x="1318" y="248" width="36" height="42" rx="1" style="animation:windowBlink 7s ease infinite 2.5s"/>
+      <rect x="1218" y="304" width="36" height="42" rx="1"/>
+      <rect x="1268" y="304" width="36" height="42" rx="1" style="animation:windowBlink 7s ease infinite 6s"/>
+    </g>
+    <rect x="1195" y="155" width="220" height="10" fill="#aac090"/>
+    <rect x="1270" y="130" width="70" height="30" fill="#8a9880" rx="3"/>
+    <!-- Trees -->
+    <rect x="248" y="295" width="14" height="75" fill="#7a5030"/>
+    <ellipse cx="255" cy="272" rx="42" ry="50" fill="#2d7a3a"/><ellipse cx="238" cy="288" rx="25" ry="30" fill="#3a8a4a"/><ellipse cx="272" cy="285" rx="25" ry="30" fill="#3a8a4a"/>
+    <rect x="1165" y="310" width="12" height="60" fill="#7a5030"/>
+    <ellipse cx="1171" cy="292" rx="36" ry="44" fill="#2d7a3a"/>
+    <!-- Road -->
+    <rect x="0" y="385" width="1440" height="28" fill="#d4c4a0"/>
+    <rect x="0" y="413" width="1440" height="107" fill="url(#rd)"/>
+    <line x1="0" y1="466" x2="1440" y2="466" stroke="white" stroke-width="3" stroke-dasharray="60,40" opacity=".5"/>
+    <rect x="0" y="410" width="1440" height="5" fill="#b8a888"/>
+    <!-- Bicycle -->
+    <g transform="translate(440,395)" style="animation:floatY 4s ease-in-out infinite 1.5s">
+      <circle cx="18" cy="20" r="15" fill="none" stroke="#2d7a3a" stroke-width="3"/>
+      <circle cx="52" cy="20" r="15" fill="none" stroke="#2d7a3a" stroke-width="3"/>
+      <line x1="18" y1="20" x2="35" y2="5" stroke="#2d7a3a" stroke-width="2.5"/>
+      <line x1="35" y1="5" x2="52" y2="20" stroke="#2d7a3a" stroke-width="2.5"/>
+      <line x1="35" y1="5" x2="35" y2="0" stroke="#2d7a3a" stroke-width="2.5"/>
+      <line x1="30" y1="0" x2="40" y2="0" stroke="#2d7a3a" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <!-- Auto rickshaw -->
+    <g transform="translate(920,400)" style="animation:floatY 3s ease-in-out infinite">
+      <rect x="0" y="-25" width="60" height="30" rx="8" fill="#e8b84b"/>
+      <rect x="3" y="-22" width="25" height="18" rx="3" fill="#87CEEB" opacity=".7"/>
+      <rect x="0" y="5" width="60" height="8" rx="2" fill="#c09030"/>
+      <circle cx="12" cy="16" r="9" fill="#333" stroke="#666" stroke-width="2"/><circle cx="12" cy="16" r="4" fill="#999"/>
+      <circle cx="50" cy="16" r="9" fill="#333" stroke="#666" stroke-width="2"/><circle cx="50" cy="16" r="4" fill="#999"/>
+    </g>
+    <!-- Lamps -->
+    <line x1="355" y1="385" x2="355" y2="280" stroke="#6a5030" stroke-width="5"/>
+    <path d="M355 280 Q365 260 390 265" stroke="#6a5030" stroke-width="4" fill="none"/>
+    <circle cx="392" cy="265" r="10" fill="#fde68a" opacity=".8"/><circle cx="392" cy="265" r="6" fill="#fff"/>
+    <line x1="1080" y1="385" x2="1080" y2="280" stroke="#6a5030" stroke-width="5"/>
+    <path d="M1080 280 Q1090 260 1115 265" stroke="#6a5030" stroke-width="4" fill="none"/>
+    <circle cx="1117" cy="265" r="10" fill="#fde68a" opacity=".8"/><circle cx="1117" cy="265" r="6" fill="#fff"/>
+    <!-- Coins -->
+    <g style="animation:floatY 3s ease-in-out infinite"><circle cx="400" cy="200" r="22" fill="#e8b84b" opacity=".2"/><circle cx="400" cy="200" r="16" fill="none" stroke="#e8b84b" stroke-width="2" opacity=".45"/><text x="400" y="207" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="14" fill="#c09030" opacity=".6">₹</text></g>
+    <g style="animation:floatY 5s ease-in-out infinite 2s"><circle cx="720" cy="54" r="25" fill="#e8b84b" opacity=".12"/><circle cx="720" cy="54" r="18" fill="none" stroke="#e8b84b" stroke-width="2" opacity=".3"/><text x="720" y="61" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="15" fill="#c09030" opacity=".45">₹</text></g>
+  </svg>
+
+  <!-- CAR + MAN ANIMATION -->
+  <svg id="car-scene" viewBox="0 0 1440 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+    <g id="cg">
+      <ellipse cx="60" cy="458" rx="70" ry="7" fill="rgba(0,0,0,.16)"/>
+      <rect x="4" y="420" width="116" height="32" rx="8" fill="#e85d2b"/>
+      <path d="M22 420 Q28 398 50 393 L90 393 Q108 393 115 408 L120 420 Z" fill="#c84030"/>
+      <path d="M28 419 Q32 402 52 397 L88 397 Q104 399 110 412 L112 419 Z" fill="#a8d8f0" opacity=".85"/>
+      <path d="M36 418 Q39 406 55 401 L68 400 Q56 403 52 418 Z" fill="white" opacity=".3"/>
+      <line x1="62" y1="393" x2="62" y2="422" stroke="rgba(0,0,0,.15)" stroke-width="1.5"/>
+      <rect x="74" y="411" width="14" height="4" rx="2" fill="rgba(255,255,255,.4)"/>
+      <ellipse cx="120" cy="428" rx="6" ry="5" fill="#fde68a" opacity=".9"/><ellipse cx="120" cy="428" rx="3" ry="2.5" fill="white"/>
+      <rect x="4" y="424" width="7" height="10" rx="2" fill="#ff4444" opacity=".9"/>
+      <g id="wfl"><circle cx="96" cy="452" r="14" fill="#222"/><circle cx="96" cy="452" r="9" fill="#555"/><circle cx="96" cy="452" r="4" fill="#888"/><line id="sv1" x1="96" y1="443" x2="96" y2="461" stroke="#777" stroke-width="1.5"/><line id="sh1" x1="87" y1="452" x2="105" y2="452" stroke="#777" stroke-width="1.5"/></g>
+      <g id="wrl"><circle cx="28" cy="452" r="14" fill="#222"/><circle cx="28" cy="452" r="9" fill="#555"/><circle cx="28" cy="452" r="4" fill="#888"/><line id="sv2" x1="28" y1="443" x2="28" y2="461" stroke="#777" stroke-width="1.5"/><line id="sh2" x1="19" y1="452" x2="37" y2="452" stroke="#777" stroke-width="1.5"/></g>
+      <g id="hb" opacity="0"><rect x="110" y="370" width="52" height="26" rx="12" fill="white" stroke="#e85d2b" stroke-width="2"/><polygon points="116,396 128,396 120,406" fill="white"/><text x="136" y="388" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="12" fill="#e85d2b">BEEP!</text></g>
+    </g>
+    <g id="mg" opacity="0">
+      <ellipse cx="0" cy="468" rx="13" ry="4" fill="rgba(0,0,0,.18)"/>
+      <rect id="ll" x="-7" y="440" width="7" height="26" rx="3" fill="#3a5c90"/>
+      <rect id="lr" x="1" y="440" width="7" height="26" rx="3" fill="#3a5c90"/>
+      <ellipse cx="-3" cy="467" rx="6" ry="3" fill="#222"/><ellipse cx="5" cy="467" rx="6" ry="3" fill="#222"/>
+      <rect x="-10" y="414" width="20" height="28" rx="5" fill="#e85d2b"/>
+      <rect id="al" x="-18" y="416" width="9" height="18" rx="4" fill="#f5c8a0"/>
+      <rect id="ar" x="9" y="416" width="9" height="18" rx="4" fill="#f5c8a0"/>
+      <circle cx="0" cy="406" r="12" fill="#f5c8a0"/>
+      <path d="M-11 403 Q-8 392 0 390 Q8 392 11 403 Q8 396 0 395 Q-8 396 -11 403 Z" fill="#3a2010"/>
+      <circle cx="-4" cy="406" r="2" fill="#3a2010"/><circle cx="4" cy="406" r="2" fill="#3a2010"/>
+      <path d="M-4 412 Q0 416 4 412" stroke="#3a2010" stroke-width="1.5" fill="none"/>
+      <g id="ki" opacity="0"><circle cx="16" cy="410" r="6" fill="#e8b84b" stroke="#c09030" stroke-width="1.5"/><circle cx="16" cy="410" r="3" fill="none" stroke="#c09030" stroke-width="1.5"/><rect x="20" y="409" width="10" height="3" rx="1" fill="#e8b84b"/></g>
+    </g>
+    <g id="ds" opacity="0">
+      <path d="M560 72 L560 40 L880 40 L880 72 L870 82 L570 82 Z" fill="#e85d2b"/>
+      <path d="M560 40 L548 56 L560 72 Z" fill="#c04020"/><path d="M880 40 L892 56 L880 72 Z" fill="#c04020"/>
+      <text x="575" y="67" font-family="Nunito,sans-serif" font-size="14" fill="#fde68a">★</text>
+      <text x="855" y="67" font-family="Nunito,sans-serif" font-size="14" fill="#fde68a">★</text>
+      <text x="720" y="66" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="21" fill="white" letter-spacing="2">✦ YOUR DREAM HOME ✦</text>
+    </g>
+    <g id="cf" opacity="0">
+      <rect x="695" y="75" width="8" height="8" rx="1" fill="#e85d2b"/><rect x="720" y="68" width="6" height="10" rx="1" fill="#fde68a"/>
+      <rect x="745" y="72" width="8" height="6" rx="1" fill="#4a8a2a"/><circle cx="710" cy="65" r="4" fill="#e8b84b"/>
+      <circle cx="730" cy="60" r="3" fill="#87CEEB"/><circle cx="750" cy="68" r="4" fill="#e85d2b"/>
+      <rect x="680" y="80" width="7" height="5" rx="1" fill="#c84832"/><rect x="760" y="78" width="5" height="8" rx="1" fill="#2d7a3a"/>
+    </g>
+    <g id="dp" opacity="0"><path id="dlp" d="M685 370 L685 285 Q703 270 720 268 L720 370 Z" fill="#c04020"/></g>
+    <g id="sb" opacity="0">
+      <rect x="10" y="358" width="108" height="36" rx="16" fill="white" stroke="#e85d2b" stroke-width="2"/>
+      <polygon points="28,394 48,394 33,408" fill="white"/>
+      <text x="64" y="374" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="9.5" fill="#e85d2b">Finally! My</text>
+      <text x="64" y="387" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700" font-size="9" fill="#1a1a1a">dream home 🏠</text>
+    </g>
+  </svg>
+
+  <!-- HERO TEXT -->
+  <div class="hero-txt">
+    <div class="h-kicker"><span class="pdot"></span> India's Smartest Loan Marketplace</div>
+    <h1 class="h1">YOUR<br>DREAM<br><em>Home.</em></h1>
+    <div class="hero-btns">
+      <a href="eligibility.html" class="btn btn-og btn-lg">Check Eligibility — Free</a>
+      <a href="comparison.html" class="btn btn-out btn-lg">Compare Banks</a>
+    </div>
+  </div>
+
+  <!-- STAT CHIPS -->
+  <div class="hero-chips">
+    <div class="hchip"><div class="hchip-lbl">Lowest Rate</div><div class="hchip-val">8.4%</div><div class="hchip-desc">Home Loan p.a.</div></div>
+    <div class="hchip"><div class="hchip-lbl">50+ Lenders</div><div class="hchip-val">60s</div><div class="hchip-desc">To see offers</div></div>
+    <div class="hchip"><div class="hchip-lbl">Platform Fee</div><div class="hchip-val">₹0</div><div class="hchip-desc">Always free</div></div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="scroll-arr"></div></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ti">Home Loans</span><span class="ts"></span><span class="ti">8.4% onwards</span><span class="ts"></span>
+  <span class="ti">Personal Loans</span><span class="ts"></span><span class="ti">Approved in 4 hrs</span><span class="ts"></span>
+  <span class="ti">Business Loans</span><span class="ts"></span><span class="ti">50+ Lenders</span><span class="ts"></span>
+  <span class="ti">Zero Platform Fee</span><span class="ts"></span><span class="ti">Car Loans</span><span class="ts"></span>
+  <span class="ti">Home Loans</span><span class="ts"></span><span class="ti">8.4% onwards</span><span class="ts"></span>
+  <span class="ti">Personal Loans</span><span class="ts"></span><span class="ti">Approved in 4 hrs</span><span class="ts"></span>
+  <span class="ti">Business Loans</span><span class="ts"></span><span class="ti">50+ Lenders</span><span class="ts"></span>
+  <span class="ti">Zero Platform Fee</span><span class="ts"></span><span class="ti">Car Loans</span><span class="ts"></span>
+</div></div>
+
+<!-- LOAN PRODUCTS -->
+<div class="section reveal" style="background:#1a1a1a;padding-bottom:5rem">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem">
+    <div><div class="sec-kicker" style="color:rgba(255,255,255,.3)">What we offer</div>
+    <h2 class="sec-h2" style="color:#fff">Every Loan,<br><em>One Place.</em></h2></div>
+    <p style="font-size:.82rem;color:rgba(255,255,255,.3);max-width:200px;text-align:right;line-height:1.6">All loan types. 50+ lenders. Zero fee to you.</p>
+  </div>
+  <div class="loan-grid">
+    <a href="personal-loan.html" class="lc" style="text-decoration:none"><div class="lc-ic">💼</div><div class="lc-n">Personal Loan</div><div class="lc-d">Wedding, travel, medical. No collateral needed.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">10.5%</div></div><span class="lc-ar">↗</span></div></a>
+    <a href="home-loan.html" class="lc" style="text-decoration:none"><div class="lc-ic">🏠</div><div class="lc-n">Home Loan</div><div class="lc-d">Buy, build, renovate. Tenures up to 30 years.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">8.4%</div></div><span class="lc-ar">↗</span></div></a>
+    <a href="car-loan.html" class="lc" style="text-decoration:none"><div class="lc-ic">🚗</div><div class="lc-n">Car Loan</div><div class="lc-d">New or pre-owned. Zero prepayment penalty.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">9.0%</div></div><span class="lc-ar">↗</span></div></a>
+    <a href="business-loan.html" class="lc" style="text-decoration:none"><div class="lc-ic">📈</div><div class="lc-n">Business Loan</div><div class="lc-d">Working capital, expansion, machinery.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">11.0%</div></div><span class="lc-ar">↗</span></div></a>
+  </div>
+  <!-- MORE LOAN TYPES ROW -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(255,255,255,.08);margin-top:1.5px">
+    <a href="gold-loan.html" class="lc" style="text-decoration:none;min-height:200px"><div class="lc-ic">🥇</div><div class="lc-n">Gold Loan</div><div class="lc-d">Instant liquidity against gold jewellery.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">8.8%</div></div><span class="lc-ar">↗</span></div></a>
+    <a href="education-loan.html" class="lc" style="text-decoration:none;min-height:200px"><div class="lc-ic">🎓</div><div class="lc-n">Education Loan</div><div class="lc-d">India or abroad. Cover tuition, hostel & more.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">8.5%</div></div><span class="lc-ar">↗</span></div></a>
+    <a href="lap-loan.html" class="lc" style="text-decoration:none;min-height:200px"><div class="lc-ic">🏢</div><div class="lc-n">Loan Against Property</div><div class="lc-d">Unlock the equity in your residential or commercial property.</div><div class="lc-bot"><div><div class="lc-rl">From</div><div class="lc-r">9.5%</div></div><span class="lc-ar">↗</span></div></a>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section reveal" style="background:#e85d2b;position:relative;overflow:hidden">
+  <div style="position:absolute;left:-1rem;top:50%;transform:translateY(-50%);font-size:28vw;font-weight:900;color:rgba(0,0,0,.05);line-height:1;pointer-events:none;user-select:none">NOW</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2">
+    <div>
+      <div class="sec-kicker" style="color:rgba(255,255,255,.5)">The process</div>
+      <h2 class="sec-h2" style="color:#fff">3 Steps.<br><em style="color:#1a1a1a">Done.</em></h2>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.7;max-width:340px;margin-bottom:2rem">From answering 5 questions to cash in your account — faster than ordering food.</p>
+      <a href="apply.html" class="btn btn-dk btn-lg">Start Application →</a>
+    </div>
+    <div>
+      <div class="step"><div class="sn">01</div><div><div class="st">Tell us what you need</div><div class="sd">5 questions. Under 60 seconds. No documents yet.</div></div></div>
+      <div class="step"><div class="sn">02</div><div><div class="st">See your matched offers</div><div class="sd">50+ lenders ranked by rate, speed & approval odds.</div></div></div>
+      <div class="step"><div class="sn">03</div><div><div class="st">Apply & get funded</div><div class="sd">One click to apply. Most approvals in 4 hours.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST NUMBERS -->
+<div class="section sand reveal" style="text-align:center;background:#f5e6c8">
+  <div class="sec-kicker">By the numbers</div>
+  <h2 class="sec-h2" style="margin-bottom:4rem">India <em>Trusts</em> RUPYA</h2>
+  <div class="trust-row">
+    <div class="tr-item"><div class="tr-n">50+</div><div class="tr-d">Lending partners — PSU banks, NBFCs & fintechs</div></div>
+    <div class="tr-item"><div class="tr-n">4.8★</div><div class="tr-d">Average rating across 2.1 lakh verified reviews</div></div>
+    <div class="tr-item"><div class="tr-n">60s</div><div class="tr-d">Average time to see personalised loan offers</div></div>
+    <div class="tr-item"><div class="tr-n">₹0</div><div class="tr-d">Platform fee. Our service costs nothing. Always.</div></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section reveal" style="background:#1a1a1a">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem">
+    <div><div class="sec-kicker" style="color:rgba(255,255,255,.3)">Real borrowers</div><h2 class="sec-h2" style="color:#fff">They Got <em>Funded.</em></h2></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem">
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);padding:2rem;border-radius:8px;transition:border-color .3s,transform .3s;cursor:none" onmouseenter="this.style.borderColor='#e8b84b';this.style.transform='translateY(-5px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform=''">
+      <div style="color:#e8b84b;font-size:.85rem;margin-bottom:1rem">★★★★★</div>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;line-height:1.65;color:rgba(255,255,255,.8);margin-bottom:1.5rem">"Got an HDFC offer in 40 seconds. Never thought applying for a loan could feel this smooth."</p>
+      <div style="display:flex;align-items:center;gap:.8rem"><div style="width:36px;height:36px;border-radius:50%;background:#e85d2b;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0">R</div><div><div style="font-size:.85rem;color:#fff;font-weight:700">Rahul Sharma</div><div style="font-size:.7rem;color:rgba(255,255,255,.35);margin-top:.1rem">₹3L Personal Loan · Delhi</div></div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);padding:2rem;border-radius:8px;transition:border-color .3s,transform .3s;cursor:none" onmouseenter="this.style.borderColor='#e8b84b';this.style.transform='translateY(-5px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform=''">
+      <div style="color:#e8b84b;font-size:.85rem;margin-bottom:1rem">★★★★★</div>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;line-height:1.65;color:rgba(255,255,255,.8);margin-bottom:1.5rem">"Compared 12 home loan offers in one place. Saved ₹2.3L just by picking the right bank."</p>
+      <div style="display:flex;align-items:center;gap:.8rem"><div style="width:36px;height:36px;border-radius:50%;background:#3a5c45;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0">P</div><div><div style="font-size:.85rem;color:#fff;font-weight:700">Priya Nair</div><div style="font-size:.7rem;color:rgba(255,255,255,.35);margin-top:.1rem">₹45L Home Loan · Bangalore</div></div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);padding:2rem;border-radius:8px;transition:border-color .3s,transform .3s;cursor:none" onmouseenter="this.style.borderColor='#e8b84b';this.style.transform='translateY(-5px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform=''">
+      <div style="color:#e8b84b;font-size:.85rem;margin-bottom:1rem">★★★★★</div>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;line-height:1.65;color:rgba(255,255,255,.8);margin-bottom:1.5rem">"Business loan disbursed in 6 hours. My CA couldn't believe how fast it happened."</p>
+      <div style="display:flex;align-items:center;gap:.8rem"><div style="width:36px;height:36px;border-radius:50%;background:#e8b84b;display:flex;align-items:center;justify-content:center;font-weight:900;color:#1a1a1a;flex-shrink:0">A</div><div><div style="font-size:.85rem;color:#fff;font-weight:700">Amit Patel</div><div style="font-size:.7rem;color:rgba(255,255,255,.35);margin-top:.1rem">₹15L Business Loan · Ahmedabad</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="cta-band reveal" data-word="GO">
+  <div class="cta-h2">Your Loan.<br><em>Your Terms.</em><br>Start Now.</div>
+  <div class="cta-actions">
+    <a href="eligibility.html" class="btn btn-wh btn-lg">Check Eligibility — Free</a>
+    <a href="calculator.html" class="btn btn-out-w btn-lg">Calculate My EMI</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+/* CAR + MAN ANIMATION */
+(function(){
+  const cg=document.getElementById('cg'),mg=document.getElementById('mg'),ds=document.getElementById('ds'),
+    cf=document.getElementById('cf'),dp=document.getElementById('dp'),sb_el=document.getElementById('sb'),
+    hb=document.getElementById('hb'),ki=document.getElementById('ki'),
+    ll=document.getElementById('ll'),lr=document.getElementById('lr'),al=document.getElementById('al'),ar=document.getElementById('ar'),
+    sv1=document.getElementById('sv1'),sh1=document.getElementById('sh1'),sv2=document.getElementById('sv2'),sh2=document.getElementById('sh2'),
+    dlp=document.getElementById('dlp');
+  let carX=-160,manX=710,wA=0,lP=0,st=null,lf=null;
+  const STOP=590,MSTART=710,DOOR=690;
+  const T={d:2800,b:3800,h:4600,mo:5400,mw:7200,do_:8000,s:8800,c:10200};
+  const eO=t=>1-Math.pow(1-t,3),eIO=t=>t<.5?2*t*t:-1+(4-2*t)*t;
+  function tr(el,x,y){el.setAttribute('transform',`translate(${x},${y})`)}
+  function anim(ts){
+    if(!st)st=ts;const e=ts-st,dt=lf?ts-lf:16;lf=ts;
+    if(e<T.d){const t=eO(e/T.d);carX=-160+(STOP+160)*t;tr(cg,carX,0);wA+=dt*.44;[sv1,sh1].forEach(s=>s.setAttribute('transform',`rotate(${wA},96,452)`));[sv2,sh2].forEach(s=>s.setAttribute('transform',`rotate(${wA},28,452)`))}
+    else if(e<T.b){const t=eO((e-T.d)/(T.b-T.d));wA+=dt*(.44*(1-t));tr(cg,STOP,Math.sin(t*Math.PI)*-1.5)}
+    else tr(cg,STOP,0);
+    if(e>T.b&&e<T.h){const t=(e-T.b)/(T.h-T.b);hb.setAttribute('opacity',t<.15?t/.15:t>.85?(1-t)/.15:1)}else if(e>=T.h)hb.setAttribute('opacity',0);
+    if(e>T.b&&e<T.mo){const t=eO((e-T.b)/(T.mo-T.b));mg.setAttribute('opacity',t);mg.setAttribute('transform',`translate(${MSTART},${20*(1-t)}) scale(${.6+.4*t})`)}
+    else if(e>=T.mo&&e<T.mw){const t=eIO((e-T.mo)/(T.mw-T.mo));manX=MSTART+(DOOR-MSTART)*t;tr(mg,manX,0);mg.setAttribute('opacity',1);lP+=dt*.012;const sw=Math.sin(lP*Math.PI*2)*10;ll.setAttribute('transform',`rotate(${sw},-3,440)`);lr.setAttribute('transform',`rotate(${-sw},5,440)`);al.setAttribute('transform',`rotate(${-sw*.7},-13,416)`);ar.setAttribute('transform',`rotate(${sw*.7},13,416)`);if(e>T.mo+400)ki.setAttribute('opacity',1);if(e>T.mo+900){const s2=(e-T.mo-900)/400;sb_el.setAttribute('opacity',Math.min(s2,1));sb_el.setAttribute('transform',`translate(${manX-MSTART-60},0)`)}}
+    else if(e>=T.mw&&e<T.do_){const t=eO((e-T.mw)/(T.do_-T.mw));dp.setAttribute('opacity',1);dlp.setAttribute('transform',`skewX(${-55*t}) translate(${55*t*.15},0)`);mg.setAttribute('opacity',Math.max(0,1-t*2));sb_el.setAttribute('opacity',Math.max(0,1-t*2))}
+    if(e>T.s-400&&e<T.c){const t=Math.min(1,(e-(T.s-400))/600),ea=eO(t);ds.setAttribute('opacity',ea);ds.setAttribute('transform',`translateY(${(1-ea)*-16})`)}
+    if(e>T.s&&e<T.c){const t=(e-T.s)/(T.c-T.s);cf.setAttribute('opacity',t<.1?t/.1:t>.7?1-(t-.7)/.3:1);Array.from(cf.children).forEach((ch,i)=>{const a=(i/cf.children.length)*Math.PI*2,d=t*80,cx=Math.cos(a)*d,cy=Math.sin(a)*d-t*40;ch.setAttribute('transform',`translate(${cx},${cy}) rotate(${t*360*(i%2?1:-1)})`);})}
+    if(e<T.c+1800)requestAnimationFrame(anim);
+    else setTimeout(()=>{carX=-160;manX=MSTART;wA=0;lP=0;st=null;lf=null;[ds,cf,dp,sb_el,mg,hb,ki].forEach(el=>el.setAttribute('opacity',0));tr(cg,-160,0);tr(mg,MSTART,0);[ll,lr,al,ar].forEach(el=>el.removeAttribute('transform'));dlp.removeAttribute('transform');requestAnimationFrame(anim)},2000);
+  }
+  setTimeout(()=>requestAnimationFrame(anim),1000);
+})();
+/* Parallax */
+window.addEventListener('scroll',()=>{const s=window.scrollY;const sun=document.querySelector('.sun');if(sun)sun.style.transform=`scale(${1+s*.0003}) translateY(${s*.04}px)`});
+</script>
+</body>
+</html>

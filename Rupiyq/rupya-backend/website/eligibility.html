@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Loan Eligibility Checker — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.elig-layout{display:grid;grid-template-columns:1fr 400px;gap:3rem;align-items:start}
+.elig-result{background:#1a1a1a;border-radius:12px;padding:2.5rem;position:sticky;top:7rem;color:#fff}
+.score-wrap{text-align:center;margin-bottom:1.8rem}
+.score-svg{display:block;margin:0 auto}
+.score-label{font-size:.85rem;font-weight:800;margin-top:.5rem;transition:color .4s}
+.result-status{border-radius:8px;padding:1.5rem;text-align:center;margin-bottom:1.5rem;display:none}
+.result-status.show{display:block}
+.status-icon{font-size:1.8rem;margin-bottom:.5rem}
+.status-title{font-size:1rem;font-weight:900;margin-bottom:.3rem}
+.status-sub{font-size:.78rem;line-height:1.5;opacity:.7}
+.status-ok{background:rgba(45,122,58,.12);border:1.5px solid #2d7a3a}
+.status-ok .status-title{color:#4cd964}
+.status-no{background:rgba(232,64,64,.1);border:1.5px solid #e84040}
+.status-no .status-title{color:#ff6b6b}
+.offer-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem}
+.offer-row{background:rgba(255,255,255,.06);border-radius:6px;padding:.9rem 1.1rem;display:flex;justify-content:space-between;align-items:center;transition:background .2s;cursor:none}
+.offer-row:hover{background:rgba(255,255,255,.1)}
+.offer-row.top{background:rgba(232,93,43,.14);border:1px solid rgba(232,93,43,.3)}
+.or-bank{font-size:.85rem;font-weight:800}
+.or-type{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;opacity:.4;margin-top:.1rem}
+.or-rate{font-size:1.35rem;font-weight:900;color:#e8b84b;line-height:1}
+.or-tag{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.5;text-align:right;margin-top:.15rem}
+.tips-box{background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.25);border-radius:8px;padding:1.2rem;margin-top:1rem}
+.tips-title{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e8b84b;margin-bottom:.8rem}
+.tip{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:.4rem;padding-left:1rem;position:relative}
+.tip::before{content:'→';position:absolute;left:0;color:#e8b84b;font-size:.75rem}
+.max-amount-box{background:rgba(232,93,43,.12);border:1px solid rgba(232,93,43,.25);border-radius:6px;padding:1rem;margin-bottom:1.2rem;text-align:center}
+.max-lbl{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.45;margin-bottom:.3rem}
+.max-val{font-size:2rem;font-weight:900;color:#e85d2b;line-height:1}
+.placeholder-msg{font-size:.82rem;color:rgba(255,255,255,.3);text-align:center;padding:2rem 1rem;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<div class="page-hero" style="background:#3a5c45;color:#fff">
+  <div class="ph-kicker" style="color:rgba(255,255,255,.45)">Find out in 60 seconds</div>
+  <h1 class="ph-h1" style="color:#fff">Eligibility <em style="color:#e8b84b">Checker</em></h1>
+  <p class="ph-sub" style="color:rgba(255,255,255,.65)">See exactly which loans you qualify for — without affecting your CIBIL credit score.</p>
+  <div class="ph-bg-word">ELIG</div>
+</div>
+
+<div class="section" style="background:#f5e6c8">
+  <div class="elig-layout">
+    <!-- FORM -->
+    <div>
+      <div class="form-section reveal-l">
+        <h3 style="font-size:1.1rem;font-weight:900;margin-bottom:1.8rem">Your Financial Profile</h3>
+
+        <div class="form-row">
+          <div class="form-group"><label>Employment Type</label>
+            <select id="eEmp" onchange="check()"><option value="salaried">Salaried</option><option value="self">Self-Employed</option><option value="business">Business Owner</option></select>
+          </div>
+          <div class="form-group"><label>Age</label>
+            <input type="number" id="eAge" placeholder="32" min="21" max="65" oninput="check()"/>
+          </div>
+        </div>
+
+        <div class="range-wrap">
+          <div class="range-top"><span class="range-label">Monthly Income (Net)</span><span class="range-val" id="eIncV">₹75,000</span></div>
+          <input type="range" id="eInc" min="10000" max="500000" step="5000" value="75000" oninput="check()"/>
+          <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.35;font-weight:700;margin-top:.3rem"><span>₹10K</span><span>₹5L/mo</span></div>
+        </div>
+
+        <div class="range-wrap">
+          <div class="range-top"><span class="range-label">Loan Amount Needed</span><span class="range-val" id="eAmtV">₹5,00,000</span></div>
+          <input type="range" id="eAmt" min="50000" max="10000000" step="50000" value="500000" oninput="check()"/>
+          <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.35;font-weight:700;margin-top:.3rem"><span>₹50K</span><span>₹1Cr</span></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group"><label>CIBIL / Credit Score</label>
+            <select id="eScore" onchange="check()">
+              <option value="800">Excellent — 750+</option>
+              <option value="725">Good — 700 to 750</option>
+              <option value="675" selected>Fair — 650 to 700</option>
+              <option value="625">Low — 600 to 650</option>
+              <option value="550">Poor — Below 600</option>
+              <option value="0">Don't Know</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Existing EMI / Month</label>
+            <input type="number" id="eEmi" placeholder="0" value="0" oninput="check()"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group"><label>Loan Type</label>
+            <select id="eType" onchange="check()">
+              <option value="personal">Personal Loan</option>
+              <option value="home">Home Loan</option>
+              <option value="car">Car Loan</option>
+              <option value="business">Business Loan</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Work Experience</label>
+            <select id="eExp" onchange="check()">
+              <option value="0">Less than 1 year</option>
+              <option value="1">1–2 years</option>
+              <option value="2" selected>2–5 years</option>
+              <option value="5">5–10 years</option>
+              <option value="10">10+ years</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-og btn-lg btn-full" onclick="check()" style="margin-top:.5rem">🔍 Check My Eligibility</button>
+      </div>
+
+      <!-- HOW IT WORKS card -->
+      <div class="form-section reveal-l" style="margin-top:1.5rem;background:#fff">
+        <h4 style="font-size:.95rem;font-weight:900;margin-bottom:1.2rem">How the eligibility score works</h4>
+        <div style="display:flex;flex-direction:column;gap:.8rem">
+          <div style="display:flex;align-items:center;gap:1rem"><div style="width:36px;height:36px;border-radius:50%;background:#e85d2b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0">1</div><div style="font-size:.85rem;color:rgba(26,26,26,.7);line-height:1.5"><strong>Income vs EMI ratio</strong> — We check if your income comfortably covers the new EMI plus existing ones.</div></div>
+          <div style="display:flex;align-items:center;gap:1rem"><div style="width:36px;height:36px;border-radius:50%;background:#e85d2b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0">2</div><div style="font-size:.85rem;color:rgba(26,26,26,.7);line-height:1.5"><strong>Credit score impact</strong> — Higher CIBIL scores unlock more lenders and lower rates.</div></div>
+          <div style="display:flex;align-items:center;gap:1rem"><div style="width:36px;height:36px;border-radius:50%;background:#e85d2b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0">3</div><div style="font-size:.85rem;color:rgba(26,26,26,.7);line-height:1.5"><strong>Employment stability</strong> — Lenders prefer borrowers with 2+ years of stable work history.</div></div>
+          <div style="padding:.8rem;background:#f5f0e8;border-radius:6px;font-size:.78rem;color:rgba(26,26,26,.55);line-height:1.5;margin-top:.4rem">🔒 This check is a <strong>soft inquiry</strong> and will <strong>not</strong> affect your CIBIL score in any way.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT PANEL -->
+    <div class="elig-result reveal-r">
+      <!-- Score arc -->
+      <div class="score-wrap">
+        <div style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.35;margin-bottom:.6rem;font-weight:800">Eligibility Score</div>
+        <svg class="score-svg" viewBox="0 0 200 120" width="200">
+          <path d="M22,104 A78,78 0 0,1 178,104" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="14" stroke-linecap="round"/>
+          <path id="scoreArc" d="M22,104 A78,78 0 0,1 178,104" fill="none" stroke="#e85d2b" stroke-width="14" stroke-linecap="round" stroke-dasharray="245" stroke-dashoffset="245" style="transition:stroke-dashoffset 1s ease,stroke 1s ease"/>
+          <text id="scoreNum" x="100" y="92" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="32" fill="white">--</text>
+          <text x="100" y="108" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9" fill="rgba(255,255,255,.35)" font-weight="700">OUT OF 100</text>
+        </svg>
+        <div id="scoreLabel" class="score-label" style="color:rgba(255,255,255,.45)">Enter details to check</div>
+      </div>
+
+      <!-- Status -->
+      <div id="statusOk" class="result-status status-ok">
+        <div class="status-icon">✅</div>
+        <div class="status-title">You're Eligible!</div>
+        <div class="status-sub" id="statusOkText">You qualify for loans from multiple lenders.</div>
+      </div>
+      <div id="statusNo" class="result-status status-no">
+        <div class="status-icon">⚠️</div>
+        <div class="status-title">Needs Improvement</div>
+        <div class="status-sub" id="statusNoText">A few things to fix before applying.</div>
+      </div>
+
+      <!-- Max amount -->
+      <div id="maxBox" class="max-amount-box" style="display:none">
+        <div class="max-lbl">Max Eligible Loan Amount</div>
+        <div class="max-val" id="maxAmtVal">₹0</div>
+      </div>
+
+      <!-- Offer list -->
+      <div style="font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.35;margin-bottom:.8rem">Matched Lender Offers</div>
+      <div class="offer-list" id="offerList">
+        <div class="placeholder-msg">Enter your details above to see personalised offers from 50+ lenders.</div>
+      </div>
+
+      <!-- Tips -->
+      <div class="tips-box" id="tipsBox" style="display:none">
+        <div class="tips-title">💡 Tips to Improve Eligibility</div>
+        <div id="tipsList"></div>
+      </div>
+
+      <a href="apply.html" class="btn btn-og btn-full" style="margin-top:1.5rem">Apply Now — Free →</a>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="section reveal" style="background:#1a1a1a;text-align:center">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.3)">By the numbers</div>
+  <h2 class="sec-h2" style="color:#fff;margin-bottom:4rem">Your Data, <em>Protected.</em></h2>
+  <div class="trust-row" style="border-color:rgba(255,255,255,.1)">
+    <div class="tr-item" style="border-color:rgba(255,255,255,.08)"><div class="tr-n">0</div><div class="tr-d" style="color:rgba(255,255,255,.4)">Impact on CIBIL score from eligibility check</div></div>
+    <div class="tr-item" style="border-color:rgba(255,255,255,.08)"><div class="tr-n">256-bit</div><div class="tr-d" style="color:rgba(255,255,255,.4)">Encryption on all your submitted data</div></div>
+    <div class="tr-item" style="border-color:rgba(255,255,255,.08)"><div class="tr-n">₹0</div><div class="tr-d" style="color:rgba(255,255,255,.4)">We never charge for our eligibility service</div></div>
+    <div class="tr-item" style="border-color:rgba(255,255,255,.08)"><div class="tr-n">Never</div><div class="tr-d" style="color:rgba(255,255,255,.4)">Your data is never sold to third parties</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal" data-word="FREE">
+  <div class="cta-h2">Eligible? <em>Apply</em><br>in 3 Minutes.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Start Application</a>
+    <a href="calculator.html" class="btn btn-out-w btn-lg">Calculate EMI First</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function check(){
+  const emp=document.getElementById('eEmp').value;
+  const age=parseInt(document.getElementById('eAge').value)||32;
+  const inc=parseInt(document.getElementById('eInc').value)||75000;
+  const amt=parseInt(document.getElementById('eAmt').value)||500000;
+  const score=parseInt(document.getElementById('eScore').value)||675;
+  const emi=parseInt(document.getElementById('eEmi').value)||0;
+  const type=document.getElementById('eType').value;
+  const exp=parseInt(document.getElementById('eExp').value)||2;
+
+  // Update display values
+  document.getElementById('eIncV').textContent=fmtINR(inc);
+  document.getElementById('eAmtV').textContent=fmtINR(amt);
+
+  // FOIR (Fixed Obligation to Income Ratio) — max 50-55%
+  const rates={personal:10.5,home:8.4,car:9.0,business:11.0};
+  const r=rates[type]/(12*100);
+  const n=type==='home'?240:type==='car'?84:60;
+  const newEmi=amt*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const totalEmi=emi+newEmi;
+  const foir=totalEmi/inc;
+
+  // Scoring
+  let s=0;
+  // Credit score (max 35 pts)
+  if(score>=750)s+=35; else if(score>=700)s+=27; else if(score>=650)s+=18; else if(score>=600)s+=8; else if(score===0)s+=15; else s+=3;
+  // FOIR (max 30 pts)
+  if(foir<=0.3)s+=30; else if(foir<=0.4)s+=24; else if(foir<=0.5)s+=16; else if(foir<=0.6)s+=8; else s+=0;
+  // Experience (max 15 pts)
+  if(exp>=10)s+=15; else if(exp>=5)s+=12; else if(exp>=2)s+=9; else if(exp>=1)s+=5; else s+=0;
+  // Age (max 10 pts)
+  if(age>=25&&age<=50)s+=10; else if(age>=21&&age<=55)s+=7; else s+=3;
+  // Employment (max 10 pts)
+  if(emp==='salaried')s+=10; else if(emp==='business')s+=8; else s+=6;
+
+  s=Math.min(100,Math.max(0,s));
+
+  // Animate arc
+  const arc=document.getElementById('scoreArc');
+  const offset=245-(s/100)*245;
+  arc.style.strokeDashoffset=offset;
+  arc.style.stroke=s>=70?'#4cd964':s>=45?'#e8b84b':'#ff6b6b';
+  document.getElementById('scoreNum').textContent=s;
+
+  const lbl=s>=70?'Strong — Likely to be approved':s>=45?'Moderate — Most lenders will consider':'Low — Improvement recommended';
+  document.getElementById('scoreLabel').textContent=lbl;
+  document.getElementById('scoreLabel').style.color=s>=70?'#4cd964':s>=45?'#e8b84b':'#ff6b6b';
+
+  // Status
+  document.getElementById('statusOk').classList.toggle('show',s>=45);
+  document.getElementById('statusNo').classList.toggle('show',s<45);
+  if(s>=45){document.getElementById('statusOkText').textContent=`You qualify for ${type} loans from ${s>=70?'most':'several'} of our lenders at competitive rates.`}
+  else{document.getElementById('statusNoText').textContent='We recommend improving your CIBIL or reducing existing EMIs before applying.'}
+
+  // Max amount
+  const maxElig=Math.min(amt,(inc*0.5-emi)/r*(1-1/Math.pow(1+r,n)));
+  document.getElementById('maxBox').style.display='block';
+  document.getElementById('maxAmtVal').textContent=fmtINR(Math.max(0,maxElig));
+
+  // Offers
+  const offers=s>=70?[
+    {bank:'HDFC Bank',rate:(rates[type]).toFixed(2)+'%',tag:'Best Match',top:true},
+    {bank:'SBI',rate:(rates[type]-0.1).toFixed(2)+'%',tag:'Lowest Rate',top:false},
+    {bank:'ICICI Bank',rate:(rates[type]+0.25).toFixed(2)+'%',tag:'Fastest',top:false},
+    {bank:'Bajaj Finserv',rate:(rates[type]+0.49).toFixed(2)+'%',tag:'High Approval',top:false},
+  ]:s>=45?[
+    {bank:'Bajaj Finserv',rate:(rates[type]+0.49).toFixed(2)+'%',tag:'Most Likely',top:true},
+    {bank:'Tata Capital',rate:(rates[type]+0.8).toFixed(2)+'%',tag:'Good Match',top:false},
+    {bank:'Poonawalla',rate:(rates[type]+1.2).toFixed(2)+'%',tag:'Flexible',top:false},
+  ]:[
+    {bank:'Poonawalla',rate:(rates[type]+2).toFixed(2)+'%',tag:'Possible',top:true},
+  ];
+
+  document.getElementById('offerList').innerHTML=offers.map(o=>`
+    <div class="offer-row${o.top?' top':''}">
+      <div><div class="or-bank">${o.bank}</div><div class="or-type">${type.charAt(0).toUpperCase()+type.slice(1)} Loan</div></div>
+      <div style="text-align:right"><div class="or-rate">${o.rate}</div><div class="or-tag">${o.tag}</div></div>
+    </div>`).join('');
+
+  // Tips
+  const tips=[];
+  if(score<700)tips.push('Pay all credit card bills and EMIs on time for 6+ months to improve CIBIL score.');
+  if(foir>0.5)tips.push(`Your total EMI (₹${Math.round(totalEmi).toLocaleString('en-IN')}) is ${Math.round(foir*100)}% of income. Aim to keep it below 50%.`);
+  if(exp<2)tips.push('Lenders prefer 2+ years of work experience. A co-applicant can strengthen your case.');
+  if(age<25||age>55)tips.push('Consider adding a younger co-applicant (spouse/parent) to improve approval odds.');
+  if(emp==='self')tips.push('Self-employed applicants should have 2+ years of ITR filings with stable income.');
+
+  document.getElementById('tipsBox').style.display=tips.length?'block':'none';
+  document.getElementById('tipsList').innerHTML=tips.map(t=>`<div class="tip">${t}</div>`).join('');
+}
+// Run on load
+check();
+</script>
+</body>
+</html>

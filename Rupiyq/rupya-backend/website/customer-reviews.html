@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Customer Reviews — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.reviews-hero{background:#f5e6c8;padding:9rem 3rem 5rem;position:relative;overflow:hidden}
+.rh-blob{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(232,93,43,.08),transparent 70%);right:-100px;top:-100px}
+.overall-score{display:grid;grid-template-columns:auto 1fr auto;gap:4rem;align-items:center;background:#1a1a1a;padding:3rem;border-radius:12px;margin-top:3.5rem}
+.os-big{text-align:center}
+.os-num{font-size:7rem;font-weight:900;color:#e8b84b;line-height:1}
+.os-stars{font-size:1.8rem;color:#e8b84b;letter-spacing:.1rem;margin:.3rem 0}
+.os-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:rgba(255,255,255,.35)}
+.os-bars{flex:1}
+.bar-row{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem}
+.bar-label{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.6);width:40px;flex-shrink:0}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:#e8b84b;border-radius:3px;transition:width 1s ease}
+.bar-pct{font-size:.72rem;color:rgba(255,255,255,.35);width:30px;text-align:right}
+.os-platform{display:flex;flex-direction:column;gap:1rem}
+.platform-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:1rem 1.5rem;text-align:center;min-width:140px}
+.pb-icon{font-size:1.4rem;margin-bottom:.3rem}
+.pb-score{font-size:1.5rem;font-weight:900;color:#e8b84b}
+.pb-name{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);font-weight:700}
+
+/* Review cards */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.review-card{background:#fff;border-radius:10px;padding:1.8rem;transition:transform .3s,box-shadow .3s;cursor:none;border:2px solid transparent;position:relative}
+.review-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.1);border-color:rgba(232,93,43,.2)}
+.review-card.featured{background:#1a1a1a;border-color:#e85d2b}
+.rc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
+.rc-user{display:flex;align-items:center;gap:.8rem}
+.rc-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.95rem;color:#fff;flex-shrink:0}
+.rc-name{font-size:.92rem;font-weight:800}
+.rc-name.light{color:#fff}
+.rc-meta{font-size:.7rem;color:rgba(26,26,26,.45);margin-top:.1rem}
+.rc-meta.light{color:rgba(255,255,255,.35)}
+.rc-stars{font-size:.85rem;color:#e8b84b}
+.rc-loan-tag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .7rem;border-radius:100px;background:rgba(232,93,43,.1);color:#e85d2b;margin-bottom:.8rem}
+.rc-loan-tag.light{background:rgba(232,93,43,.2);color:#e8b84b}
+.rc-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;line-height:1.65;color:rgba(26,26,26,.75)}
+.rc-text.light{color:rgba(255,255,255,.8)}
+.rc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(26,26,26,.07)}
+.rc-bottom.light{border-top-color:rgba(255,255,255,.1)}
+.rc-date{font-size:.68rem;color:rgba(26,26,26,.35);font-weight:700}
+.rc-date.light{color:rgba(255,255,255,.25)}
+.rc-helpful{font-size:.68rem;font-weight:700;color:rgba(26,26,26,.4);cursor:none}
+.rc-helpful.light{color:rgba(255,255,255,.3)}
+.verified{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#2d7a3a;background:rgba(45,122,58,.1);padding:.15rem .55rem;border-radius:100px}
+
+/* Filter tabs */
+.filter-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.ftab{padding:.5rem 1.2rem;border-radius:100px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .2s;border:2px solid rgba(26,26,26,.12);background:transparent;color:#1a1a1a;font-family:'Nunito',sans-serif}
+.ftab:hover,.ftab.active{background:#e85d2b;border-color:#e85d2b;color:#fff}
+
+/* Write review */
+.write-review{background:#e85d2b;padding:4rem 3rem;position:relative;overflow:hidden}
+.wr-bg{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:24vw;font-weight:900;color:rgba(0,0,0,.06);line-height:1;pointer-events:none;user-select:none}
+.wr-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.star-select{display:flex;gap:.4rem;margin-bottom:1.2rem}
+.star-select span{font-size:2rem;cursor:none;transition:transform .2s;filter:grayscale(1)}
+.star-select span.active,.star-select span:hover{filter:none;transform:scale(1.2)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<section class="reviews-hero">
+  <div class="rh-blob"></div>
+  <div class="ph-kicker">Real borrowers, real stories</div>
+  <h1 class="ph-h1">What <em>India</em><br>is Saying</h1>
+  <p class="ph-sub">2,10,000+ borrowers have trusted RUPYA. Here's what they have to say — unfiltered, unedited, verified.</p>
+
+  <div class="overall-score reveal">
+    <div class="os-big">
+      <div class="os-num">4.8</div>
+      <div class="os-stars">★★★★★</div>
+      <div class="os-label">Overall Rating</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.25);margin-top:.4rem">Based on 2,10,000+ reviews</div>
+    </div>
+    <div class="os-bars">
+      <div class="bar-row"><span class="bar-label">5 ★</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span class="bar-pct">78%</span></div>
+      <div class="bar-row"><span class="bar-label">4 ★</span><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div><span class="bar-pct">14%</span></div>
+      <div class="bar-row"><span class="bar-label">3 ★</span><div class="bar-track"><div class="bar-fill" style="width:5%;background:#e8b84b"></div></div><span class="bar-pct">5%</span></div>
+      <div class="bar-row"><span class="bar-label">2 ★</span><div class="bar-track"><div class="bar-fill" style="width:2%;background:#e85d2b"></div></div><span class="bar-pct">2%</span></div>
+      <div class="bar-row"><span class="bar-label">1 ★</span><div class="bar-track"><div class="bar-fill" style="width:1%;background:#c84040"></div></div><span class="bar-pct">1%</span></div>
+    </div>
+    <div class="os-platform">
+      <div class="platform-badge"><div class="pb-icon">📱</div><div class="pb-score">4.9</div><div class="pb-name">Google Play</div></div>
+      <div class="platform-badge"><div class="pb-icon">🍎</div><div class="pb-score">4.8</div><div class="pb-name">App Store</div></div>
+      <div class="platform-badge"><div class="pb-icon">🌐</div><div class="pb-score">4.7</div><div class="pb-name">Trustpilot</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<div class="section" style="background:#f5f0e8">
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="filterReviews(this,'all')">All Reviews</button>
+    <button class="ftab" onclick="filterReviews(this,'home')">🏠 Home Loan</button>
+    <button class="ftab" onclick="filterReviews(this,'personal')">💼 Personal Loan</button>
+    <button class="ftab" onclick="filterReviews(this,'business')">📈 Business Loan</button>
+    <button class="ftab" onclick="filterReviews(this,'car')">🚗 Car Loan</button>
+    <button class="ftab" onclick="filterReviews(this,'gold')">🥇 Gold Loan</button>
+  </div>
+
+  <div class="reviews-grid" id="reviewGrid">
+    <!-- Featured -->
+    <div class="review-card featured" data-type="home">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#e85d2b">R</div><div><div class="rc-name light">Rahul Sharma</div><div class="rc-meta light">Delhi · Feb 2026</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag light">Home Loan · ₹45L</div>
+      <div class="rc-text light">"Compared 12 home loan offers in one place. Saved ₹2.3 lakh just by picking the right lender through RUPYA. The whole process — from seeing offers to getting the money — took less than a week."</div>
+      <div class="rc-bottom light"><span class="rc-date light">February 14, 2026</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="personal">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#3a5c45">P</div><div><div class="rc-name">Priya Nair</div><div class="rc-meta">Bangalore · Jan 2026</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Personal Loan · ₹3L</div>
+      <div class="rc-text">"Got an HDFC offer in under 40 seconds. Never thought applying for a personal loan could feel this smooth and transparent. The EMI calculator is genuinely the best I've seen."</div>
+      <div class="rc-bottom"><span class="rc-date">January 28, 2026</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="business">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#e8b84b;color:#1a1a1a">A</div><div><div class="rc-name">Amit Patel</div><div class="rc-meta">Ahmedabad · Jan 2026</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Business Loan · ₹15L</div>
+      <div class="rc-text">"Disbursed in 6 hours. My CA couldn't believe how fast it was. The lender comparison showed me a rate 1.8% lower than what my bank quoted. RUPYA literally saved my business expansion."</div>
+      <div class="rc-bottom"><span class="rc-date">January 15, 2026</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="car">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#0a4d8c">S</div><div><div class="rc-name">Sneha Kulkarni</div><div class="rc-meta">Pune · Dec 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Car Loan · ₹8L</div>
+      <div class="rc-text">"Used RUPYA for my first car loan. The eligibility checker told me exactly which banks I'd qualify for before I applied. Zero documentation hassle. Car delivered the same week."</div>
+      <div class="rc-bottom"><span class="rc-date">December 20, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="home">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#8b1a1a">V</div><div><div class="rc-name">Vikram Singh</div><div class="rc-meta">Lucknow · Dec 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Home Loan · ₹32L</div>
+      <div class="rc-text">"Being from a Tier 2 city, I never thought I'd get SBI rates. RUPYA connected me directly and I got 8.4%. The customer support over WhatsApp was also excellent throughout."</div>
+      <div class="rc-bottom"><span class="rc-date">December 5, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="gold">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#c09030">M</div><div><div class="rc-name">Meena Krishnan</div><div class="rc-meta">Chennai · Nov 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Gold Loan · ₹2.5L</div>
+      <div class="rc-text">"Needed money urgently for my daughter's medical treatment. Applied for a gold loan at 11pm, got disbursement by 9am next morning. RUPYA's 24/7 process is genuinely a lifesaver."</div>
+      <div class="rc-bottom"><span class="rc-date">November 18, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="personal">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#2d7a3a">K</div><div><div class="rc-name">Kiran Reddy</div><div class="rc-meta">Hyderabad · Nov 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Personal Loan · ₹5L</div>
+      <div class="rc-text">"I had a CIBIL score of 680 and expected to be rejected everywhere. RUPYA matched me with 4 NBFCs who approved me within the hour. The tips to improve my score were also really helpful."</div>
+      <div class="rc-bottom"><span class="rc-date">November 3, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="business">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#e85d2b">D</div><div><div class="rc-name">Deepika Joshi</div><div class="rc-meta">Jaipur · Oct 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Business Loan · ₹25L</div>
+      <div class="rc-text">"Running a boutique hotel and needed working capital fast. RUPYA had Tata Capital and HDFC competing for my business. Ended up getting 0.5% lower than my branch manager offered. Incredible."</div>
+      <div class="rc-bottom"><span class="rc-date">October 27, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+
+    <div class="review-card" data-type="car">
+      <div class="rc-top"><div class="rc-user"><div class="rc-avatar" style="background:#4a4a8a">N</div><div><div class="rc-name">Nikhil Gupta</div><div class="rc-meta">Mumbai · Oct 2025</div></div></div><div class="rc-stars">★★★★★</div></div>
+      <div class="rc-loan-tag">Car Loan · ₹12L</div>
+      <div class="rc-text">"Pre-owned car financing is usually a nightmare but RUPYA made it seamless. The amortisation table in the calculator helped me understand exactly what I'm paying and when."</div>
+      <div class="rc-bottom"><span class="rc-date">October 10, 2025</span><span class="verified">✓ Verified Borrower</span></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:3rem"><button class="btn btn-out btn-lg" onclick="showToast('Loading more reviews...','')">Load More Reviews</button></div>
+</div>
+
+<!-- WRITE A REVIEW -->
+<div class="write-review">
+  <div class="wr-bg">★</div>
+  <div class="wr-inner">
+    <div>
+      <div class="sec-kicker" style="color:rgba(255,255,255,.5)">Your turn</div>
+      <h2 class="sec-h2" style="color:#fff">Share Your <em style="color:#1a1a1a">Story</em></h2>
+      <p style="font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.8;max-width:380px;margin-top:.8rem">Did RUPYA help you get a loan? Your review helps millions of other borrowers make better decisions. It takes 2 minutes.</p>
+    </div>
+    <div style="background:rgba(0,0,0,.15);border-radius:10px;padding:2.2rem">
+      <div style="font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.55);margin-bottom:.7rem">Your Rating</div>
+      <div class="star-select" id="starSel">
+        <span onclick="setRating(1)">⭐</span><span onclick="setRating(2)">⭐</span><span onclick="setRating(3)">⭐</span><span onclick="setRating(4)">⭐</span><span onclick="setRating(5)">⭐</span>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem"><label style="color:rgba(255,255,255,.55)">Your Name</label><input type="text" id="rName" placeholder="Rahul Sharma"/></div>
+      <div class="form-group" style="margin-bottom:1rem"><label style="color:rgba(255,255,255,.55)">Loan Type</label><select id="rType"><option>Personal Loan</option><option>Home Loan</option><option>Car Loan</option><option>Business Loan</option><option>Gold Loan</option><option>Education Loan</option></select></div>
+      <div class="form-group" style="margin-bottom:1.2rem"><label style="color:rgba(255,255,255,.55)">Your Review</label><textarea placeholder="Tell others about your experience..." style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);padding:.85rem 1rem;font-family:'Nunito',sans-serif;font-size:.88rem;color:#fff;outline:none;border-radius:4px;width:100%;min-height:90px;resize:vertical" id="rText"></textarea></div>
+      <button class="btn btn-dk btn-full btn-lg" onclick="submitReview()">Submit My Review →</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+let curRating=0;
+function setRating(n){
+  curRating=n;
+  document.querySelectorAll('.star-select span').forEach((s,i)=>{s.classList.toggle('active',i<n)});
+}
+function filterReviews(btn,type){
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.review-card').forEach(card=>{
+    if(type==='all'||card.dataset.type===type)card.style.display='';
+    else card.style.display='none';
+  });
+  // Fix grid
+  const grid=document.getElementById('reviewGrid');
+  const visible=[...grid.querySelectorAll('.review-card')].filter(c=>c.style.display!=='none');
+  grid.style.gridTemplateColumns=visible.length>=3?'repeat(3,1fr)':visible.length===2?'repeat(2,1fr)':'1fr';
+}
+async function submitReview(){
+  const name=document.getElementById('rName').value.trim();
+  const text=document.getElementById('rText').value.trim();
+  if(!name||!text||curRating===0){showToast('Please fill all fields and select a rating','error');return;}
+  const btn=document.querySelector('[onclick="submitReview()"]');
+  btn.textContent='Submitting…';btn.disabled=true;
+  try{
+    const res=await fetch('/api/reviews',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,loan_type:document.getElementById('rType').value,rating:curRating,text})});
+    const data=await res.json();
+    if(res.ok){showToast('Review submitted! It will appear after approval. 🌟','success');
+      document.getElementById('rName').value='';document.getElementById('rText').value='';curRating=0;
+      document.querySelectorAll('.star-btn').forEach(s=>s.classList.remove('active'));}
+    else{showToast(data.error||'Something went wrong','error');}
+  }catch(e){showToast('Could not connect to server. Please try again.','error');}
+  btn.textContent='Submit My Review →';btn.disabled=false;
+}
+  document.querySelectorAll('.star-select span').forEach(s=>s.classList.remove('active'));
+}
+</script>
+</body>
+</html>

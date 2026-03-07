@@ -4,7 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
-app = Flask(__name__, static_folder='../rupya-website', static_url_path='')
+basedir_app = os.path.abspath(os.path.dirname(__file__))
+STATIC_FOLDER = os.path.join(basedir_app, 'website')
+print(f"✅ Serving frontend from: {STATIC_FOLDER}")
+app = Flask(__name__, static_folder=STATIC_FOLDER, static_url_path='')
 CORS(app)
 
 # ── DATABASE CONFIG ──

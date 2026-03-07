@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>About Us — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.about-hero{min-height:100vh;background:#1a1a1a;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding:0}
+.ah-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,93,43,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(232,93,43,.06) 1px,transparent 1px);background-size:64px 64px}
+.ah-blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.ah-content{position:relative;z-index:5;padding:9rem 3rem 5rem;width:100%}
+.ah-kicker{display:inline-flex;align-items:center;gap:.6rem;background:rgba(232,93,43,.12);border:1px solid rgba(232,93,43,.25);color:#e85d2b;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.4rem 1rem;border-radius:100px;margin-bottom:2rem}
+.ah-h1{font-size:clamp(4rem,10vw,10rem);font-weight:900;color:#fff;line-height:.88;letter-spacing:-.035em;margin-bottom:1.8rem}
+.ah-h1 em{font-family:'Playfair Display',serif;font-style:italic;color:#e85d2b;font-weight:400}
+.ah-sub{font-size:1.05rem;color:rgba(255,255,255,.5);line-height:1.75;max-width:540px;font-weight:400;margin-bottom:3rem}
+.ah-stats{display:grid;grid-template-columns:repeat(4,auto);gap:0;width:fit-content;border:1px solid rgba(255,255,255,.08);margin-top:3rem}
+.ahs-item{padding:1.8rem 2.5rem;border-right:1px solid rgba(255,255,255,.08)}
+.ahs-item:last-child{border-right:none}
+.ahs-n{font-size:2.8rem;font-weight:900;color:#e85d2b;line-height:1}
+.ahs-l{font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-top:.3rem}
+
+/* Mission split */
+.mission-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:70vh}
+.mw-left{background:#e85d2b;padding:5rem 3rem;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.mw-right{background:#f5e6c8;padding:5rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.mw-bg-word{position:absolute;font-size:18vw;font-weight:900;color:rgba(0,0,0,.06);bottom:-2rem;left:-1rem;line-height:1;pointer-events:none;user-select:none}
+.mw-h2{font-size:clamp(2.5rem,4.5vw,4.5rem);font-weight:900;color:#fff;line-height:.9;letter-spacing:-.03em;margin-bottom:1.5rem;position:relative;z-index:2}
+.mw-h2 em{font-family:'Playfair Display',serif;font-style:italic;color:#1a1a1a;font-weight:400}
+.mw-body{font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.8;position:relative;z-index:2;max-width:420px}
+.pillar{padding:1.6rem;border-radius:4px;background:#fff;margin-bottom:1rem;border-left:4px solid #e85d2b;transition:transform .3s,box-shadow .3s;cursor:default}
+.pillar:hover{transform:translateX(6px);box-shadow:6px 0 24px rgba(232,93,43,.14)}
+.pillar-ic{font-size:1.5rem;margin-bottom:.5rem}
+.pillar-t{font-size:.95rem;font-weight:900;margin-bottom:.3rem}
+.pillar-d{font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6}
+
+/* Timeline */
+.tl-outer{display:grid;grid-template-columns:200px 1fr;gap:0}
+.tl-years{background:#1a1a1a;padding:4rem 2rem}
+.tl-year-item{padding:1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);cursor:none;transition:color .3s}
+.tl-year-item:hover,.tl-year-item.active{color:#e85d2b}
+.tl-year-n{font-size:1.8rem;font-weight:900;color:rgba(255,255,255,.2);transition:color .3s}
+.tl-year-item:hover .tl-year-n,.tl-year-item.active .tl-year-n{color:#e85d2b}
+.tl-year-l{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.25);font-weight:700}
+.tl-events{background:#f5e6c8;padding:4rem 3rem}
+.tl-event{display:none}
+.tl-event.active{display:block;animation:fadeUp .5s ease both}
+.tl-ev-yr{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#e85d2b;margin-bottom:.5rem}
+.tl-ev-h2{font-size:3.5rem;font-weight:900;line-height:.9;letter-spacing:-.03em;margin-bottom:1.2rem}
+.tl-ev-h2 em{font-family:'Playfair Display',serif;font-style:italic;color:#e85d2b}
+.tl-ev-body{font-size:.92rem;color:rgba(26,26,26,.65);line-height:1.8;max-width:420px}
+.tl-ev-stat{font-size:4rem;font-weight:900;color:#e85d2b;margin-top:2rem;line-height:1}
+.tl-ev-stat-l{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(26,26,26,.4);font-weight:700}
+
+/* Team */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(255,255,255,.08)}
+.tc{background:#1a1a1a;cursor:none;overflow:hidden;position:relative;transition:background .4s}
+.tc:hover{background:#e85d2b}
+.tc-avatar{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+.tc-body{padding:1.6rem}
+.tc-name{font-size:1.05rem;font-weight:900;color:#fff;transition:color .3s;margin-bottom:.15rem}
+.tc-role{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:#e85d2b;font-weight:800;margin-bottom:.7rem;transition:color .3s}
+.tc:hover .tc-role{color:#fff}
+.tc-bio{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5;transition:color .3s}
+.tc:hover .tc-bio{color:rgba(255,255,255,.8)}
+
+/* Values grid */
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(26,26,26,.08);margin-top:2.5rem}
+.vc{background:#fff;padding:2.5rem 2rem;cursor:default;transition:background .35s,transform .35s}
+.vc:hover{background:#1a1a1a;transform:scale(1.02)}
+.vc:hover .vc-t,.vc:hover .vc-d{color:inherit}
+.vc:hover .vc-t{color:#fff}
+.vc:hover .vc-d{color:rgba(255,255,255,.5)}
+.vc-i{font-size:2rem;margin-bottom:.8rem}
+.vc-t{font-size:1.05rem;font-weight:900;margin-bottom:.4rem;transition:color .35s}
+.vc-d{font-size:.82rem;color:rgba(26,26,26,.6);line-height:1.6;transition:color .35s}
+
+/* Awards */
+.award-row{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;margin-top:2.5rem}
+.award-card{background:#fff;border-radius:8px;padding:1.8rem 2.2rem;text-align:center;min-width:200px;box-shadow:0 4px 24px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;cursor:none}
+.award-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.award-icon{font-size:2rem;margin-bottom:.7rem}
+.award-title{font-size:.78rem;font-weight:900;margin-bottom:.2rem}
+.award-by{font-size:.68rem;color:rgba(26,26,26,.45)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="ah-grid"></div>
+  <div class="ah-blob" style="width:500px;height:500px;background:rgba(232,93,43,.12);top:-100px;right:10%"></div>
+  <div class="ah-blob" style="width:300px;height:300px;background:rgba(232,184,75,.06);bottom:10%;left:5%"></div>
+  <div class="ah-content">
+    <div class="ah-kicker"><span style="width:6px;height:6px;background:#e85d2b;border-radius:50%;display:inline-block;animation:throb 2s infinite"></span> Est. 2021 &mdash; Mumbai, India</div>
+    <h1 class="ah-h1">We Make<br>Borrowing<br><em>Honest.</em></h1>
+    <p class="ah-sub">Millions of Indians were being misled by loan agents, hidden fees, and opaque comparisons. We said enough — and built the marketplace where you always come first.</p>
+    <div style="display:flex;gap:1rem">
+      <a href="apply.html" class="btn btn-og btn-lg">Get a Loan</a>
+      <a href="partner-with-us.html" class="btn btn-out-w btn-lg">Partner With Us</a>
+    </div>
+    <div class="ah-stats">
+      <div class="ahs-item"><div class="ahs-n">50+</div><div class="ahs-l">Lending Partners</div></div>
+      <div class="ahs-item"><div class="ahs-n">₹12K Cr</div><div class="ahs-l">Loans Facilitated</div></div>
+      <div class="ahs-item"><div class="ahs-n">4.8★</div><div class="ahs-l">Customer Rating</div></div>
+      <div class="ahs-item"><div class="ahs-n">2.1L+</div><div class="ahs-l">Happy Borrowers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION SPLIT -->
+<div class="mission-wrap reveal">
+  <div class="mw-left">
+    <div class="mw-bg-word">WHY</div>
+    <div class="sec-kicker" style="color:rgba(255,255,255,.45)">Our Mission</div>
+    <h2 class="mw-h2">Finance That<br>Works <em>For You.</em></h2>
+    <p class="mw-body">In a country where the average borrower visits 4–6 banks before getting a loan, we built a single destination that does all that work in 60 seconds — for free. No commissions driving our recommendations. No banks paying to rank higher. Just pure, unbiased comparison.</p>
+    <p class="mw-body" style="margin-top:1rem">We believe access to fair credit is a right, not a privilege. That's why we'll never charge you, and always show you the full picture — fees, fine print, and all.</p>
+  </div>
+  <div class="mw-right">
+    <div class="sec-kicker">What sets us apart</div>
+    <h2 class="sec-h2" style="font-size:2rem;margin-bottom:1.5rem">Our <em>Pillars</em></h2>
+    <div class="pillar"><div class="pillar-ic">🔍</div><div class="pillar-t">Radical Transparency</div><div class="pillar-d">Every rate, every fee, every condition — shown upfront. No asterisks, no fine-print surprises after you apply.</div></div>
+    <div class="pillar"><div class="pillar-ic">⚖️</div><div class="pillar-t">Truly Unbiased Rankings</div><div class="pillar-d">Lenders don't pay to rank higher. Our algorithm ranks by what's genuinely best for your profile, period.</div></div>
+    <div class="pillar"><div class="pillar-ic">🛡️</div><div class="pillar-t">Your Data, Protected</div><div class="pillar-d">256-bit encrypted. Never sold to third parties. You control who sees your information.</div></div>
+    <div class="pillar"><div class="pillar-ic">₹0</div><div class="pillar-t">Free. Always.</div><div class="pillar-d">We earn from lenders only when you close a loan — transparently disclosed, never hidden from you.</div></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="tl-outer">
+  <div class="tl-years">
+    <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.25);margin-bottom:1.5rem;padding-left:1rem">Our Journey</div>
+    <div class="tl-year-item active" onclick="showYear(this,'y2021')"><div class="tl-year-n">2021</div><div class="tl-year-l">Founded</div></div>
+    <div class="tl-year-item" onclick="showYear(this,'y2022')"><div class="tl-year-n">2022</div><div class="tl-year-l">₹1,000 Cr</div></div>
+    <div class="tl-year-item" onclick="showYear(this,'y2023')"><div class="tl-year-n">2023</div><div class="tl-year-l">Series A</div></div>
+    <div class="tl-year-item" onclick="showYear(this,'y2024')"><div class="tl-year-n">2024</div><div class="tl-year-l">50+ Lenders</div></div>
+    <div class="tl-year-item" onclick="showYear(this,'y2025')"><div class="tl-year-n">2025</div><div class="tl-year-l">2L Borrowers</div></div>
+    <div class="tl-year-item" onclick="showYear(this,'y2026')"><div class="tl-year-n">2026</div><div class="tl-year-l">Today</div></div>
+  </div>
+  <div class="tl-events">
+    <div class="tl-event active" id="y2021"><div class="tl-ev-yr">2021 — The Beginning</div><h2 class="tl-ev-h2">Born from <em>Frustration</em></h2><p class="tl-ev-body">Our founders spent months trying to get a home loan after relocating to Mumbai. Every bank gave a different rate. Every agent had a hidden fee. RUPYA was launched with 5 lender partners and a simple promise: zero platform fee, always. The first 100 borrowers were funded in under 30 days.</p><div class="tl-ev-stat">5</div><div class="tl-ev-stat-l">Founding Lender Partners</div></div>
+    <div class="tl-event" id="y2022"><div class="tl-ev-yr">2022 — First Milestone</div><h2 class="tl-ev-h2">₹1,000 Crore <em>Milestone</em></h2><p class="tl-ev-body">Crossed ₹1,000 Cr in loans facilitated within 14 months of launch. Expanded to 12 cities across India. Launched the EMI calculator and basic eligibility tool. Grew the team from 8 to 40 people. Won Best Fintech Startup at the ET Startup Awards.</p><div class="tl-ev-stat">₹1,000 Cr</div><div class="tl-ev-stat-l">Loans Facilitated</div></div>
+    <div class="tl-event" id="y2023"><div class="tl-ev-yr">2023 — Series A</div><h2 class="tl-ev-h2">$8M <em>Raised</em></h2><p class="tl-ev-body">Raised $8M from Sequoia India and Accel Partners. Used the capital to build our proprietary eligibility engine that matches borrowers to lenders in under 60 seconds. Expanded to Tier 2 and Tier 3 cities. Launched the mobile app. Crossed 50,000 borrowers.</p><div class="tl-ev-stat">$8M</div><div class="tl-ev-stat-l">Series A Raised</div></div>
+    <div class="tl-event" id="y2024"><div class="tl-ev-yr">2024 — Scale</div><h2 class="tl-ev-h2">50+ <em>Partners</em></h2><p class="tl-ev-body">Onboarded 50 lending partners including SBI, HDFC, ICICI and major NBFCs. Launched free CIBIL score monitoring. Won Forbes India Top 50 Startups. Launched AI-powered lender matching. 1 lakh borrowers crossed. Achieved RBI Payment Aggregator licence.</p><div class="tl-ev-stat">50+</div><div class="tl-ev-stat-l">Lender Partners</div></div>
+    <div class="tl-event" id="y2025"><div class="tl-ev-yr">2025 — Momentum</div><h2 class="tl-ev-h2">2 Lakh <em>Borrowers</em></h2><p class="tl-ev-body">Crossed 2 lakh happy borrowers. Launched gold loan, LAP, and education loan categories. 4.8 stars on Google Play from 1.2 lakh reviews. Average loan disbursed in 4 hours. Expanded to 120+ cities. Launched Rupya Score — India's simplest credit health dashboard.</p><div class="tl-ev-stat">2L+</div><div class="tl-ev-stat-l">Borrowers Funded</div></div>
+    <div class="tl-event" id="y2026"><div class="tl-ev-yr">2026 — Today</div><h2 class="tl-ev-h2">₹12,000 Cr <em>Strong</em></h2><p class="tl-ev-body">India's fastest-growing loan marketplace. ₹12,000 Crore in total loans facilitated. 50+ lender partners. Expanding to business credit lines, insurance-linked loans, and international remittance financing. The mission remains: honest money for every Indian.</p><div class="tl-ev-stat">₹12K Cr</div><div class="tl-ev-stat-l">Total Loans Facilitated</div></div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="section" style="background:#e85d2b;padding-bottom:0">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.45)">The humans behind it</div>
+  <h2 class="sec-h2" style="color:#fff;margin-bottom:3rem">Meet the <em style="color:#1a1a1a">Founders</em></h2>
+  <div class="team-grid">
+    <div class="tc reveal"><div class="tc-avatar" style="background:linear-gradient(135deg,#0a2a4a,#1a3a5a)">👨‍💼</div><div class="tc-body"><div class="tc-name">Rahul Mehta</div><div class="tc-role">Co-Founder &amp; CEO</div><div class="tc-bio">Ex-HDFC Bank. IIT Bombay + IIM Ahmedabad. 12 years in consumer lending. Built RUPYA after his own home loan nightmare.</div></div></div>
+    <div class="tc reveal"><div class="tc-avatar" style="background:linear-gradient(135deg,#0a3a1a,#1a4a2a)">👩‍💻</div><div class="tc-body"><div class="tc-name">Priya Nair</div><div class="tc-role">Co-Founder &amp; CTO</div><div class="tc-bio">Ex-Google Pay. BITS Pilani. Built the eligibility engine that matches borrowers to lenders in under 60 seconds.</div></div></div>
+    <div class="tc reveal"><div class="tc-avatar" style="background:linear-gradient(135deg,#2a0a3a,#3a1a4a)">👨‍⚖️</div><div class="tc-body"><div class="tc-name">Ankit Sharma</div><div class="tc-role">Chief Risk Officer</div><div class="tc-bio">Ex-Bajaj Finance. 15 years in credit risk. Ensures every lender on RUPYA meets our quality and transparency bar.</div></div></div>
+    <div class="tc reveal"><div class="tc-avatar" style="background:linear-gradient(135deg,#3a2a0a,#4a3a1a)">👩‍📊</div><div class="tc-body"><div class="tc-name">Divya Patel</div><div class="tc-role">Chief Growth Officer</div><div class="tc-bio">Ex-Paytm, Ex-PhonePe. ISB MBA. Scaled RUPYA from 0 to 2 lakh borrowers in under 4 years.</div></div></div>
+  </div>
+</div>
+
+<!-- VALUES -->
+<div class="section reveal" style="background:#f5e6c8">
+  <div class="sec-kicker">What we stand for</div>
+  <h2 class="sec-h2" style="margin-bottom:2.5rem">Our <em>Values</em></h2>
+  <div class="values-grid">
+    <div class="vc"><div class="vc-i">🔍</div><div class="vc-t">Transparency First</div><div class="vc-d">We show everything — even the things lenders don't want you to see. No hidden fees, no buried clauses, ever.</div></div>
+    <div class="vc"><div class="vc-i">❤️</div><div class="vc-t">Borrower-Centric</div><div class="vc-d">Every product decision asks: does this genuinely help the borrower? If not, we don't build it.</div></div>
+    <div class="vc"><div class="vc-i">⚡</div><div class="vc-t">Speed &amp; Simplicity</div><div class="vc-d">Loan applications shouldn't take days. We've made the complex simple — 3 minutes to apply, 4 hours to fund.</div></div>
+    <div class="vc"><div class="vc-i">🌍</div><div class="vc-t">Financial Inclusion</div><div class="vc-d">Great credit isn't only for metros. We're expanding to Tier 2, Tier 3, and rural India with local language support.</div></div>
+    <div class="vc"><div class="vc-i">🧠</div><div class="vc-t">Data-Driven Fairness</div><div class="vc-d">Our AI matches you based on your actual profile — not who pays us the most commission per conversion.</div></div>
+    <div class="vc"><div class="vc-i">🏆</div><div class="vc-t">Excellence Always</div><div class="vc-d">4.8 stars. 2.1 lakh borrowers. We hold ourselves to a higher standard than any regulator requires.</div></div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="section reveal" style="background:#1a1a1a;text-align:center">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Recognised &amp; Trusted</div>
+  <h2 class="sec-h2" style="color:#fff;margin-bottom:3rem">Awards &amp; <em>Backing</em></h2>
+  <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem">
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:1rem 2rem;border-radius:6px;color:rgba(255,255,255,.6);font-weight:700;font-size:.9rem;cursor:none;transition:border-color .3s" onmouseenter="this.style.borderColor='#e85d2b'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">🌐 Sequoia India</div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:1rem 2rem;border-radius:6px;color:rgba(255,255,255,.6);font-weight:700;font-size:.9rem;cursor:none;transition:border-color .3s" onmouseenter="this.style.borderColor='#e85d2b'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">🚀 Accel Partners</div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:1rem 2rem;border-radius:6px;color:rgba(255,255,255,.6);font-weight:700;font-size:.9rem;cursor:none;transition:border-color .3s" onmouseenter="this.style.borderColor='#e85d2b'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">💼 Blume Ventures</div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:1rem 2rem;border-radius:6px;color:rgba(255,255,255,.6);font-weight:700;font-size:.9rem;cursor:none;transition:border-color .3s" onmouseenter="this.style.borderColor='#e85d2b'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">⚡ Y Combinator</div>
+  </div>
+  <div class="award-row">
+    <div class="award-card"><div class="award-icon">🏆</div><div class="award-title">Best Fintech Startup</div><div class="award-by">ET Startup Awards 2024</div></div>
+    <div class="award-card"><div class="award-icon">⭐</div><div class="award-title">Top 50 Startups India</div><div class="award-by">Forbes India 2023</div></div>
+    <div class="award-card"><div class="award-icon">🇮🇳</div><div class="award-title">Digital India Champion</div><div class="award-by">MeitY Recognition 2024</div></div>
+    <div class="award-card"><div class="award-icon">📱</div><div class="award-title">Best Finance App</div><div class="award-by">Google Play Awards 2025</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band" data-word="JOIN">
+  <div class="cta-h2">Join 2 Lakh<br><em>Happy</em> Borrowers.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Get a Loan — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out-w btn-lg">Partner With Us</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function showYear(el, id) {
+  document.querySelectorAll('.tl-year-item').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tl-event').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>

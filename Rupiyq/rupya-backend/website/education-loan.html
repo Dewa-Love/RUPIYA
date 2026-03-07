@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Education Loan — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+:root{--accent:#87CEEB}
+
+.loan-hero{padding:9rem 3rem 5rem;position:relative;overflow:hidden;min-height:65vh;display:flex;align-items:flex-end}
+.lh-bg-word{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;opacity:.05;line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em}
+.lh-content{position:relative;z-index:5;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:flex-end;width:100%}
+.lh-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,.12)}
+.lhs{padding:1.5rem 1.8rem;border-right:1px solid rgba(255,255,255,.12)}
+.lhs:last-child{border-right:none}
+.lhs-l{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.45;margin-bottom:.3rem}
+.lhs-v{font-size:2rem;font-weight:900;color:#fff;line-height:1}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.fc{background:#fff;padding:2rem;border-radius:8px;border-left:4px solid var(--accent,#e85d2b);transition:transform .3s,box-shadow .3s;cursor:default}
+.fc:hover{transform:translateX(8px);box-shadow:8px 0 30px rgba(0,0,0,.08)}
+.fc-ic{font-size:1.6rem;margin-bottom:.6rem}
+.fc-t{font-size:.95rem;font-weight:900;margin-bottom:.3rem}
+.fc-d{font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6}
+.elig-row{display:grid;grid-template-columns:repeat(4,1fr);border:2.5px solid rgba(26,26,26,.1)}
+.er-item{padding:2.5rem 2rem;border-right:2.5px solid rgba(26,26,26,.1);text-align:center;transition:background .3s}
+.er-item:last-child{border-right:none}
+.er-item:hover{background:rgba(232,93,43,.05)}
+.er-ic{font-size:1.8rem;margin-bottom:.5rem}
+.er-l{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.4;margin-bottom:.3rem}
+.er-v{font-size:1.05rem;font-weight:900;color:#e85d2b}
+.lender-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
+.lc2{background:#fff;border-radius:8px;padding:1.4rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none}
+.lc2:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+.lc2-logo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.68rem;color:#fff;margin:0 auto .6rem}
+.lc2-name{font-size:.75rem;font-weight:800;margin-bottom:.3rem}
+.lc2-rate{font-size:1.6rem;font-weight:900;color:#e85d2b;line-height:1}
+.lc2-max{font-size:.65rem;color:rgba(26,26,26,.4);margin-top:.2rem}
+.faq-wrap{max-width:760px}
+
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<div class="loan-hero" style="background:#0a1a3a">
+  <div class="lh-bg-word" style="color:#87CEEB">STUDY</div>
+  <div class="lh-content">
+    <div>
+      <div class="ph-kicker" style="color:rgba(255,255,255,.45)">📚 Education Loan</div>
+      <h1 class="ph-h1" style="color:#fff;font-size:clamp(3rem,7vw,7rem)">Invest in yourself.<br><em style="color:#87CEEB">We'll fund the rest.</em></h1>
+      <p class="ph-sub" style="color:rgba(255,255,255,.65)">Education loans for India and abroad. IIT, IIM, top foreign universities — no collateral up to ₹7.5 lakh. Lowest interest rates.</p>
+      <div style="display:flex;gap:1rem;margin-top:2rem">
+        <a href="apply.html" class="btn btn-lg" style="background:#87CEEB;color:#1a1a1a">Apply Now — Free →</a>
+        <a href="calculator.html" class="btn btn-out-w btn-lg">Calculate EMI</a>
+      </div>
+    </div>
+    <div class="lh-stats">
+      <div class="lhs"><div class="lhs-l">Rate From</div><div class="lhs-v">8.15%</div></div>
+      <div class="lhs"><div class="lhs-l">Max Loan</div><div class="lhs-v">₹1.5 Crore</div></div>
+      <div class="lhs"><div class="lhs-l">Max Tenure</div><div class="lhs-v">15 Years</div></div>
+      <div class="lhs"><div class="lhs-l">Approval</div><div class="lhs-v">3–5 Days</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ti">Education Loan</span><span class="ts"></span><span class="ti">From 8.15% p.a.</span><span class="ts"></span>
+  <span class="ti">Up to ₹1.5 Crore</span><span class="ts"></span><span class="ti">Approval in 3–5 Days</span><span class="ts"></span>
+  <span class="ti">50+ Lenders</span><span class="ts"></span><span class="ti">Zero Platform Fee</span><span class="ts"></span>
+  <span class="ti">Education Loan</span><span class="ts"></span><span class="ti">From 8.15% p.a.</span><span class="ts"></span>
+  <span class="ti">Up to ₹1.5 Crore</span><span class="ts"></span><span class="ti">Approval in 3–5 Days</span><span class="ts"></span>
+  <span class="ti">50+ Lenders</span><span class="ts"></span><span class="ti">Zero Platform Fee</span><span class="ts"></span>
+</div></div>
+
+<!-- FEATURES -->
+<div class="section reveal" style="background:#f5e6c8">
+  <div class="sec-kicker">Why choose RUPYA</div>
+  <h2 class="sec-h2">Key <em>Features</em></h2>
+  <div class="feat-grid">
+    <div class="fc"><div class="fc-ic">🎓</div><div class="fc-t">India & Abroad</div><div class="fc-d">Covers tuition, hostel, books, and travel for courses in India and 50+ countries.</div></div>
+    <div class="fc"><div class="fc-ic">🆓</div><div class="fc-t">No Collateral up to ₹7.5L</div><div class="fc-d">Education loans up to ₹7.5 lakh require no collateral. Just admission proof and co-applicant.</div></div>
+    <div class="fc"><div class="fc-ic">💸</div><div class="fc-t">Moratorium Period</div><div class="fc-d">No EMI during the course + 6–12 months grace period after you graduate.</div></div>
+    <div class="fc"><div class="fc-ic">🏛️</div><div class="fc-t">Tax Benefit</div><div class="fc-d">Interest paid on education loans is fully deductible under Section 80E with no upper limit.</div></div>
+    <div class="fc"><div class="fc-ic">🌍</div><div class="fc-t">Study Abroad Coverage</div><div class="fc-d">Covers USA, UK, Canada, Australia, Europe and more. Pre-visa disbursement available.</div></div>
+    <div class="fc"><div class="fc-ic">📊</div><div class="fc-t">Subsidy Schemes</div><div class="fc-d">Students from economically weaker sections may qualify for Government interest subsidy schemes.</div></div>
+
+  </div>
+</div>
+
+<!-- TOP LENDERS -->
+<div class="section reveal" style="background:#1a1a1a">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Best offers today</div>
+  <h2 class="sec-h2" style="color:#fff">Top <em>Lenders</em></h2>
+  <div class="lender-row">
+    <div class="lc2" style="border:2px solid #e85d2b;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#0a4d8c">SBI</div><div class="lc2-name">SBI</div><div class="lc2-rate">8.15%</div><div class="lc2-max">up to ₹1.5Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2"><div class="lc2-logo" style="background:#4a1a8a">Unio</div><div class="lc2-name">Union Bank</div><div class="lc2-rate">8.40%</div><div class="lc2-max">up to ₹1.5Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2"><div class="lc2-logo" style="background:#5a2a0a">Bank</div><div class="lc2-name">Bank of Baroda</div><div class="lc2-rate">8.50%</div><div class="lc2-max">up to ₹80L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2"><div class="lc2-logo" style="background:#004c97">HDFC</div><div class="lc2-name">HDFC Credila</div><div class="lc2-rate">9.50%</div><div class="lc2-max">up to ₹1Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2"><div class="lc2-logo" style="background:#2a5a7a">Avan</div><div class="lc2-name">Avanse</div><div class="lc2-rate">10.00%</div><div class="lc2-max">up to ₹75L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+
+  </div>
+</div>
+
+<!-- ELIGIBILITY -->
+<div class="section reveal" style="background:#0a1a3a;color:#fff;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none">WHO</div>
+  <div class="sec-kicker" style="color:rgba(255,255,255,.4);position:relative;z-index:2">Who qualifies</div>
+  <h2 class="sec-h2" style="color:#fff;position:relative;z-index:2">Are You <em style="color:#87CEEB">Eligible?</em></h2>
+  <div class="elig-row" style="margin-top:2rem;border-color:rgba(255,255,255,.12);position:relative;z-index:2">
+    <div class="er-item" style="border-color:rgba(255,255,255,.12)"><div class="er-ic">🎂</div><div class="er-l">Age</div><div class="er-v" style="color:#87CEEB">21 – 65 yrs</div></div>
+    <div class="er-item" style="border-color:rgba(255,255,255,.12)"><div class="er-ic">💵</div><div class="er-l">Min. Income</div><div class="er-v" style="color:#87CEEB">₹20,000/mo</div></div>
+    <div class="er-item" style="border-color:rgba(255,255,255,.12)"><div class="er-ic">📋</div><div class="er-l">Credit Score</div><div class="er-v" style="color:#87CEEB">650+</div></div>
+    <div class="er-item" style="border-color:rgba(255,255,255,.12)"><div class="er-ic">🗂️</div><div class="er-l">Employment</div><div class="er-v" style="color:#87CEEB">Salaried / SE</div></div>
+  </div>
+  <div style="text-align:center;margin-top:3rem;position:relative;z-index:2">
+    <a href="eligibility.html" class="btn btn-lg" style="background:#87CEEB;color:#1a1a1a">Check My Eligibility — Free</a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section reveal" style="background:#f5e6c8">
+  <div class="sec-kicker">Common questions</div>
+  <h2 class="sec-h2" style="margin-bottom:3rem">Got <em>Questions?</em></h2>
+  <div class="faq-wrap">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What courses are eligible for education loans?<span class="faq-icon">+</span></div><div class="faq-a">Undergraduate, postgraduate, professional degrees (MBA, CA, engineering, medicine, law) at recognised universities in India and abroad. Skill-based and vocational courses may qualify with select lenders.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need collateral for an education loan?<span class="faq-icon">+</span></div><div class="faq-a">Loans up to ₹7.5 lakh typically don't require collateral but need a co-applicant (parent or guardian). Loans above ₹7.5 lakh may require property or financial securities as collateral.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">When do I start repaying?<span class="faq-icon">+</span></div><div class="faq-a">Repayment begins 6–12 months after completing the course (moratorium period), giving you time to find employment. During the course, only simple interest is charged.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I get an education loan if I haven't received my admission letter yet?<span class="faq-icon">+</span></div><div class="faq-a">Most lenders require a confirmed admission letter. However, some lenders offer provisional approval for top-ranked institutions based on entrance exam results or shortlisting.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is there a tax benefit on education loan interest?<span class="faq-icon">+</span></div><div class="faq-a">Yes. Under Section 80E of the Income Tax Act, the entire interest amount paid on education loans is deductible — with no upper limit — for a maximum of 8 years.</div></div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal" data-word="STUDY">
+  <div class="cta-h2">Ready to <em>Apply?</em><br>Takes 3 Minutes.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Apply for Education Loan</a>
+    <a href="eligibility.html" class="btn btn-out-w btn-lg">Check Eligibility First</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>
