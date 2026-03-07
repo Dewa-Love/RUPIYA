@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Partner With Us — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.partner-hero{background:#1a1a1a;min-height:85vh;display:flex;align-items:flex-end;position:relative;overflow:hidden}
+.ph-rings{position:absolute;right:5%;top:50%;transform:translateY(-50%)}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(232,93,43,.15);transform:translate(-50%,-50%);top:50%;left:50%}
+.partner-types{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(255,255,255,.04);margin-top:3rem}
+.pt-card{background:#1a1a1a;padding:2.5rem 2rem;cursor:none;position:relative;overflow:hidden;transition:background .4s;border:1px solid rgba(255,255,255,.04)}
+.pt-card::before{content:'';position:absolute;inset:0;background:#e85d2b;transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.76,0,.24,1);z-index:0}
+.pt-card:hover::before{transform:scaleY(1)}
+.pt-card>*{position:relative;z-index:1}
+.pt-ic{font-size:2.5rem;margin-bottom:1rem}
+.pt-n{font-size:1.15rem;font-weight:900;color:#fff;margin-bottom:.4rem;transition:color .3s}
+.pt-d{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.6;transition:color .3s}
+.pt-card:hover .pt-d{color:rgba(255,255,255,.8)}
+.pt-card.active-type{background:#e85d2b}.pt-card.active-type::before{display:none}
+.pt-card.active-type .pt-d{color:rgba(255,255,255,.8)}
+
+/* Benefits */
+.benefit-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:2.5px solid rgba(26,26,26,.1)}
+.bs-item{padding:3rem 2rem;border-right:2.5px solid rgba(26,26,26,.1);transition:background .3s;cursor:default}
+.bs-item:last-child{border-right:none}
+.bs-item:hover{background:rgba(232,93,43,.05)}
+.bs-n{font-size:3.5rem;font-weight:900;color:#e85d2b;line-height:1;margin-bottom:.4rem}
+.bs-l{font-size:.8rem;color:rgba(26,26,26,.55);line-height:1.5}
+
+/* Process */
+.process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:3rem}
+.process-steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,#e85d2b,#e8b84b,#e85d2b);z-index:0}
+.ps-step{text-align:center;padding:0 1rem;position:relative;z-index:1}
+.ps-num{width:56px;height:56px;border-radius:50%;background:#e85d2b;color:#fff;font-size:1.2rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 0 8px #f5e6c8}
+.ps-title{font-size:.85rem;font-weight:800;margin-bottom:.3rem}
+.ps-desc{font-size:.72rem;color:rgba(26,26,26,.5);line-height:1.5}
+
+/* Partner form */
+.partner-layout{display:grid;grid-template-columns:1fr 440px;gap:3rem;align-items:start}
+.partner-sidebar{background:#e85d2b;border-radius:12px;padding:2.5rem;position:sticky;top:7rem;color:#fff}
+.ps-title2{font-size:1.05rem;font-weight:900;margin-bottom:1.5rem}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.checklist li{display:flex;gap:.7rem;align-items:flex-start;font-size:.85rem;line-height:1.5;color:rgba(255,255,255,.85)}
+.checklist li::before{content:'✓';color:#fff;font-weight:900;flex-shrink:0;margin-top:.05rem;background:rgba(0,0,0,.15);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem}
+.lender-logos{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.ll-badge{background:rgba(0,0,0,.15);border-radius:4px;padding:.4rem .9rem;font-size:.72rem;font-weight:800;color:rgba(255,255,255,.75)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<section class="partner-hero">
+  <div class="ph-rings">
+    <div class="ring" style="width:600px;height:600px;animation:sunPulse 4s ease-in-out infinite"></div>
+    <div class="ring" style="width:400px;height:400px;animation:sunPulse 4s ease-in-out infinite .5s"></div>
+    <div class="ring" style="width:200px;height:200px;animation:sunPulse 4s ease-in-out infinite 1s;border-color:rgba(232,93,43,.3)"></div>
+  </div>
+  <div style="position:relative;z-index:5;padding:9rem 3rem 5rem">
+    <div style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.25);color:#e8b84b;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.4rem 1rem;border-radius:100px;margin-bottom:2rem">
+      <span style="width:6px;height:6px;background:#e8b84b;border-radius:50%;display:inline-block"></span> 50+ Active Partners
+    </div>
+    <h1 style="font-size:clamp(4rem,10vw,10rem);font-weight:900;color:#fff;line-height:.88;letter-spacing:-.035em;margin-bottom:1.5rem">Grow With<br><em style="font-family:'Playfair Display',serif;font-style:italic;color:#e8b84b;font-weight:400">RUPYA.</em></h1>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,.5);max-width:520px;line-height:1.75;margin-bottom:2.5rem">Whether you're a bank, NBFC, fintech, DSA, or loan agent — RUPYA connects you with India's most qualified loan seekers. 2.1 lakh verified applicants. ₹12,000 Crore in facilitated loans.</p>
+    <div style="display:flex;gap:1rem">
+      <a href="#partner-form" class="btn btn-gd btn-lg">Become a Partner →</a>
+      <a href="contact.html" class="btn btn-out-w btn-lg">Talk to Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER TYPES -->
+<div class="section" style="background:#1a1a1a;padding-bottom:0">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Who we work with</div>
+  <h2 class="sec-h2" style="color:#fff;margin-bottom:3rem">Partner <em>Categories</em></h2>
+  <div class="partner-types">
+    <div class="pt-card"><div class="pt-ic">🏦</div><div class="pt-n">Banks &amp; NBFCs</div><div class="pt-d">Reach India's most creditworthy borrowers — pre-qualified, CIBIL checked, intent verified. Pay only on disbursement.</div></div>
+    <div class="pt-card"><div class="pt-ic">🤝</div><div class="pt-n">DSA / Agents</div><div class="pt-d">Become a RUPYA-certified DSA. Earn industry-leading commissions on every loan you refer and close.</div></div>
+    <div class="pt-card"><div class="pt-ic">💻</div><div class="pt-n">Fintechs &amp; Apps</div><div class="pt-d">White-label our loan marketplace. Embed our eligibility engine via API into your product in under 2 hours.</div></div>
+    <div class="pt-card"><div class="pt-ic">🏢</div><div class="pt-n">Corporates &amp; HR</div><div class="pt-d">Employee benefit loans at preferred rates. We manage everything — from eligibility to disbursement — for your team.</div></div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="section" style="background:#f5e6c8">
+  <div class="sec-kicker">Why partner with us</div>
+  <h2 class="sec-h2" style="margin-bottom:3rem">The RUPYA <em>Advantage</em></h2>
+  <div class="benefit-strip reveal">
+    <div class="bs-item"><div class="bs-n">2.1L+</div><div class="bs-l">Verified, intent-to-borrow borrowers on our platform every month</div></div>
+    <div class="bs-item"><div class="bs-n">60s</div><div class="bs-l">Average time for a borrower to qualify — leads arrive hot and ready</div></div>
+    <div class="bs-item"><div class="bs-n">35%</div><div class="bs-l">Higher conversion rate versus traditional digital loan channels</div></div>
+    <div class="bs-item"><div class="bs-n">₹0</div><div class="bs-l">Setup fee. No retainer. Pay-per-disbursement model only.</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem">
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">📊</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">Real-time Dashboard</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">Track leads, conversions, and revenue in our partner dashboard. Live data, zero lag.</div></div>
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">🔗</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">API Integration</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">RESTful API with full documentation. Sandbox environment, webhook support, and 99.9% uptime SLA.</div></div>
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">🛡️</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">RBI Compliance Support</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">Full KYC/AML compliance built in. We handle regulatory complexity so you don't have to.</div></div>
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">👥</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">Dedicated Partner Manager</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">A named account manager who knows your business and responds within 2 hours — always.</div></div>
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">📱</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">Co-marketing Opportunities</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">Feature on RUPYA's app, website, emails and social channels reaching 10L+ borrowers monthly.</div></div>
+    <div class="pillar" style="background:#fff;padding:1.8rem;border-radius:6px;border-left:4px solid #e85d2b;transition:transform .3s" onmouseenter="this.style.transform='translateX(6px)'" onmouseleave="this.style.transform=''"><div style="font-size:1.5rem;margin-bottom:.5rem">💸</div><div style="font-weight:900;font-size:.95rem;margin-bottom:.3rem">Fast Payouts for DSAs</div><div style="font-size:.8rem;color:rgba(26,26,26,.6);line-height:1.6">Commission credited within 3 business days of disbursement. No waiting, no chasing.</div></div>
+  </div>
+</div>
+
+<!-- ONBOARDING PROCESS -->
+<div class="section reveal" style="background:#e85d2b;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;color:rgba(0,0,0,.06);line-height:1;pointer-events:none;user-select:none">GO</div>
+  <div class="sec-kicker" style="color:rgba(255,255,255,.5)">How it works</div>
+  <h2 class="sec-h2" style="color:#fff;margin-bottom:0">Onboard in <em style="color:#1a1a1a">5 Steps</em></h2>
+  <div class="process-steps" style="margin-top:4rem">
+    <div class="ps-step"><div class="ps-num">1</div><div class="ps-title" style="color:#fff">Apply Online</div><div class="ps-desc" style="color:rgba(255,255,255,.6)">Submit the partner form below. Takes 3 minutes.</div></div>
+    <div class="ps-step"><div class="ps-num" style="background:#1a1a1a">2</div><div class="ps-title" style="color:#fff">Quick Review</div><div class="ps-desc" style="color:rgba(255,255,255,.6)">Our partner team reviews and responds within 24 hours.</div></div>
+    <div class="ps-step"><div class="ps-num">3</div><div class="ps-title" style="color:#fff">Sign Agreement</div><div class="ps-desc" style="color:rgba(255,255,255,.6)">Digital agreement signing. No physical paperwork needed.</div></div>
+    <div class="ps-step"><div class="ps-num" style="background:#1a1a1a">4</div><div class="ps-title" style="color:#fff">Integration / Training</div><div class="ps-desc" style="color:rgba(255,255,255,.6)">API keys, dashboard access, or DSA certification — 2 days.</div></div>
+    <div class="ps-step"><div class="ps-num">5</div><div class="ps-title" style="color:#fff">Go Live!</div><div class="ps-desc" style="color:rgba(255,255,255,.6)">Start receiving leads and earning commissions immediately.</div></div>
+  </div>
+</div>
+
+<!-- PARTNER FORM -->
+<div class="section" id="partner-form" style="background:#f5e6c8">
+  <div class="partner-layout">
+    <div>
+      <div class="sec-kicker">Start here</div>
+      <h2 class="sec-h2" style="font-size:2.5rem;margin-bottom:2rem">Partner <em>Application</em></h2>
+      <div class="form-section" style="background:#fff;border-radius:12px;padding:2.5rem;box-shadow:0 4px 30px rgba(0,0,0,.06)">
+        <div class="form-row">
+          <div class="form-group"><label>Organisation Name</label><input type="text" placeholder="HDFC Bank / My DSA Firm" id="pOrg"/></div>
+          <div class="form-group"><label>Partner Type</label>
+            <select id="pType"><option>Bank / NBFC</option><option>DSA / Loan Agent</option><option>Fintech / App</option><option>Corporate HR</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Contact Name</label><input type="text" placeholder="Rahul Sharma" id="pName"/></div>
+          <div class="form-group"><label>Designation</label><input type="text" placeholder="Business Development Head" id="pRole"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" placeholder="rahul@hdfc.com" id="pEmail"/></div>
+          <div class="form-group"><label>Mobile</label><input type="tel" placeholder="+91 98765 43210" id="pPhone"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Monthly Loan Volume (approx)</label>
+            <select id="pVolume"><option>Less than ₹1 Crore</option><option>₹1–5 Crore</option><option>₹5–25 Crore</option><option>₹25–100 Crore</option><option>₹100 Crore+</option></select>
+          </div>
+          <div class="form-group"><label>Geography Focus</label>
+            <select id="pGeo"><option>Pan India</option><option>Metro Cities Only</option><option>Tier 2 & 3 Cities</option><option>North India</option><option>South India</option><option>West India</option></select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem">
+          <label>Tell us about your organisation</label>
+          <textarea placeholder="Brief about your business, current loan products, and what you're looking for from this partnership..." style="background:#f5f0e8;border:2px solid transparent;padding:.85rem 1rem;font-family:'Nunito',sans-serif;font-size:.88rem;color:#1a1a1a;outline:none;border-radius:4px;width:100%;min-height:110px;resize:vertical;font-weight:600" id="pMsg" onfocus="this.style.borderColor='#e85d2b';this.style.background='#fff'" onblur="this.style.borderColor='transparent';this.style.background='#f5f0e8'"></textarea>
+        </div>
+        <button class="btn btn-og btn-lg btn-full" onclick="submitPartner()">Submit Partnership Application →</button>
+        <p style="font-size:.72rem;color:rgba(26,26,26,.4);margin-top:.8rem;line-height:1.5;text-align:center">Our partnerships team reviews all applications within 24 hours. Shortlisted applicants will be contacted for a discovery call.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="partner-sidebar">
+      <div class="ps-title2">Why 50+ partners chose RUPYA</div>
+      <ul class="checklist">
+        <li>Pre-qualified borrowers — CIBIL checked and intent verified before we share leads</li>
+        <li>Pay-per-disbursement only — zero upfront cost or retainer fees</li>
+        <li>Real-time API integration with full documentation and sandbox support</li>
+        <li>Dedicated named partner manager, responding within 2 hours</li>
+        <li>Co-branding and co-marketing opportunities with our 10L+ user base</li>
+        <li>Full RBI/DPDP compliance built into the integration</li>
+        <li>Commission payments within 3 business days of disbursement</li>
+      </ul>
+      <div style="border-top:1px solid rgba(0,0,0,.15);margin-top:1.8rem;padding-top:1.5rem">
+        <div style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:rgba(0,0,0,.3);margin-bottom:.8rem">Current Partners Include</div>
+        <div class="lender-logos">
+          <span class="ll-badge">SBI</span><span class="ll-badge">HDFC</span><span class="ll-badge">ICICI</span><span class="ll-badge">Axis</span><span class="ll-badge">Bajaj</span><span class="ll-badge">Kotak</span><span class="ll-badge">Tata Capital</span><span class="ll-badge">Fullerton</span><span class="ll-badge">PNB</span><span class="ll-badge">Bank of Baroda</span>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(0,0,0,.15);margin-top:1.5rem;padding-top:1.3rem;font-size:.78rem;color:rgba(0,0,0,.55);line-height:1.6">
+        Questions? Email us at<br><strong style="color:#1a1a1a">partners@rupya.in</strong><br>or call <strong style="color:#1a1a1a">+91-98765-43210</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+<script src="shared.js"></script>
+<script>
+function submitPartner(){
+  if(!document.getElementById('pOrg').value||!document.getElementById('pName').value||!document.getElementById('pEmail').value){showToast('Please fill all required fields','error');return;}
+  showToast('Application submitted! We\'ll be in touch within 24 hours. 🤝','success');
+}
+</script>
+</body>
+</html>

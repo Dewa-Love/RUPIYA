@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Personal Loan — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.hero-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.stat-chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:1.4rem 1.8rem;border-radius:8px;display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-mini{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:1.2rem;border-radius:8px}
+.stat-mini.accent{background:rgba(0,0,0,.2);border-color:rgba(255,255,255,.12)}
+.stat-mini .lbl{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.3rem;font-weight:800}
+.stat-mini .val{font-size:1.5rem;font-weight:900;color:#fff}
+.stat-mini .val.gold{color:#e8b84b}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.feat-card{background:#fff;padding:2rem;border-radius:8px;border-left:4px solid #e85d2b;transition:transform .3s,box-shadow .3s}
+.feat-card:hover{transform:translateX(6px);box-shadow:4px 0 20px rgba(232,93,43,.15)}
+.feat-icon{font-size:1.8rem;margin-bottom:.8rem}
+.feat-title{font-size:1rem;font-weight:900;margin-bottom:.4rem}
+.feat-desc{font-size:.82rem;color:rgba(26,26,26,.6);line-height:1.6}
+.elig-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:2.5rem}
+.elig-box{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:2rem 1rem}
+.elig-icon{font-size:2rem;margin-bottom:.6rem}
+.elig-lbl{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.45;margin-bottom:.4rem}
+.elig-val{font-size:1.15rem;font-weight:900;color:#e8b84b}
+.doc-card{background:rgba(255,255,255,.06);padding:1.2rem;border-radius:6px;border:1px solid rgba(255,255,255,.08)}
+.doc-card .icon{font-size:1.2rem;margin-bottom:.5rem}
+.doc-card .title{font-size:.82rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.doc-card .sub{font-size:.72rem;color:rgba(255,255,255,.4)}
+.lender-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;margin-top:2.5rem}
+.lender-card{background:#fff;border-radius:8px;padding:1.5rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none}
+.lender-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+.lender-name{font-size:.85rem;font-weight:900;margin-bottom:.4rem}
+.lender-rate{font-size:1.6rem;font-weight:900;color:#e85d2b;line-height:1}
+.lender-from{font-size:.62rem;opacity:.5;text-transform:uppercase;letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<div class="page-hero hero-split" style="background:#e85d2b;color:#fff;position:relative;overflow:hidden">
+  <div style="position:relative;z-index:2">
+    <div class="ph-kicker" style="color:rgba(255,255,255,.55)">For every need</div>
+    <h1 class="ph-h1">Personal<br><em style="color:#1a1a1a">Loan</em></h1>
+    <p class="ph-sub" style="opacity:.8">Get up to ₹40 lakhs instantly. No collateral, no end-use restriction. Your money, your way.</p>
+    <div style="display:flex;gap:1rem;margin-top:2rem">
+      <a href="apply.html" class="btn btn-dk btn-lg">Apply Now →</a>
+      <a href="calculator.html" class="btn btn-out-w btn-lg">Calculate EMI</a>
+    </div>
+  </div>
+  <div style="position:relative;z-index:2">
+    <div class="stat-chip">
+      <div><div class="lbl" style="color:rgba(255,255,255,.6);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:.2rem">Interest Rate</div><div style="font-size:2.5rem;font-weight:900;color:#fff;line-height:1">10.5%</div><div style="font-size:.75rem;color:rgba(255,255,255,.55)">p.a. onwards</div></div>
+      <div style="font-size:3rem">💼</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-mini"><div class="lbl">Max Loan</div><div class="val">₹40L</div></div>
+      <div class="stat-mini"><div class="lbl">Tenure</div><div class="val">1–7 Yr</div></div>
+      <div class="stat-mini"><div class="lbl">Approval</div><div class="val">4 HRS</div></div>
+      <div class="stat-mini accent"><div class="lbl">Collateral</div><div class="val gold">None</div></div>
+    </div>
+  </div>
+  <div class="ph-bg-word" style="color:rgba(0,0,0,.06)">LOAN</div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ti">No Collateral</span><span class="ts"></span><span class="ti">10.5% p.a.</span><span class="ts"></span>
+  <span class="ti">Up to ₹40 Lakhs</span><span class="ts"></span><span class="ti">1–7 Year Tenure</span><span class="ts"></span>
+  <span class="ti">Approval in 4 Hours</span><span class="ts"></span><span class="ti">50+ Lenders</span><span class="ts"></span>
+  <span class="ti">No Collateral</span><span class="ts"></span><span class="ti">10.5% p.a.</span><span class="ts"></span>
+  <span class="ti">Up to ₹40 Lakhs</span><span class="ts"></span><span class="ti">1–7 Year Tenure</span><span class="ts"></span>
+  <span class="ti">Approval in 4 Hours</span><span class="ts"></span><span class="ti">50+ Lenders</span><span class="ts"></span>
+</div></div>
+
+<!-- FEATURES -->
+<div class="section reveal" style="background:#f5e6c8">
+  <div class="sec-kicker">Why choose RUPYA</div>
+  <h2 class="sec-h2">Features That <em>Matter</em></h2>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">⚡</div><div class="feat-title">Instant Approval</div><div class="feat-desc">Get in-principle approval within minutes. Final disbursement in 4–24 hours after document verification.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔓</div><div class="feat-title">No Collateral</div><div class="feat-desc">100% unsecured. No need to pledge any asset. Your credit score and income are all that matters.</div></div>
+    <div class="feat-card"><div class="feat-icon">💰</div><div class="feat-title">Zero Prepayment Fee</div><div class="feat-desc">Selected lenders offer zero prepayment penalty. Pay off your loan early and save on interest.</div></div>
+    <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-title">Flexible Tenure</div><div class="feat-desc">Choose repayment from 12 to 84 months. Pick an EMI that fits your monthly budget.</div></div>
+    <div class="feat-card"><div class="feat-icon">🏦</div><div class="feat-title">50+ Lenders</div><div class="feat-desc">HDFC, SBI, ICICI, Bajaj, Axis and 45 more. All ranked by your best deal in one place.</div></div>
+    <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-title">No Hidden Charges</div><div class="feat-desc">Full transparency. Every fee shown upfront before you apply. No surprises after approval.</div></div>
+  </div>
+</div>
+
+<!-- TOP LENDERS -->
+<div class="section reveal" style="background:#1a1a1a">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.35)">Best offers today</div>
+  <h2 class="sec-h2" style="color:#fff">Top <em>Lenders</em></h2>
+  <div class="lender-row">
+    <div class="lender-card"><div class="lender-name">HDFC Bank</div><div class="lender-rate">10.50%</div><div class="lender-from">from p.a.</div><div style="font-size:.72rem;color:rgba(26,26,26,.5);margin-top:.5rem;line-height:1.5">Up to ₹40L<br>48 hrs approval</div><a href="apply.html" class="btn btn-og" style="margin-top:1rem;display:block">Apply</a></div>
+    <div class="lender-card" style="border:2px solid #e85d2b;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lender-name">SBI</div><div class="lender-rate">10.30%</div><div class="lender-from">from p.a.</div><div style="font-size:.72rem;color:rgba(26,26,26,.5);margin-top:.5rem;line-height:1.5">Up to ₹20L<br>24 hrs approval</div><a href="apply.html" class="btn btn-og" style="margin-top:1rem;display:block">Apply</a></div>
+    <div class="lender-card"><div class="lender-name">Bajaj Finserv</div><div class="lender-rate">11.00%</div><div class="lender-from">from p.a.</div><div style="font-size:.72rem;color:rgba(26,26,26,.5);margin-top:.5rem;line-height:1.5">Up to ₹35L<br>2 hrs approval</div><a href="apply.html" class="btn btn-og" style="margin-top:1rem;display:block">Apply</a></div>
+    <div class="lender-card"><div class="lender-name">ICICI Bank</div><div class="lender-rate">10.65%</div><div class="lender-from">from p.a.</div><div style="font-size:.72rem;color:rgba(26,26,26,.5);margin-top:.5rem;line-height:1.5">Up to ₹50L<br>Same-day</div><a href="apply.html" class="btn btn-og" style="margin-top:1rem;display:block">Apply</a></div>
+    <div class="lender-card"><div class="lender-name">Axis Bank</div><div class="lender-rate">10.80%</div><div class="lender-from">from p.a.</div><div style="font-size:.72rem;color:rgba(26,26,26,.5);margin-top:.5rem;line-height:1.5">Up to ₹40L<br>4 hrs approval</div><a href="apply.html" class="btn btn-og" style="margin-top:1rem;display:block">Apply</a></div>
+  </div>
+</div>
+
+<!-- ELIGIBILITY -->
+<div class="section reveal" style="background:#3a5c45;color:#fff">
+  <div class="sec-kicker" style="color:rgba(255,255,255,.45)">Who qualifies</div>
+  <h2 class="sec-h2" style="color:#fff">Are You <em style="color:#e8b84b">Eligible?</em></h2>
+  <div class="elig-grid">
+    <div class="elig-box"><div class="elig-icon">🎂</div><div class="elig-lbl">Age</div><div class="elig-val">21 – 60 yrs</div></div>
+    <div class="elig-box"><div class="elig-icon">💵</div><div class="elig-lbl">Min. Income</div><div class="elig-val">₹15,000/mo</div></div>
+    <div class="elig-box"><div class="elig-icon">📋</div><div class="elig-lbl">Credit Score</div><div class="elig-val">650+</div></div>
+    <div class="elig-box"><div class="elig-icon">🗂️</div><div class="elig-lbl">Employment</div><div class="elig-val">Salaried / SE</div></div>
+  </div>
+  <div style="margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,.1)">
+    <div class="sec-kicker" style="color:rgba(255,255,255,.35);margin-bottom:1.5rem">Documents needed</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem">
+      <div class="doc-card"><div class="icon">🪪</div><div class="title">Identity Proof</div><div class="sub">Aadhaar / PAN / Passport</div></div>
+      <div class="doc-card"><div class="icon">🏠</div><div class="title">Address Proof</div><div class="sub">Utility bill / Bank statement</div></div>
+      <div class="doc-card"><div class="icon">💼</div><div class="title">Income Proof</div><div class="sub">Salary slips / ITR 2 years</div></div>
+      <div class="doc-card"><div class="icon">🏦</div><div class="title">Bank Statement</div><div class="sub">Last 6 months</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section reveal" style="background:#f5e6c8">
+  <div class="sec-kicker">Common questions</div>
+  <h2 class="sec-h2" style="margin-bottom:3rem">Got <em>Questions?</em></h2>
+  <div style="max-width:760px">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does approval take?<span class="faq-icon">+</span></div><div class="faq-a">Most personal loan applications processed through RUPYA receive in-principle approval within 5–10 minutes. Final disbursement after document verification typically takes 4–24 hours, depending on the lender.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Will applying affect my CIBIL score?<span class="faq-icon">+</span></div><div class="faq-a">Checking your eligibility on RUPYA is a soft inquiry and does NOT affect your credit score. Your score is only impacted when a lender makes a hard inquiry after you formally apply.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I apply if I'm self-employed?<span class="faq-icon">+</span></div><div class="faq-a">Yes! Many of our 50+ partner lenders offer personal loans to self-employed individuals and business owners. You'll need to provide your ITR for the last 2 years and business financials.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the minimum credit score required?<span class="faq-icon">+</span></div><div class="faq-a">Most lenders require a CIBIL score of 650+. However, some NBFCs on our platform have more flexible criteria. Use our Eligibility Checker to see which lenders you qualify for.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is there a prepayment penalty?<span class="faq-icon">+</span></div><div class="faq-a">Varies by lender. Many of our partner banks offer zero prepayment charges after 6–12 months. We clearly show prepayment terms for every offer before you apply.</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal" data-word="APPLY">
+  <div class="cta-h2">Ready to <em>Apply?</em><br>Takes 3 Minutes.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Apply for Personal Loan</a>
+    <a href="eligibility.html" class="btn btn-out-w btn-lg">Check Eligibility First</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>

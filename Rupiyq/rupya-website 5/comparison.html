@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Bank Comparison — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.filter-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-bottom:2.5rem}
+.filter-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.5;margin-right:.3rem}
+.fbtn{padding:.5rem 1.2rem;border-radius:100px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .2s;border:2px solid rgba(26,26,26,.15);background:transparent;color:#1a1a1a;font-family:'Nunito',sans-serif}
+.fbtn:hover,.fbtn.active{background:#e85d2b;border-color:#e85d2b;color:#fff}
+.top3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
+.top-card{background:#fff;border-radius:10px;padding:2rem;text-align:center;border:2px solid transparent;transition:border-color .3s,transform .3s;cursor:none;position:relative}
+.top-card:hover{transform:translateY(-5px);border-color:rgba(232,93,43,.3)}
+.top-card.winner{border-color:#e85d2b;background:linear-gradient(135deg,#fff 80%,rgba(232,93,43,.04))}
+.winner-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .9rem;border-radius:100px;white-space:nowrap}
+.bank-logo-wrap{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto .8rem;font-weight:900;color:#fff}
+.bank-name{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.5;margin-bottom:.4rem}
+.bank-rate{font-size:3rem;font-weight:900;color:#e85d2b;line-height:1}
+.bank-rate-lbl{font-size:.7rem;opacity:.45;margin-top:.2rem;margin-bottom:1rem}
+.bank-meta{font-size:.78rem;color:rgba(26,26,26,.55);line-height:1.7;margin-bottom:1.2rem}
+.full-table{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,.06)}
+.full-table table{width:100%;border-collapse:collapse}
+.full-table th{background:#1a1a1a;color:#fff;padding:1rem 1.2rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;text-align:left;white-space:nowrap}
+.full-table td{padding:1.1rem 1.2rem;border-bottom:1px solid rgba(26,26,26,.07);font-size:.86rem;font-weight:600;vertical-align:middle}
+.full-table tr:hover td{background:rgba(232,93,43,.03)}
+.full-table tr.best-row td{background:rgba(232,93,43,.04)}
+.full-table tr.best-row td:first-child{border-left:3px solid #e85d2b}
+.rate-cell{font-size:1.2rem;font-weight:900;color:#e85d2b}
+.speed-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem}
+.green-dot{background:#2d7a3a}
+.yellow-dot{background:#e8b84b}
+.red-dot{background:#e84040}
+.badge-best{background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:100px;display:inline-block}
+.badge-fast{background:#2d7a3a;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:100px;display:inline-block}
+.sort-btn{background:none;border:none;cursor:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;opacity:.6;transition:opacity .2s;padding:0}
+.sort-btn:hover{opacity:1}
+.sort-btn.active{opacity:1;color:#e8b84b}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<div class="page-hero" style="background:#1a1a1a;color:#fff">
+  <div class="ph-kicker" style="color:rgba(255,255,255,.4)">Find your best deal</div>
+  <h1 class="ph-h1" style="color:#fff">Bank <em style="color:#e85d2b">Comparison</em></h1>
+  <p class="ph-sub" style="color:rgba(255,255,255,.6)">Compare interest rates, fees, and features from 50+ lenders side by side. Updated daily.</p>
+  <div class="ph-bg-word">COMPARE</div>
+</div>
+
+<div class="section" style="background:#f5e6c8">
+  <!-- Filters -->
+  <div class="filter-row">
+    <span class="filter-label">Loan Type:</span>
+    <button class="fbtn active" onclick="filter(this,'all')">All Loans</button>
+    <button class="fbtn" onclick="filter(this,'home')">Home Loan</button>
+    <button class="fbtn" onclick="filter(this,'personal')">Personal</button>
+    <button class="fbtn" onclick="filter(this,'car')">Car Loan</button>
+    <button class="fbtn" onclick="filter(this,'business')">Business</button>
+    <span class="filter-label" style="margin-left:1rem">Sort By:</span>
+    <button class="fbtn active" id="sortRate" onclick="sortBy(this,'rate')">Lowest Rate</button>
+    <button class="fbtn" id="sortFee" onclick="sortBy(this,'fee')">Lowest Fee</button>
+    <button class="fbtn" id="sortSpeed" onclick="sortBy(this,'speed')">Fastest</button>
+  </div>
+
+  <!-- TOP 3 CARDS -->
+  <div class="top3 reveal">
+    <div class="top-card winner">
+      <div class="winner-badge">🏆 Best Rate</div>
+      <div class="bank-logo-wrap" style="background:#0a4d8c">SBI</div>
+      <div class="bank-name">State Bank of India</div>
+      <div class="bank-rate">8.40%</div>
+      <div class="bank-rate-lbl">p.a. onwards · Home Loan</div>
+      <div class="bank-meta">Max ₹5 Cr · Up to 30 years<br>Processing fee: ₹5,000</div>
+      <a href="apply.html" class="btn btn-og btn-full">Apply Now</a>
+    </div>
+    <div class="top-card">
+      <div class="bank-logo-wrap" style="background:#004c97">HDFC</div>
+      <div class="bank-name">HDFC Bank</div>
+      <div class="bank-rate">8.50%</div>
+      <div class="bank-rate-lbl">p.a. onwards · Home Loan</div>
+      <div class="bank-meta">Max ₹10 Cr · Up to 30 years<br>Processing fee: ₹7,500</div>
+      <a href="apply.html" class="btn btn-out btn-full">Apply Now</a>
+    </div>
+    <div class="top-card">
+      <div class="bank-logo-wrap" style="background:#b02a2a">Bajaj</div>
+      <div class="bank-name">Bajaj Finserv</div>
+      <div class="bank-rate">10.49%</div>
+      <div class="bank-rate-lbl">p.a. onwards · Personal Loan</div>
+      <div class="bank-meta">Max ₹35L · Up to 5 years<br>Processing fee: ₹2,999</div>
+      <a href="apply.html" class="btn btn-out btn-full">Apply Now</a>
+    </div>
+  </div>
+
+  <!-- FULL TABLE -->
+  <div class="full-table reveal">
+    <table id="compTable">
+      <thead>
+        <tr>
+          <th>Bank / NBFC</th>
+          <th><button class="sort-btn active" onclick="sortBy(null,'rate')">Rate ↕</button></th>
+          <th>Max Loan</th>
+          <th>Max Tenure</th>
+          <th><button class="sort-btn" onclick="sortBy(null,'fee')">Processing Fee ↕</button></th>
+          <th>Prepayment</th>
+          <th><button class="sort-btn" onclick="sortBy(null,'speed')">Approval ↕</button></th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="compBody"></tbody>
+    </table>
+  </div>
+  <p style="font-size:.72rem;color:rgba(26,26,26,.4);margin-top:1.2rem;line-height:1.6">* Rates are indicative and subject to change. Actual rate depends on your profile and lender's discretion. Last updated: March 2026.</p>
+</div>
+
+<!-- WHY COMPARE -->
+<div class="section reveal" style="background:#e85d2b;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-size:28vw;font-weight:900;color:rgba(0,0,0,.06);line-height:1;pointer-events:none">SAVE</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;position:relative;z-index:2">
+    <div><div style="font-size:3rem;font-weight:900;color:#fff;margin-bottom:.5rem">₹2.3L</div><div style="font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem">Average Savings</div><div style="font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.6">Our users save an average of ₹2.3 lakh over the loan tenure by comparing lenders instead of going direct.</div></div>
+    <div><div style="font-size:3rem;font-weight:900;color:#fff;margin-bottom:.5rem">50+</div><div style="font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem">Lenders Compared</div><div style="font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.6">PSU banks, private banks, NBFCs and fintech lenders — all in one place with real-time rate data.</div></div>
+    <div><div style="font-size:3rem;font-weight:900;color:#fff;margin-bottom:.5rem">60s</div><div style="font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem">To See Your Offers</div><div style="font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.6">Enter your profile once. See personalised offers from all lenders ranked by the best deal for you.</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal" data-word="BEST">
+  <div class="cta-h2">Found Your <em>Best</em><br>Rate? Apply Now.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Start Application</a>
+    <a href="eligibility.html" class="btn btn-out-w btn-lg">Check Eligibility First</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+const DATA=[
+  {bank:'SBI',full:'State Bank of India',rate:8.40,max:'₹5 Cr',tenure:'30 yrs',fee:5000,prepay:'Nil',speed:1,speedLbl:'24 hrs',type:'home',color:'#0a4d8c'},
+  {bank:'HDFC',full:'HDFC Bank',rate:8.50,max:'₹10 Cr',tenure:'30 yrs',fee:7500,prepay:'Nil after 12 mo',speed:1,speedLbl:'Same day',type:'home',color:'#004c97'},
+  {bank:'ICICI',full:'ICICI Bank',rate:8.75,max:'₹5 Cr',tenure:'30 yrs',fee:6000,prepay:'Nil (floating)',speed:2,speedLbl:'48 hrs',type:'home',color:'#b02a2a'},
+  {bank:'Axis',full:'Axis Bank',rate:8.75,max:'₹3 Cr',tenure:'25 yrs',fee:10000,prepay:'Nil after 12 mo',speed:2,speedLbl:'48 hrs',type:'home',color:'#8b1a1a'},
+  {bank:'Kotak',full:'Kotak Mahindra Bank',rate:8.85,max:'₹2 Cr',tenure:'20 yrs',fee:10000,prepay:'2% penalty',speed:2,speedLbl:'48 hrs',type:'home',color:'#e74c1a'},
+  {bank:'SBI',full:'State Bank of India',rate:10.30,max:'₹20L',tenure:'7 yrs',fee:500,prepay:'Nil',speed:2,speedLbl:'24 hrs',type:'personal',color:'#0a4d8c'},
+  {bank:'HDFC',full:'HDFC Bank',rate:10.50,max:'₹40L',tenure:'7 yrs',fee:4999,prepay:'Nil after 12 mo',speed:1,speedLbl:'Same day',type:'personal',color:'#004c97'},
+  {bank:'Bajaj',full:'Bajaj Finserv',rate:10.99,max:'₹35L',tenure:'5 yrs',fee:2999,prepay:'Nil after 6 mo',speed:1,speedLbl:'2 hrs',type:'personal',color:'#b02a2a'},
+  {bank:'ICICI',full:'ICICI Bank',rate:10.65,max:'₹50L',tenure:'7 yrs',fee:3000,prepay:'Nil (floating)',speed:1,speedLbl:'Same day',type:'personal',color:'#b02a2a'},
+  {bank:'Tata',full:'Tata Capital',rate:10.99,max:'₹35L',tenure:'6 yrs',fee:2500,prepay:'Nil',speed:2,speedLbl:'24 hrs',type:'personal',color:'#2196a8'},
+  {bank:'HDFC',full:'HDFC Bank',rate:9.00,max:'₹5 Cr',tenure:'7 yrs',fee:5000,prepay:'Nil',speed:1,speedLbl:'24 hrs',type:'car',color:'#004c97'},
+  {bank:'SBI',full:'State Bank of India',rate:8.90,max:'₹1 Cr',tenure:'7 yrs',fee:1000,prepay:'Nil',speed:2,speedLbl:'48 hrs',type:'car',color:'#0a4d8c'},
+  {bank:'ICICI',full:'ICICI Bank',rate:9.10,max:'₹1 Cr',tenure:'7 yrs',fee:3500,prepay:'Nil',speed:1,speedLbl:'Same day',type:'car',color:'#b02a2a'},
+  {bank:'Bajaj',full:'Bajaj Finance',rate:11.00,max:'₹50L',tenure:'5 yrs',fee:3000,prepay:'2% penalty',speed:1,speedLbl:'4 hrs',type:'business',color:'#b02a2a'},
+  {bank:'HDFC',full:'HDFC Bank',rate:11.90,max:'₹75L',tenure:'4 yrs',fee:6650,prepay:'Nil after 12 mo',speed:2,speedLbl:'48 hrs',type:'business',color:'#004c97'},
+];
+
+let curFilter='all', curSort='rate';
+
+function filter(btn,type){
+  curFilter=type;
+  document.querySelectorAll('.fbtn').forEach(b=>{if(['all','home','personal','car','business'].includes(b.textContent.trim().toLowerCase().replace(' loan','').replace('all loans','all'))||b.id){}});
+  // simpler: toggle active on type buttons only
+  btn.parentElement.querySelectorAll('.fbtn:not([id])').forEach(b=>b.classList.remove('active'));
+  if(!btn.id)btn.classList.add('active');
+  render();
+}
+function sortBy(btn,key){
+  curSort=key;
+  document.querySelectorAll('[id^=sort]').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  render();
+}
+function render(){
+  let rows=[...DATA];
+  if(curFilter!=='all')rows=rows.filter(r=>r.type===curFilter);
+  if(curSort==='rate')rows.sort((a,b)=>a.rate-b.rate);
+  else if(curSort==='fee')rows.sort((a,b)=>a.fee-b.fee);
+  else if(curSort==='speed')rows.sort((a,b)=>a.speed-b.speed);
+  const best=rows[0];
+  document.getElementById('compBody').innerHTML=rows.map((r,i)=>`
+    <tr class="${i===0?'best-row':''}">
+      <td><div style="display:flex;align-items:center;gap:.8rem"><div style="width:36px;height:36px;border-radius:50%;background:${r.color};color:#fff;font-weight:900;font-size:.65rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">${r.bank}</div><div><div style="font-weight:800;font-size:.9rem">${r.full}</div><div style="font-size:.68rem;opacity:.45;text-transform:capitalize">${r.type} loan</div></div></div></td>
+      <td><span class="rate-cell">${r.rate.toFixed(2)}%</span>${i===0?'<span class="badge-best" style="margin-left:.4rem">Best</span>':''}</td>
+      <td>${r.max}</td>
+      <td>${r.tenure}</td>
+      <td>₹${r.fee.toLocaleString('en-IN')}</td>
+      <td style="font-size:.8rem">${r.prepay}</td>
+      <td><span class="speed-dot ${r.speed===1?'green-dot':'yellow-dot'}"></span>${r.speedLbl}${r.speed===1?'<span class="badge-fast" style="margin-left:.3rem">Fast</span>':''}</td>
+      <td><a href="apply.html" class="btn btn-og" style="padding:.5rem 1.1rem;font-size:.7rem">Apply</a></td>
+    </tr>`).join('');
+}
+render();
+</script>
+</body>
+</html>

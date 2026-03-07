@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Apply for a Loan — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.apply-layout{display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start}
+.apply-sidebar{background:#1a1a1a;color:#fff;border-radius:12px;padding:2.5rem;position:sticky;top:7rem}
+.as-title{font-size:1.1rem;font-weight:900;margin-bottom:1.5rem}
+.benefit{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1.2rem}
+.benefit-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.benefit-text{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.5}
+.benefit-text strong{color:#fff;display:block;font-size:.88rem;margin-bottom:.15rem}
+.as-div{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.5rem 0}
+.as-stat{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.as-stat-l{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;opacity:.4;font-weight:800}
+.as-stat-v{font-size:1.1rem;font-weight:900;color:#e8b84b}
+#apply-success{display:none}
+.success-wrap{text-align:center;padding:4rem 2rem}
+.success-icon{font-size:5rem;margin-bottom:1rem;animation:fadeUp .5s ease both}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<div class="page-hero" style="background:#1a1a1a;color:#fff">
+  <div class="ph-kicker" style="color:rgba(255,255,255,.45)">Get funded fast</div>
+  <h1 class="ph-h1" style="color:#fff">Apply for a <em style="color:#e85d2b">Loan</em></h1>
+  <p class="ph-sub" style="color:rgba(255,255,255,.6)">3 minutes to apply. 4 hours to approval. Simple, transparent, zero platform fee.</p>
+  <div class="ph-bg-word">APPLY</div>
+</div>
+
+<div class="section" style="background:#f5e6c8">
+  <!-- Loan type tabs -->
+  <div style="margin-bottom:2rem">
+    <div class="sec-kicker">Choose loan type</div>
+    <div class="loan-tabs" style="margin-top:1rem">
+      <button class="ltab active" id="tab-personal" onclick="selectTab(this,'personal')">💼 Personal</button>
+      <button class="ltab" id="tab-home" onclick="selectTab(this,'home')">🏠 Home</button>
+      <button class="ltab" id="tab-car" onclick="selectTab(this,'car')">🚗 Car</button>
+      <button class="ltab" id="tab-business" onclick="selectTab(this,'business')">📈 Business</button>
+      <button class="ltab" id="tab-education" onclick="selectTab(this,'education')">📚 Education</button>
+      <button class="ltab" id="tab-gold" onclick="selectTab(this,'gold')">🥇 Gold</button>
+    </div>
+  </div>
+
+  <!-- Step indicator -->
+  <div class="step-indicator" id="stepInd">
+    <div class="si-step"><div class="si-num active" id="si1">1</div><div class="si-label active" id="sl1">Personal Info</div></div>
+    <div class="si-line" id="sln1"></div>
+    <div class="si-step"><div class="si-num" id="si2">2</div><div class="si-label" id="sl2">Loan Details</div></div>
+    <div class="si-line" id="sln2"></div>
+    <div class="si-step"><div class="si-num" id="si3">3</div><div class="si-label" id="sl3">Employment</div></div>
+    <div class="si-line" id="sln3"></div>
+    <div class="si-step"><div class="si-num" id="si4">4</div><div class="si-label" id="sl4">Review & Submit</div></div>
+  </div>
+
+  <div class="apply-layout">
+    <div>
+      <!-- STEP 1 -->
+      <div id="step1">
+        <div class="form-section">
+          <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:1.8rem">Personal Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Rahul"/></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Sharma"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Mobile Number</label><input type="tel" id="mobile" placeholder="+91 98765 43210"/></div>
+            <div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="rahul@email.com"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Date of Birth</label><input type="date" id="dob"/></div>
+            <div class="form-group"><label>PAN Number</label><input type="text" id="pan" placeholder="ABCDE1234F"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>City</label><input type="text" id="city" placeholder="Mumbai"/></div>
+            <div class="form-group"><label>PIN Code</label><input type="text" id="pin" placeholder="400001"/></div>
+          </div>
+          <button class="btn btn-og btn-lg btn-full" onclick="goStep(2)" style="margin-top:.8rem">Continue to Loan Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" style="display:none">
+        <div class="form-section">
+          <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:1.8rem">Loan Details</h3>
+          <div class="range-wrap">
+            <div class="range-top"><span class="range-label">Loan Amount</span><span class="range-val" id="amtVal">₹5,00,000</span></div>
+            <input type="range" id="amtR" min="50000" max="5000000" step="50000" value="500000" oninput="updAmt()"/>
+            <div style="display:flex;justify-content:space-between;font-size:.67rem;opacity:.38;font-weight:700;margin-top:.4rem"><span>₹50K</span><span>₹50L</span></div>
+          </div>
+          <div class="range-wrap">
+            <div class="range-top"><span class="range-label">Tenure</span><span class="range-val" id="tenVal">36 Months</span></div>
+            <input type="range" id="tenR" min="6" max="84" step="6" value="36" oninput="updTen()"/>
+            <div style="display:flex;justify-content:space-between;font-size:.67rem;opacity:.38;font-weight:700;margin-top:.4rem"><span>6 Mo</span><span>7 Yrs</span></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Purpose</label><select><option>Medical Emergency</option><option>Wedding</option><option>Travel</option><option>Education</option><option>Home Renovation</option><option>Debt Consolidation</option><option>Other</option></select></div>
+            <div class="form-group"><label>Existing Loans?</label><select><option>No</option><option>Yes — 1 loan</option><option>Yes — 2+ loans</option></select></div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:.8rem">
+            <button class="btn btn-out" onclick="goStep(1)">← Back</button>
+            <button class="btn btn-og btn-lg" style="flex:1" onclick="goStep(3)">Continue to Employment →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" style="display:none">
+        <div class="form-section">
+          <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:1.8rem">Employment Details</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Employment Type</label><select id="empType"><option value="salaried">Salaried</option><option value="self">Self-Employed</option><option value="business">Business Owner</option></select></div>
+            <div class="form-group"><label>Company / Business Name</label><input type="text" placeholder="Tata Consultancy Services"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Monthly Income (Net)</label><input type="text" id="income" placeholder="₹ 75,000"/></div>
+            <div class="form-group"><label>Work Experience</label><select><option>Less than 1 year</option><option>1–2 years</option><option>2–5 years</option><option>5–10 years</option><option>10+ years</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>CIBIL Score (approx)</label><select><option>750+</option><option>700–750</option><option>650–700</option><option>600–650</option><option>Below 600</option><option>Don't know</option></select></div>
+            <div class="form-group"><label>Existing EMIs / Month</label><input type="text" placeholder="₹ 0"/></div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:.8rem">
+            <button class="btn btn-out" onclick="goStep(2)">← Back</button>
+            <button class="btn btn-og btn-lg" style="flex:1" onclick="goStep(4)">Review Application →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div id="step4" style="display:none">
+        <div class="form-section">
+          <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:1.8rem">Review & Submit</h3>
+          <div id="summaryBox" style="background:#f5f0e8;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem">
+            <div id="summaryGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"></div>
+          </div>
+          <div style="background:#fff3f0;border:1px solid rgba(232,93,43,.2);border-radius:8px;padding:1.2rem;margin-bottom:1.5rem;font-size:.82rem;line-height:1.6;color:rgba(26,26,26,.65)">
+            By submitting you agree to RUPYA's <a href="#" style="color:#e85d2b;font-weight:700">Terms</a> &amp; <a href="#" style="color:#e85d2b;font-weight:700">Privacy Policy</a>. Checking offers will <strong>not</strong> affect your CIBIL score.
+          </div>
+          <div style="display:flex;gap:1rem">
+            <button class="btn btn-out" onclick="goStep(3)">← Back</button>
+            <button class="btn btn-og btn-lg" style="flex:1" onclick="submitApp()">🚀 Submit Application</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div id="apply-success">
+        <div class="form-section success-wrap">
+          <div class="success-icon">🎉</div>
+          <h3 style="font-size:1.8rem;font-weight:900;margin-bottom:.8rem">Application Submitted!</h3>
+          <p style="color:rgba(26,26,26,.6);line-height:1.7;margin-bottom:2rem;max-width:400px;margin-inline:auto">Our team is reviewing your application. You'll receive matched offers on your mobile within <strong>60 seconds</strong>.</p>
+          <div style="background:#f5e6c8;border-radius:8px;padding:1.5rem;margin-bottom:2rem;display:inline-block;min-width:300px">
+            <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5;margin-bottom:.3rem">Application ID</div>
+            <div id="appId" style="font-size:1.6rem;font-weight:900;color:#e85d2b"></div>
+          </div>
+          <div style="display:flex;gap:1rem;justify-content:center">
+            <a href="comparison.html" class="btn btn-og">Compare Offers</a>
+            <a href="index.html" class="btn btn-out">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="apply-sidebar">
+      <div class="as-title">Why RUPYA?</div>
+      <div class="benefit"><div class="benefit-icon">⚡</div><div class="benefit-text"><strong>Instant Pre-Approval</strong>See your eligibility in under 60 seconds, zero CIBIL impact.</div></div>
+      <div class="benefit"><div class="benefit-icon">🏦</div><div class="benefit-text"><strong>50+ Lenders Compared</strong>HDFC, SBI, Bajaj, Axis, ICICI and 45 more — ranked for your profile.</div></div>
+      <div class="benefit"><div class="benefit-icon">🔍</div><div class="benefit-text"><strong>Full Transparency</strong>Every fee shown upfront. No surprises after you apply.</div></div>
+      <div class="benefit"><div class="benefit-icon">🛡️</div><div class="benefit-text"><strong>100% Secure</strong>256-bit encrypted. Your data is never sold to third parties.</div></div>
+      <hr class="as-div"/>
+      <div class="as-stat"><span class="as-stat-l">Avg. Approval Time</span><span class="as-stat-v">4 HRS</span></div>
+      <div class="as-stat"><span class="as-stat-l">Platform Fee</span><span class="as-stat-v">₹0</span></div>
+      <div class="as-stat"><span class="as-stat-l">Lenders</span><span class="as-stat-v">50+</span></div>
+      <div class="as-stat"><span class="as-stat-l">Loans Funded</span><span class="as-stat-v">₹12K Cr</span></div>
+      <hr class="as-div"/>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.35);line-height:1.6">Need help? Call us at<br><strong style="color:#e8b84b;font-size:.9rem">1800-XXX-XXXX</strong> (Toll Free)</div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+<script src="shared.js"></script>
+<script>
+let curStep=1, loanType='personal';
+function selectTab(btn,t){loanType=t;document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function goStep(n){
+  if(n>curStep){if(curStep===1&&(!document.getElementById('fname').value||!document.getElementById('mobile').value)){showToast('Please fill all required fields','error');return}}
+  document.getElementById('step'+curStep).style.display='none';
+  curStep=n;
+  const el=document.getElementById('step'+n);
+  if(el){el.style.display='block'}
+  // update indicator
+  for(let i=1;i<=4;i++){
+    document.getElementById('si'+i).className='si-num'+(i<n?' done':i===n?' active':'');
+    document.getElementById('sl'+i).className='si-label'+(i===n?' active':'');
+    if(i<4)document.getElementById('sln'+i).className='si-line'+(i<n?' done':'');
+  }
+  if(n===4)buildSummary();
+}
+function updAmt(){const v=parseInt(document.getElementById('amtR').value);document.getElementById('amtVal').textContent=fmtINR(v)}
+function updTen(){const v=document.getElementById('tenR').value;document.getElementById('tenVal').textContent=v+' Months'}
+function buildSummary(){
+  const items=[['Loan Type',loanType.charAt(0).toUpperCase()+loanType.slice(1)+' Loan'],['Amount',fmtINR(parseInt(document.getElementById('amtR').value))],['Tenure',document.getElementById('tenVal').textContent],['Name',(document.getElementById('fname').value+' '+document.getElementById('lname').value).trim()||'—'],['Mobile',document.getElementById('mobile').value||'—'],['Email',document.getElementById('email').value||'—']];
+  document.getElementById('summaryGrid').innerHTML=items.map(([l,v])=>`<div><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;opacity:.45;font-weight:800;margin-bottom:.2rem">${l}</div><div style="font-weight:800;font-size:.9rem">${v}</div></div>`).join('');
+}
+function submitApp(){
+  document.getElementById('step4').style.display='none';
+  document.getElementById('stepInd').style.display='none';
+  document.getElementById('apply-success').style.display='block';
+  document.getElementById('appId').textContent='RUP'+Date.now().toString().slice(-8);
+  showToast('Application submitted! 🎉','success');
+}
+</script>
+</body>
+</html>

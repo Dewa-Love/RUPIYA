@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Loan Calculator — RUPYA</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.calc-panel{background:#fff;border-radius:12px;padding:2.5rem;box-shadow:0 4px 30px rgba(0,0,0,.06)}
+.result-panel{background:#1a1a1a;border-radius:12px;padding:2.5rem;position:sticky;top:7rem;color:#fff}
+.emi-num{font-size:4rem;font-weight:900;color:#e8b84b;line-height:1;margin:1rem 0}
+.emi-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1)}
+.eb-label{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;opacity:.4;margin-bottom:.3rem}
+.eb-val{font-size:1.2rem;font-weight:900}
+.interest-bar-wrap{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1)}
+.ibar-track{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin:.6rem 0}
+.ibar-fill{height:100%;background:linear-gradient(90deg,#e8b84b,#e85d2b);border-radius:4px;transition:width .5s ease}
+.amort-wrap{margin-top:3rem}
+.amort-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.amort-table th{background:#1a1a1a;color:#fff;padding:.75rem 1rem;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;text-align:right}
+.amort-table th:first-child{text-align:left}
+.amort-table td{padding:.75rem 1rem;border-bottom:1px solid rgba(26,26,26,.07);text-align:right;font-weight:600}
+.amort-table td:first-child{text-align:left;font-weight:800}
+.amort-table tr:hover td{background:rgba(232,93,43,.04)}
+.amort-table tr:nth-child(even) td{background:rgba(26,26,26,.02)}
+/* donut chart */
+.donut-wrap{position:relative;width:150px;height:150px;margin:1.5rem auto}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-label .pct{font-size:1.4rem;font-weight:900;color:#e8b84b;line-height:1}
+.donut-label .sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;opacity:.4;margin-top:.1rem}
+.legend{display:flex;justify-content:center;gap:1.5rem;margin-top:.5rem}
+.leg-item{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700}
+.leg-dot{width:10px;height:10px;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="logo">RUP<span>&#8377;</span>YA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-has-drop">
+      <a href="personal-loan.html" class="nav-loans-trigger">Loans</a>
+      <div class="mega-drop">
+        <div class="mega-drop-title">Choose Your Loan Type</div>
+        <a href="home-loan.html" class="mega-drop-item"><span class="mdi">🏠</span><span class="mdt"><span class="mdt-n">Home Loan</span><span class="mdt-r">From 8.4%</span></span></a>
+        <a href="personal-loan.html" class="mega-drop-item"><span class="mdi">💼</span><span class="mdt"><span class="mdt-n">Personal Loan</span><span class="mdt-r">From 10.5%</span></span></a>
+        <a href="car-loan.html" class="mega-drop-item"><span class="mdi">🚗</span><span class="mdt"><span class="mdt-n">Car Loan</span><span class="mdt-r">From 9.0%</span></span></a>
+        <a href="business-loan.html" class="mega-drop-item"><span class="mdi">📈</span><span class="mdt"><span class="mdt-n">Business Loan</span><span class="mdt-r">From 11.0%</span></span></a>
+        <a href="gold-loan.html" class="mega-drop-item"><span class="mdi">🥇</span><span class="mdt"><span class="mdt-n">Gold Loan</span><span class="mdt-r">From 8.8%</span></span></a>
+        <a href="education-loan.html" class="mega-drop-item"><span class="mdi">🎓</span><span class="mdt"><span class="mdt-n">Education Loan</span><span class="mdt-r">From 8.5%</span></span></a>
+        <a href="lap-loan.html" class="mega-drop-item"><span class="mdi">🏢</span><span class="mdt"><span class="mdt-n">Loan Against Property</span><span class="mdt-r">From 9.5%</span></span></a>
+        <div class="mega-drop-divider"></div>
+        <a href="comparison.html" class="mega-drop-item" style="grid-column:1/-1"><span class="mdi">⚖️</span><span class="mdt"><span class="mdt-n">Compare All Banks</span><span class="mdt-r">Side-by-side rates</span></span></a>
+      </div>
+    </li>
+    <li><a href="eligibility.html">Eligibility</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="comparison.html">Compare Banks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="apply.html" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav" style="display:none">
+  <div class="nm-section">
+    <div class="nm-title">Navigation</div>
+    <a href="index.html" class="nm-link"><span class="nm-ic">🏠</span>Home</a>
+    <a href="eligibility.html" class="nm-link"><span class="nm-ic">✅</span>Eligibility Checker</a>
+    <a href="calculator.html" class="nm-link"><span class="nm-ic">🧮</span>EMI Calculator</a>
+    <a href="comparison.html" class="nm-link"><span class="nm-ic">⚖️</span>Compare Banks</a>
+    <a href="about.html" class="nm-link"><span class="nm-ic">ℹ️</span>About Us</a>
+    <a href="contact.html" class="nm-link"><span class="nm-ic">📞</span>Contact</a>
+  </div>
+  <div class="nm-section">
+    <div class="nm-title">Loan Products</div>
+    <a href="home-loan.html" class="nm-link"><span class="nm-ic">🏠</span>Home Loan<span class="nm-rate">8.4%+</span></a>
+    <a href="personal-loan.html" class="nm-link"><span class="nm-ic">💼</span>Personal Loan<span class="nm-rate">10.5%+</span></a>
+    <a href="car-loan.html" class="nm-link"><span class="nm-ic">🚗</span>Car Loan<span class="nm-rate">9.0%+</span></a>
+    <a href="business-loan.html" class="nm-link"><span class="nm-ic">📈</span>Business Loan<span class="nm-rate">11.0%+</span></a>
+    <a href="gold-loan.html" class="nm-link"><span class="nm-ic">🥇</span>Gold Loan<span class="nm-rate">8.8%+</span></a>
+    <a href="education-loan.html" class="nm-link"><span class="nm-ic">🎓</span>Education Loan<span class="nm-rate">8.5%+</span></a>
+    <a href="lap-loan.html" class="nm-link"><span class="nm-ic">🏢</span>Loan Against Property<span class="nm-rate">9.5%+</span></a>
+  </div>
+  <div class="nm-section">
+    <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.5rem">Apply Now — Free</a>
+    <a href="partner-with-us.html" class="btn btn-out btn-full" style="margin-top:.7rem">Partner With Us</a>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  </div>
+
+<!-- HERO -->
+<div class="page-hero" style="background:#f5e6c8">
+  <div class="ph-kicker">Know before you borrow</div>
+  <h1 class="ph-h1">Loan <em>Calculator</em></h1>
+  <p class="ph-sub">Calculate your exact EMI, total interest payable, and a full year-by-year amortisation schedule — instantly.</p>
+  <div class="ph-bg-word" style="color:rgba(26,26,26,.04)">CALC</div>
+</div>
+
+<div class="section" style="background:#fff">
+  <!-- Loan type tabs -->
+  <div class="loan-tabs">
+    <button class="ltab active" onclick="setType(this,8.4,30,'home')">🏠 Home Loan</button>
+    <button class="ltab" onclick="setType(this,10.5,7,'personal')">💼 Personal Loan</button>
+    <button class="ltab" onclick="setType(this,9.0,7,'car')">🚗 Car Loan</button>
+    <button class="ltab" onclick="setType(this,11.0,5,'business')">📈 Business Loan</button>
+    <button class="ltab" onclick="setType(this,8.5,15,'education')">📚 Education</button>
+  </div>
+
+  <div class="calc-wrap">
+    <!-- INPUT PANEL -->
+    <div class="calc-panel reveal-l">
+      <h3 style="font-size:1.1rem;font-weight:900;margin-bottom:1.8rem">Loan Parameters</h3>
+
+      <div class="range-wrap">
+        <div class="range-top"><span class="range-label">Loan Amount</span><span class="range-val" id="rAmtV">₹50L</span></div>
+        <input type="range" id="rAmt" min="100000" max="10000000" step="100000" value="5000000" oninput="calc()"/>
+        <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.35;font-weight:700;margin-top:.3rem"><span>₹1L</span><span>₹1Cr</span></div>
+      </div>
+
+      <div class="range-wrap">
+        <div class="range-top"><span class="range-label">Interest Rate (p.a.)</span><span class="range-val" id="rRateV">8.4%</span></div>
+        <input type="range" id="rRate" min="5" max="30" step="0.1" value="8.4" oninput="calc()"/>
+        <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.35;font-weight:700;margin-top:.3rem"><span>5%</span><span>30%</span></div>
+      </div>
+
+      <div class="range-wrap">
+        <div class="range-top"><span class="range-label">Tenure</span><span class="range-val" id="rTenV">20 Yrs</span></div>
+        <input type="range" id="rTen" min="1" max="30" step="1" value="20" oninput="calc()"/>
+        <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.35;font-weight:700;margin-top:.3rem"><span>1 Year</span><span>30 Years</span></div>
+      </div>
+
+      <!-- Donut chart -->
+      <div class="donut-wrap">
+        <svg viewBox="0 0 120 120" width="150" height="150">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#f5e6c8" stroke-width="16"/>
+          <circle id="donutInt" cx="60" cy="60" r="46" fill="none" stroke="#e85d2b" stroke-width="16" stroke-dasharray="0 289" style="transition:stroke-dasharray .6s ease"/>
+          <circle id="donutPrin" cx="60" cy="60" r="46" fill="none" stroke="#e8b84b" stroke-width="16" stroke-dasharray="0 289" stroke-dashoffset="0" style="transition:stroke-dasharray .6s ease,stroke-dashoffset .6s ease"/>
+        </svg>
+        <div class="donut-label"><div class="pct" id="donutPct">0%</div><div class="sub">Interest</div></div>
+      </div>
+      <div class="legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#e8b84b"></div>Principal</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#e85d2b"></div>Interest</div>
+      </div>
+    </div>
+
+    <!-- RESULT PANEL -->
+    <div class="result-panel reveal-r">
+      <div style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;opacity:.4;margin-bottom:.3rem">Monthly EMI</div>
+      <div class="emi-num" id="emiVal">₹0</div>
+
+      <div class="emi-breakdown">
+        <div><div class="eb-label">Principal Amount</div><div class="eb-val" id="rPrin">₹0</div></div>
+        <div><div class="eb-label">Total Interest</div><div class="eb-val" id="rInt" style="color:#e85d2b">₹0</div></div>
+        <div><div class="eb-label">Total Payment</div><div class="eb-val" id="rTotal">₹0</div></div>
+        <div><div class="eb-label">Interest Rate</div><div class="eb-val" id="rRate2">0%</div></div>
+      </div>
+
+      <div class="interest-bar-wrap">
+        <div style="display:flex;justify-content:space-between;font-size:.68rem;opacity:.45;margin-bottom:.2rem"><span>Principal</span><span id="intPct">0%</span></div>
+        <div class="ibar-track"><div class="ibar-fill" id="ibarFill" style="width:0%"></div></div>
+        <div style="font-size:.68rem;opacity:.3;margin-top:.3rem">Interest cost as % of total repayment</div>
+      </div>
+
+      <a href="apply.html" class="btn btn-og btn-full" style="margin-top:1.5rem">Apply for this Loan →</a>
+      <a href="comparison.html" class="btn btn-out-w btn-full" style="margin-top:.6rem">Compare Lenders</a>
+    </div>
+  </div>
+
+  <!-- AMORTISATION TABLE -->
+  <div class="amort-wrap reveal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <h3 style="font-size:1.2rem;font-weight:900">Year-by-Year Amortisation</h3>
+      <span style="font-size:.72rem;opacity:.45;font-weight:700">All values in ₹</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="amort-table">
+        <thead><tr><th>Year</th><th>Opening Balance</th><th>Principal Paid</th><th>Interest Paid</th><th>Total Paid</th><th>Closing Balance</th></tr></thead>
+        <tbody id="amortBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal" data-word="EMI">
+  <div class="cta-h2">Ready to <em>Apply?</em><br>Best Rates Await.</div>
+  <div class="cta-actions">
+    <a href="apply.html" class="btn btn-wh btn-lg">Apply Now — Free</a>
+    <a href="eligibility.html" class="btn btn-out-w btn-lg">Check Eligibility</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">RUP<span>₹</span>YA</a>
+      <p class="footer-tagline">India&#39;s most transparent loan marketplace. Compare, apply, and get funded — completely free.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Loans</h5>
+      <ul>
+        <li><a href="home-loan.html">Home Loan</a></li>
+        <li><a href="personal-loan.html">Personal Loan</a></li>
+        <li><a href="car-loan.html">Car Loan</a></li>
+        <li><a href="business-loan.html">Business Loan</a></li>
+        <li><a href="gold-loan.html">Gold Loan</a></li>
+        <li><a href="education-loan.html">Education Loan</a></li>
+        <li><a href="lap-loan.html">Loan Against Property</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="calculator.html">EMI Calculator</a></li>
+        <li><a href="eligibility.html">Eligibility Checker</a></li>
+        <li><a href="comparison.html">Compare Banks</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="customer-reviews.html">Customer Reviews</a></li>
+        <li><a href="partner-with-us.html">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RUPYA Financial Technologies Pvt. Ltd. · RBI Registered</span>
+    <span>Made for India 🇮🇳</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function setType(btn,rate,maxYrs,type){
+  document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rRate').value=rate;
+  document.getElementById('rTen').max=maxYrs;
+  if(parseInt(document.getElementById('rTen').value)>maxYrs) document.getElementById('rTen').value=maxYrs;
+  calc();
+}
+
+function calc(){
+  const P=parseFloat(document.getElementById('rAmt').value);
+  const annR=parseFloat(document.getElementById('rRate').value);
+  const yrs=parseInt(document.getElementById('rTen').value);
+  const r=annR/(12*100);
+  const n=yrs*12;
+
+  document.getElementById('rAmtV').textContent=fmtINR(P);
+  document.getElementById('rRateV').textContent=annR.toFixed(1)+'%';
+  document.getElementById('rTenV').textContent=yrs+(yrs===1?' Year':' Years');
+
+  const emi=P*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const totalPay=emi*n;
+  const totalInt=totalPay-P;
+  const intPct=Math.round((totalInt/totalPay)*100);
+
+  document.getElementById('emiVal').textContent=fmtFull(emi);
+  document.getElementById('rPrin').textContent=fmtINR(P);
+  document.getElementById('rInt').textContent=fmtINR(totalInt);
+  document.getElementById('rTotal').textContent=fmtINR(totalPay);
+  document.getElementById('rRate2').textContent=annR.toFixed(1)+'%';
+  document.getElementById('intPct').textContent=intPct+'%';
+  document.getElementById('ibarFill').style.width=intPct+'%';
+  document.getElementById('donutPct').textContent=intPct+'%';
+
+  // Donut chart
+  const circ=289;
+  const intArc=(totalInt/totalPay)*circ;
+  const prinArc=circ-intArc;
+  document.getElementById('donutInt').setAttribute('stroke-dasharray',`${intArc} ${circ}`);
+  document.getElementById('donutPrin').setAttribute('stroke-dasharray',`${prinArc} ${circ}`);
+  document.getElementById('donutPrin').setAttribute('stroke-dashoffset',`${-intArc}`);
+
+  // Amortisation table
+  let bal=P; const rows=[];
+  for(let y=1;y<=yrs;y++){
+    let yPrin=0,yInt=0;
+    for(let m=0;m<12;m++){
+      const intPay=bal*r;
+      const prinPay=emi-intPay;
+      yInt+=intPay; yPrin+=prinPay; bal-=prinPay;
+    }
+    if(bal<0)bal=0;
+    rows.push(`<tr${y===yrs?' style="font-weight:900"':''}><td>Year ${y}</td><td>${fmtFull(bal+yPrin)}</td><td>${fmtFull(yPrin)}</td><td style="color:#e85d2b">${fmtFull(yInt)}</td><td>${fmtFull(yPrin+yInt)}</td><td>${fmtFull(Math.max(0,bal))}</td></tr>`);
+  }
+  document.getElementById('amortBody').innerHTML=rows.join('');
+}
+calc();
+</script>
+</body>
+</html>
