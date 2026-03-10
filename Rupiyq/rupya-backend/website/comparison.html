@@ -238,21 +238,44 @@
 <script src="shared.js"></script>
 <script>
 const DATA=[
-  {bank:'SBI',full:'State Bank of India',rate:8.40,max:'₹5 Cr',tenure:'30 yrs',fee:5000,prepay:'Nil',speed:1,speedLbl:'24 hrs',type:'home',color:'#0a4d8c'},
-  {bank:'HDFC',full:'HDFC Bank',rate:8.50,max:'₹10 Cr',tenure:'30 yrs',fee:7500,prepay:'Nil after 12 mo',speed:1,speedLbl:'Same day',type:'home',color:'#004c97'},
-  {bank:'ICICI',full:'ICICI Bank',rate:8.75,max:'₹5 Cr',tenure:'30 yrs',fee:6000,prepay:'Nil (floating)',speed:2,speedLbl:'48 hrs',type:'home',color:'#b02a2a'},
-  {bank:'Axis',full:'Axis Bank',rate:8.75,max:'₹3 Cr',tenure:'25 yrs',fee:10000,prepay:'Nil after 12 mo',speed:2,speedLbl:'48 hrs',type:'home',color:'#8b1a1a'},
-  {bank:'Kotak',full:'Kotak Mahindra Bank',rate:8.85,max:'₹2 Cr',tenure:'20 yrs',fee:10000,prepay:'2% penalty',speed:2,speedLbl:'48 hrs',type:'home',color:'#e74c1a'},
-  {bank:'SBI',full:'State Bank of India',rate:10.30,max:'₹20L',tenure:'7 yrs',fee:500,prepay:'Nil',speed:2,speedLbl:'24 hrs',type:'personal',color:'#0a4d8c'},
-  {bank:'HDFC',full:'HDFC Bank',rate:10.50,max:'₹40L',tenure:'7 yrs',fee:4999,prepay:'Nil after 12 mo',speed:1,speedLbl:'Same day',type:'personal',color:'#004c97'},
-  {bank:'Bajaj',full:'Bajaj Finserv',rate:10.99,max:'₹35L',tenure:'5 yrs',fee:2999,prepay:'Nil after 6 mo',speed:1,speedLbl:'2 hrs',type:'personal',color:'#b02a2a'},
-  {bank:'ICICI',full:'ICICI Bank',rate:10.65,max:'₹50L',tenure:'7 yrs',fee:3000,prepay:'Nil (floating)',speed:1,speedLbl:'Same day',type:'personal',color:'#b02a2a'},
-  {bank:'Tata',full:'Tata Capital',rate:10.99,max:'₹35L',tenure:'6 yrs',fee:2500,prepay:'Nil',speed:2,speedLbl:'24 hrs',type:'personal',color:'#2196a8'},
-  {bank:'HDFC',full:'HDFC Bank',rate:9.00,max:'₹5 Cr',tenure:'7 yrs',fee:5000,prepay:'Nil',speed:1,speedLbl:'24 hrs',type:'car',color:'#004c97'},
-  {bank:'SBI',full:'State Bank of India',rate:8.90,max:'₹1 Cr',tenure:'7 yrs',fee:1000,prepay:'Nil',speed:2,speedLbl:'48 hrs',type:'car',color:'#0a4d8c'},
-  {bank:'ICICI',full:'ICICI Bank',rate:9.10,max:'₹1 Cr',tenure:'7 yrs',fee:3500,prepay:'Nil',speed:1,speedLbl:'Same day',type:'car',color:'#b02a2a'},
-  {bank:'Bajaj',full:'Bajaj Finance',rate:11.00,max:'₹50L',tenure:'5 yrs',fee:3000,prepay:'2% penalty',speed:1,speedLbl:'4 hrs',type:'business',color:'#b02a2a'},
-  {bank:'HDFC',full:'HDFC Bank',rate:11.90,max:'₹75L',tenure:'4 yrs',fee:6650,prepay:'Nil after 12 mo',speed:2,speedLbl:'48 hrs',type:'business',color:'#004c97'},
+  // ── HOME LOANS ──
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:8.40,max:'₹10 Cr',tenure:'30 yrs',fee:'₹10,000',prepay:'Nil',speed:1,speedLbl:'72 hrs',type:'home',color:'#1a237e',best:true},
+  {bank:'HDFC',full:'HDFC Bank',logo:'https://logo.clearbit.com/hdfcbank.com',rate:8.50,max:'₹10 Cr',tenure:'30 yrs',fee:'0.5%',prepay:'Nil (floating)',speed:1,speedLbl:'48 hrs',type:'home',color:'#004c97'},
+  {bank:'ICICI',full:'ICICI Bank',logo:'https://logo.clearbit.com/icicibank.com',rate:8.75,max:'₹10 Cr',tenure:'30 yrs',fee:'0.5%',prepay:'Nil (floating)',speed:2,speedLbl:'48 hrs',type:'home',color:'#b02a2a'},
+  {bank:'Kotak',full:'Kotak Mahindra Bank',logo:'https://logo.clearbit.com/kotak.com',rate:8.70,max:'₹10 Cr',tenure:'30 yrs',fee:'0.5%',prepay:'Nil after 12 mo',speed:2,speedLbl:'48 hrs',type:'home',color:'#e74c1a'},
+  {bank:'Axis',full:'Axis Bank',logo:'https://logo.clearbit.com/axisbank.com',rate:8.75,max:'₹5 Cr',tenure:'30 yrs',fee:'1%',prepay:'Nil after 12 mo',speed:2,speedLbl:'72 hrs',type:'home',color:'#8b0000'},
+  {bank:'LIC HFL',full:'LIC Housing Finance',logo:'https://logo.clearbit.com/lichousing.com',rate:8.50,max:'₹15 Cr',tenure:'30 yrs',fee:'₹15,000',prepay:'Nil',speed:3,speedLbl:'5 days',type:'home',color:'#1565c0'},
+  {bank:'PNB HFL',full:'PNB Housing Finance',logo:'https://upload.wikimedia.org/wikipedia/en/b/b6/Punjab_National_Bank_logo.svg',rate:8.50,max:'₹10 Cr',tenure:'30 yrs',fee:'1%',prepay:'Nil',speed:3,speedLbl:'5 days',type:'home',color:'#d32f2f'},
+  // ── PERSONAL LOANS ──
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:10.30,max:'₹20L',tenure:'7 yrs',fee:'1.5%',prepay:'Nil',speed:2,speedLbl:'24 hrs',type:'personal',color:'#1a237e',best:true},
+  {bank:'HDFC',full:'HDFC Bank',logo:'https://logo.clearbit.com/hdfcbank.com',rate:10.50,max:'₹40L',tenure:'5 yrs',fee:'2.5%',prepay:'Nil after 12 mo',speed:1,speedLbl:'4 hrs',type:'personal',color:'#004c97'},
+  {bank:'ICICI',full:'ICICI Bank',logo:'https://logo.clearbit.com/icicibank.com',rate:10.65,max:'₹50L',tenure:'6 yrs',fee:'2%',prepay:'Nil (floating)',speed:1,speedLbl:'Same day',type:'personal',color:'#b02a2a'},
+  {bank:'Bajaj',full:'Bajaj Finserv',logo:'https://logo.clearbit.com/bajajfinserv.in',rate:11.00,max:'₹35L',tenure:'8 yrs',fee:'3.93%',prepay:'Nil after 6 mo',speed:1,speedLbl:'2 hrs',type:'personal',color:'#0066cc'},
+  {bank:'Axis',full:'Axis Bank',logo:'https://logo.clearbit.com/axisbank.com',rate:10.80,max:'₹40L',tenure:'5 yrs',fee:'2%',prepay:'Nil after 12 mo',speed:1,speedLbl:'4 hrs',type:'personal',color:'#8b0000'},
+  {bank:'Tata',full:'Tata Capital',logo:'https://logo.clearbit.com/tatacapital.com',rate:10.99,max:'₹35L',tenure:'6 yrs',fee:'2.75%',prepay:'Nil',speed:1,speedLbl:'Same day',type:'personal',color:'#1a237e'},
+  {bank:'Kotak',full:'Kotak Mahindra Bank',logo:'https://logo.clearbit.com/kotak.com',rate:10.99,max:'₹40L',tenure:'5 yrs',fee:'2.5%',prepay:'Nil after 12 mo',speed:1,speedLbl:'Same day',type:'personal',color:'#e74c1a'},
+  // ── CAR LOANS ──
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:8.85,max:'₹1 Cr',tenure:'7 yrs',fee:'₹1,000',prepay:'Nil',speed:2,speedLbl:'2 days',type:'car',color:'#1a237e',best:true},
+  {bank:'HDFC',full:'HDFC Bank',logo:'https://logo.clearbit.com/hdfcbank.com',rate:9.00,max:'₹1 Cr',tenure:'7 yrs',fee:'0.4%',prepay:'Nil',speed:1,speedLbl:'24 hrs',type:'car',color:'#004c97'},
+  {bank:'ICICI',full:'ICICI Bank',logo:'https://logo.clearbit.com/icicibank.com',rate:9.10,max:'₹1 Cr',tenure:'7 yrs',fee:'1%',prepay:'Nil',speed:1,speedLbl:'Same day',type:'car',color:'#b02a2a'},
+  {bank:'Axis',full:'Axis Bank',logo:'https://logo.clearbit.com/axisbank.com',rate:9.20,max:'₹1 Cr',tenure:'7 yrs',fee:'1%',prepay:'Nil',speed:2,speedLbl:'48 hrs',type:'car',color:'#8b0000'},
+  {bank:'Kotak',full:'Kotak Mahindra Bank',logo:'https://logo.clearbit.com/kotak.com',rate:9.50,max:'₹75L',tenure:'7 yrs',fee:'1.75%',prepay:'2% penalty',speed:2,speedLbl:'48 hrs',type:'car',color:'#e74c1a'},
+  // ── BUSINESS LOANS ──
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:10.90,max:'₹50L',tenure:'5 yrs',fee:'1%',prepay:'Nil',speed:3,speedLbl:'5 days',type:'business',color:'#1a237e',best:true},
+  {bank:'HDFC',full:'HDFC Bank',logo:'https://logo.clearbit.com/hdfcbank.com',rate:11.00,max:'₹50L',tenure:'4 yrs',fee:'2%',prepay:'Nil after 12 mo',speed:2,speedLbl:'72 hrs',type:'business',color:'#004c97'},
+  {bank:'ICICI',full:'ICICI Bank',logo:'https://logo.clearbit.com/icicibank.com',rate:11.50,max:'₹2 Cr',tenure:'7 yrs',fee:'2%',prepay:'Nil',speed:2,speedLbl:'72 hrs',type:'business',color:'#b02a2a'},
+  {bank:'Bajaj',full:'Bajaj Finserv',logo:'https://logo.clearbit.com/bajajfinserv.in',rate:14.00,max:'₹50L',tenure:'8 yrs',fee:'3.54%',prepay:'Nil after 6 mo',speed:1,speedLbl:'24 hrs',type:'business',color:'#0066cc'},
+  {bank:'Tata',full:'Tata Capital',logo:'https://logo.clearbit.com/tatacapital.com',rate:12.00,max:'₹75L',tenure:'5 yrs',fee:'2.75%',prepay:'Nil',speed:1,speedLbl:'Same day',type:'business',color:'#1a237e'},
+  // ── GOLD LOANS ──
+  {bank:'Muthoot',full:'Muthoot Finance',logo:'https://logo.clearbit.com/muthootfinance.com',rate:8.80,max:'₹50L',tenure:'2 yrs',fee:'Nil',prepay:'Nil',speed:1,speedLbl:'30 min',type:'gold',color:'#b8860b',best:true},
+  {bank:'Manappuram',full:'Manappuram Finance',logo:'https://logo.clearbit.com/manappuram.com',rate:9.90,max:'₹50L',tenure:'1 yr',fee:'Nil',prepay:'Nil',speed:1,speedLbl:'30 min',type:'gold',color:'#c0392b'},
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:9.00,max:'₹20L',tenure:'3 yrs',fee:'0.5%',prepay:'Nil',speed:1,speedLbl:'Same day',type:'gold',color:'#1a237e'},
+  {bank:'HDFC',full:'HDFC Bank',logo:'https://logo.clearbit.com/hdfcbank.com',rate:9.50,max:'₹50L',tenure:'2 yrs',fee:'1%',prepay:'Nil',speed:1,speedLbl:'1 hr',type:'gold',color:'#004c97'},
+  // ── EDUCATION LOANS ──
+  {bank:'SBI',full:'State Bank of India',logo:'https://logo.clearbit.com/sbi.co.in',rate:8.05,max:'₹20L',tenure:'15 yrs',fee:'Nil',prepay:'Nil',speed:3,speedLbl:'7 days',type:'education',color:'#1a237e',best:true},
+  {bank:'BOB',full:'Bank of Baroda',logo:'https://logo.clearbit.com/bankofbaroda.in',rate:8.15,max:'₹40L',tenure:'15 yrs',fee:'Nil',prepay:'Nil',speed:3,speedLbl:'7 days',type:'education',color:'#f57c00'},
+  {bank:'HDFC Credila',full:'HDFC Credila',logo:'https://logo.clearbit.com/hdfcbank.com',rate:9.55,max:'₹1.5 Cr',tenure:'15 yrs',fee:'1%',prepay:'Nil',speed:2,speedLbl:'5 days',type:'education',color:'#004c97'},
+  {bank:'Avanse',full:'Avanse Financial',logo:'https://logo.clearbit.com/sbi.co.in',rate:9.90,max:'₹75L',tenure:'15 yrs',fee:'1%',prepay:'Nil',speed:2,speedLbl:'5 days',type:'education',color:'#2e7d32'},
 ];
 
 let curFilter='all', curSort='rate';
@@ -279,14 +302,20 @@ function render(){
   else if(curSort==='speed')rows.sort((a,b)=>a.speed-b.speed);
   const best=rows[0];
   document.getElementById('compBody').innerHTML=rows.map((r,i)=>`
-    <tr class="${i===0?'best-row':''}">
-      <td><div style="display:flex;align-items:center;gap:.8rem"><div style="width:36px;height:36px;border-radius:50%;background:${r.color};color:#fff;font-weight:900;font-size:.65rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">${r.bank}</div><div><div style="font-weight:800;font-size:.9rem">${r.full}</div><div style="font-size:.68rem;opacity:.45;text-transform:capitalize">${r.type} loan</div></div></div></td>
-      <td><span class="rate-cell">${r.rate.toFixed(2)}%</span>${i===0?'<span class="badge-best" style="margin-left:.4rem">Best</span>':''}</td>
-      <td>${r.max}</td>
+    <tr class="${r.best&&i===0?'best':''}" style="${r.best&&i===0?'background:rgba(232,93,43,.04)':''}">
+      <td><div style="display:flex;align-items:center;gap:.8rem">
+        <div style="width:42px;height:42px;border-radius:8px;background:${r.color};color:#fff;font-weight:900;font-size:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:4px">
+          ${r.logo?`<img src="${r.logo}" style="width:100%;height:100%;object-fit:contain;filter:none" onerror="this.style.display='none';this.parentElement.innerHTML='${r.bank}'">`:`${r.bank}`}
+        </div>
+        <div><div style="font-weight:800;font-size:.9rem">${r.full}</div>
+        <div style="font-size:.68rem;opacity:.45;text-transform:capitalize">${r.type} loan</div></div>
+      </div></td>
+      <td><span style="font-size:1.1rem;font-weight:900;color:#e85d2b">${r.rate.toFixed(2)}%</span>${r.best?'<span style="background:#e85d2b;color:#fff;font-size:.55rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:100px;margin-left:.4rem">Best</span>':''}</td>
+      <td style="font-weight:700">${r.max}</td>
       <td>${r.tenure}</td>
-      <td>₹${r.fee.toLocaleString('en-IN')}</td>
+      <td>${r.fee}</td>
       <td style="font-size:.8rem">${r.prepay}</td>
-      <td><span class="speed-dot ${r.speed===1?'green-dot':'yellow-dot'}"></span>${r.speedLbl}${r.speed===1?'<span class="badge-fast" style="margin-left:.3rem">Fast</span>':''}</td>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${r.speed===1?'#2d7a3a':r.speed===2?'#e8b84b':'#e85d2b'};margin-right:.4rem"></span>${r.speedLbl}</td>
       <td><a href="apply.html" class="btn btn-og" style="padding:.5rem 1.1rem;font-size:.7rem">Apply</a></td>
     </tr>`).join('');
 }

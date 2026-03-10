@@ -31,7 +31,7 @@
 .lender-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
 .lc2{background:#fff;border-radius:8px;padding:1.4rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none}
 .lc2:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
-.lc2-logo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.68rem;color:#fff;margin:0 auto .6rem}
+.lc2-logo{width:56px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.65rem;color:#fff;margin:0 auto .8rem;overflow:hidden;padding:4px;background:#fff;border:1.5px solid #eee}.lc2-logo img{max-width:100%;max-height:100%;object-fit:contain}
 .lc2-name{font-size:.75rem;font-weight:800;margin-bottom:.3rem}
 .lc2-rate{font-size:1.6rem;font-weight:900;color:#e85d2b;line-height:1}
 .lc2-max{font-size:.65rem;color:rgba(26,26,26,.4);margin-top:.2rem}
@@ -152,11 +152,12 @@
   <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Best offers today</div>
   <h2 class="sec-h2" style="color:#fff">Top <em>Lenders</em></h2>
   <div class="lender-row">
-    <div class="lc2" style="border:2px solid #e85d2b;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#0a4d8c">SBI</div><div class="lc2-name">SBI</div><div class="lc2-rate">8.40%</div><div class="lc2-max">up to ₹5 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#004c97">HDFC</div><div class="lc2-name">HDFC</div><div class="lc2-rate">8.50%</div><div class="lc2-max">up to ₹10 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#b02a2a">ICIC</div><div class="lc2-name">ICICI</div><div class="lc2-rate">8.75%</div><div class="lc2-max">up to ₹5 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#8b1a1a">Axis</div><div class="lc2-name">Axis</div><div class="lc2-rate">8.75%</div><div class="lc2-max">up to ₹3 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#e74c1a">Kota</div><div class="lc2-name">Kotak</div><div class="lc2-rate">8.85%</div><div class="lc2-max">up to ₹2 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+<div class="lc2" style="position:relative;border:2px solid #e85d2b;"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#1a237e;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/sbi.co.in" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">SBI</div><div class="lc2-rate">8.40%</div><div class="lc2-max">up to ₹10 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#004c97;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/hdfcbank.com" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">HDFC Bank</div><div class="lc2-rate">8.50%</div><div class="lc2-max">up to ₹10 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#b02a2a;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/icicibank.com" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">ICICI Bank</div><div class="lc2-rate">8.75%</div><div class="lc2-max">up to ₹10 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#e74c1a;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/kotak.com" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">Kotak Mahindra</div><div class="lc2-rate">8.70%</div><div class="lc2-max">up to ₹10 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#8b0000;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/axisbank.com" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">Axis Bank</div><div class="lc2-rate">8.75%</div><div class="lc2-max">up to ₹5 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#1565c0;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden"><img src="https://logo.clearbit.com/lichousing.com" style="max-width:100%;max-height:100%;object-fit:contain;filter:none" onerror="this.style.display='none'"></div><div class="lc2-name">LIC HFL</div><div class="lc2-rate">8.50%</div><div class="lc2-max">up to ₹15 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
 
   </div>
 </div>
@@ -176,6 +177,421 @@
     <a href="eligibility.html" class="btn btn-lg" style="background:#e85d2b;color:#1a1a1a">Check My Eligibility — Free</a>
   </div>
 </div>
+
+
+<!-- LOAN SCHEMES SECTION -->
+
+<style>
+.schemes-section{padding:5rem 2rem;background:#fff}
+.schemes-wrap{max-width:1100px;margin:0 auto}
+.bank-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btab{background:#f5e6c8;border:none;padding:.6rem 1.4rem;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;transition:all .2s;color:#1a1a1a}
+.btab.active{background:#1a1a1a;color:#fff}
+.btab:hover:not(.active){background:#e8d4a8}
+.bank-panel{display:none}
+.bank-panel.active{display:block}
+.bank-header{display:flex;align-items:center;gap:1.2rem;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:2px solid #f5e6c8}
+.bank-logo-box{width:72px;height:44px;border-radius:8px;background:#fff;border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.bank-logo-box img{max-width:100%;max-height:100%;object-fit:contain}
+.bank-hname{font-size:1.2rem;font-weight:900}
+.bank-htag{font-size:.78rem;color:rgba(26,26,26,.5);margin-top:.15rem}
+.schemes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.scheme-card{background:#f9f5ef;border-radius:10px;padding:1.6rem;border:2px solid transparent;transition:all .25s;position:relative}
+.scheme-card:hover{border-color:#e85d2b;background:#fff;box-shadow:0 12px 32px rgba(232,93,43,.1)}
+.scheme-card.best-scheme{border-color:#e85d2b;background:#fff}
+.best-tag{position:absolute;top:-10px;right:16px;background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .8rem;border-radius:100px}
+.sc-name{font-size:.92rem;font-weight:900;margin-bottom:1rem;line-height:1.3;padding-right:2rem}
+.sc-rate{font-size:2rem;font-weight:900;color:#e85d2b;line-height:1;margin-bottom:.25rem}
+.sc-rate-type{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:1.2rem}
+.sc-details{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem}
+.sc-det-item{background:#fff;border-radius:6px;padding:.5rem .7rem}
+.sc-det-label{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.15rem}
+.sc-det-val{font-size:.82rem;font-weight:800;color:#1a1a1a}
+.sc-features{margin-bottom:1.2rem}
+.sc-feat-item{font-size:.72rem;color:rgba(26,26,26,.6);margin-bottom:.3rem;display:flex;gap:.5rem}
+.sc-feat-item::before{content:"✓";color:#2d7a3a;font-weight:900;flex-shrink:0}
+.sc-eligibility{background:#f0ede8;border-radius:6px;padding:.7rem .9rem;margin-bottom:1.2rem}
+.sc-elig-title{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.4rem}
+.sc-elig-text{font-size:.72rem;color:rgba(26,26,26,.7);line-height:1.5}
+.sc-updated{font-size:.6rem;color:rgba(26,26,26,.3);margin-top:.5rem}
+</style>
+
+<div class="schemes-section reveal">
+  <div class="schemes-wrap">
+    <div class="sec-kicker">All schemes · March 2026 rates</div>
+    <h2 class="sec-h2" style="margin-bottom:2rem">Compare <em>Every Scheme</em></h2>
+    <div class="bank-tabs" id="home-tabs"><button class="btab active" onclick="showBank('home',0,this)">SBI</button><button class="btab" onclick="showBank('home',1,this)">HDFC</button><button class="btab" onclick="showBank('home',2,this)">ICICI</button><button class="btab" onclick="showBank('home',3,this)">Kotak</button><button class="btab" onclick="showBank('home',4,this)">Axis</button><button class="btab" onclick="showBank('home',5,this)">LIC HFL</button></div>
+    <div id="home-panels"><div class="bank-panel  active" id="panel-0">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/sbi.co.in" alt="State Bank of India" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Stat</span>'"></div>
+    <div><div class="bank-hname">State Bank of India</div><div class="bank-htag">India's largest public sector bank</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">SBI Regular Home Loan</div>
+  <div class="sc-rate">8.40%</div>
+  <div class="sc-rate-type">p.a. floating (EBLR linked)</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹10,000 (max)</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Zero prepayment charges on floating rate</div><div class="sc-feat-item">Free property insurance for 1st year</div><div class="sc-feat-item">Balance transfer facility available</div><div class="sc-feat-item">Top-up loan available after 12 EMIs</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18–70 yrs · Salaried or self-employed · Min income ₹25,000/month · Indian resident or NRI</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">SBI Flexipay Home Loan</div>
+  <div class="sc-rate">8.50%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹10,000</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Lower EMIs in initial years</div><div class="sc-feat-item">Step-up repayment structure</div><div class="sc-feat-item">Ideal for young salaried borrowers</div><div class="sc-feat-item">Higher loan eligibility than regular loan</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–45 at application · Salaried professionals only · Min income ₹30,000/month</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">SBI Privilege Home Loan</div>
+  <div class="sc-rate">8.40%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Zero processing fee</div><div class="sc-feat-item">Special rate for govt employees</div><div class="sc-feat-item">Salary account not mandatory</div><div class="sc-feat-item">Faster approval — 3 working days</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Central/State Govt employees only · Confirmed service required · Min 2 years service</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">SBI NRI Home Loan</div>
+  <div class="sc-rate">8.65%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹10,000</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Loan in Indian rupees</div><div class="sc-feat-item">Power of attorney accepted</div><div class="sc-feat-item">Property in India as security</div><div class="sc-feat-item">Repayment from NRE/NRO account</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">NRI / PIO / OCI · Min 2 years abroad employment · Foreign salary credited to NRE/NRO account</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">SBI Realty Home Loan</div>
+  <div class="sc-rate">8.45%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹15 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">10 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹10,000</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">For residential plot purchase</div><div class="sc-feat-item">Can be converted to home loan after construction</div><div class="sc-feat-item">Combo available with construction loan</div><div class="sc-feat-item">No prepayment penalty</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">For plot purchase only · Plot must be in approved layout · Construction must begin within 2 years</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-1">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/hdfcbank.com" alt="HDFC Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>HDFC</span>'"></div>
+    <div><div class="bank-hname">HDFC Bank</div><div class="bank-htag">India's leading private sector bank</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">HDFC Adjustable Rate Home Loan</div>
+  <div class="sc-rate">8.50%</div>
+  <div class="sc-rate-type">p.a. floating (RPLR linked)</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5% (min ₹3,000)</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Online approval in 48 hours</div><div class="sc-feat-item">Part-prepayment allowed any time</div><div class="sc-feat-item">No foreclosure charges</div><div class="sc-feat-item">Doorstep document pickup</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–65 · Salaried or self-employed · Min income ₹25,000/month · Good credit history</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">HDFC TruFixed Loan</div>
+  <div class="sc-rate">8.75%</div>
+  <div class="sc-rate-type">p.a. fixed for 2/3 years then floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">20 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Rate fixed for initial 2 or 3 years</div><div class="sc-feat-item">Protection against rate hikes initially</div><div class="sc-feat-item">Converts to floating after fixed period</div><div class="sc-feat-item">Ideal for short-term rate certainty</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–65 · Salaried or self-employed · Suitable for those expecting income growth</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">HDFC Home Loan for NRI</div>
+  <div class="sc-rate">8.90%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">20 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Dedicated NRI relationship manager</div><div class="sc-feat-item">Digital application process</div><div class="sc-feat-item">Property search assistance</div><div class="sc-feat-item">Repayment via NRE/NRO/FCNR account</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">NRI / PIO · Min 1 year abroad employment · Foreign income proof required · Co-applicant in India preferred</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">HDFC Plot Loan</div>
+  <div class="sc-rate">9.10%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">For RERA-approved plots</div><div class="sc-feat-item">Combo with construction loan available</div><div class="sc-feat-item">Upto 80% of plot value</div><div class="sc-feat-item">Quick disbursement in 5 days</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–65 · Plot in approved RERA layout · Residential purpose only</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-2">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/icicibank.com" alt="ICICI Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>ICIC</span>'"></div>
+    <div><div class="bank-hname">ICICI Bank</div><div class="bank-htag">Fast approvals, digital-first banking</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">ICICI Home Loan</div>
+  <div class="sc-rate">8.75%</div>
+  <div class="sc-rate-type">p.a. floating (EBLR linked)</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Instant in-principle approval online</div><div class="sc-feat-item">Step-up EMI option available</div><div class="sc-feat-item">Balance transfer with top-up</div><div class="sc-feat-item">Free legal and technical assistance</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–70 · Salaried or self-employed · Min income ₹25,000/month · CIBIL 700+</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">ICICI Express Home Loan</div>
+  <div class="sc-rate">8.85%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹3 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">20 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">750</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Approval in 8 working hours</div><div class="sc-feat-item">Minimal documentation</div><div class="sc-feat-item">Pre-approved offer — no property needed initially</div><div class="sc-feat-item">Special rate for ICICI account holders</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Pre-approved for ICICI salary account holders · CIBIL 750+ · Min 2 years employment</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">ICICI Home Loan for NRI</div>
+  <div class="sc-rate">9.00%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">20 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Fully digital application</div><div class="sc-feat-item">Video KYC available</div><div class="sc-feat-item">Property management assistance</div><div class="sc-feat-item">Repayment via NRE/FCNR/NRO</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">NRI / PIO / OCI · Min 2 years abroad · Foreign income in USD/GBP/AED/SGD accepted</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-3">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/kotak.com" alt="Kotak Mahindra Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Kota</span>'"></div>
+    <div><div class="bank-hname">Kotak Mahindra Bank</div><div class="bank-htag">Competitive rates, minimal paperwork</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">Kotak Home Loan</div>
+  <div class="sc-rate">8.70%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">720</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Digital application and disbursement</div><div class="sc-feat-item">Zero part-prepayment charges</div><div class="sc-feat-item">Overdraft facility on home loan</div><div class="sc-feat-item">Home loan balance transfer available</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18–65 · Salaried or self-employed · CIBIL 720+ · Min income ₹20,000/month</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">Kotak HL Balance Transfer</div>
+  <div class="sc-rate">8.70%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹10 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.25%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">720</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Lower rate vs most lenders</div><div class="sc-feat-item">Top-up loan available simultaneously</div><div class="sc-feat-item">Savings calculator provided</div><div class="sc-feat-item">Fast processing in 5 working days</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Existing home loan borrowers from any bank · Min outstanding ₹10 lakh · 12 clean EMIs required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-4">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/axisbank.com" alt="Axis Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Axis</span>'"></div>
+    <div><div class="bank-hname">Axis Bank</div><div class="bank-htag">Flexible tenures, quick sanction</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">Axis Bank Home Loan</div>
+  <div class="sc-rate">8.75%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">1%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">700</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Sanction in 72 hours</div><div class="sc-feat-item">Flexible EMI holiday option</div><div class="sc-feat-item">Part payment allowed at no cost</div><div class="sc-feat-item">Free CIBIL check included</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–65 · Salaried or self-employed · Min CIBIL 700 · Min income ₹15,000/month</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">Axis Shubh Aarambh Home Loan</div>
+  <div class="sc-rate">8.75%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹30 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Zero processing fee for first-time buyers</div><div class="sc-feat-item">Interest subsidy under PMAY</div><div class="sc-feat-item">Lower income bracket support</div><div class="sc-feat-item">Government scheme benefit</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">First-time home buyers only · Income up to ₹6 lakh p.a. · Property value below ₹45 lakh · EWS/LIG category</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-5">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/lichousing.com" alt="LIC Housing Finance" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>LIC </span>'"></div>
+    <div><div class="bank-hname">LIC Housing Finance</div><div class="bank-htag">Trusted name, long tenures</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">LIC HFL Griha Varishtha</div>
+  <div class="sc-rate">8.50%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹15 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">30 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹15,000</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Up to 90% of property value for loans <₹30L</div><div class="sc-feat-item">Free property insurance</div><div class="sc-feat-item">Doorstep service available</div><div class="sc-feat-item">Loan transfer facility</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 21–60 (salaried) or 21–65 (self-employed) · Min income ₹20,000/month · Resident Indian</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">LIC HFL Home Loan for NRI</div>
+  <div class="sc-rate">8.70%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">20 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">₹15,000</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Dedicated NRI desk</div><div class="sc-feat-item">Power of attorney accepted</div><div class="sc-feat-item">Co-applicant in India required</div><div class="sc-feat-item">Repayment from NRE account</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">NRI / PIO · Age 21–60 · Min 2 years abroad employment · Property in India</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div></div>
+  </div>
+</div>
+<script>
+function showBank(prefix,idx,btn){
+  document.querySelectorAll('#'+prefix+'-panels .bank-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+idx).classList.add('active');
+  document.querySelectorAll('#'+prefix+'-tabs .btab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
 
 <!-- FAQ -->
 <div class="section reveal" style="background:#f5e6c8">

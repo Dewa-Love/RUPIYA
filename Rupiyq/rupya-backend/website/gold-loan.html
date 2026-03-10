@@ -31,7 +31,7 @@
 .lender-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
 .lc2{background:#fff;border-radius:8px;padding:1.4rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none}
 .lc2:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
-.lc2-logo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.68rem;color:#fff;margin:0 auto .6rem}
+.lc2-logo{width:56px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.65rem;color:#fff;margin:0 auto .8rem;overflow:hidden;padding:4px;background:#fff;border:1.5px solid #eee}.lc2-logo img{max-width:100%;max-height:100%;object-fit:contain}
 .lc2-name{font-size:.75rem;font-weight:800;margin-bottom:.3rem}
 .lc2-rate{font-size:1.6rem;font-weight:900;color:#e85d2b;line-height:1}
 .lc2-max{font-size:.65rem;color:rgba(26,26,26,.4);margin-top:.2rem}
@@ -152,11 +152,10 @@
   <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Best offers today</div>
   <h2 class="sec-h2" style="color:#fff">Top <em>Lenders</em></h2>
   <div class="lender-row">
-    <div class="lc2" style="border:2px solid #e85d2b;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#c09030">Muth</div><div class="lc2-name">Muthoot</div><div class="lc2-rate">9.00%</div><div class="lc2-max">up to ₹1 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#c08010">Mana</div><div class="lc2-name">Manappuram</div><div class="lc2-rate">9.50%</div><div class="lc2-max">up to ₹50L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#0a4d8c">SBI</div><div class="lc2-name">SBI</div><div class="lc2-rate">9.60%</div><div class="lc2-max">up to ₹50L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#004c97">HDFC</div><div class="lc2-name">HDFC</div><div class="lc2-rate">9.90%</div><div class="lc2-max">up to ₹50L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#8a1a1a">IIFL</div><div class="lc2-name">IIFL Gold</div><div class="lc2-rate">10.00%</div><div class="lc2-max">up to ₹1 Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;border:2px solid #e85d2b;"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#b8860b"><img src="https://logo.clearbit.com/muthootfinance.com" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">Muth</span>'"></div><div class="lc2-name">Muthoot Finance</div><div class="lc2-rate">8.80%</div><div class="lc2-max">up to ₹50L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">30 min disbursement</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#c0392b"><img src="https://logo.clearbit.com/manappuram.com" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">Mana</span>'"></div><div class="lc2-name">Manappuram</div><div class="lc2-rate">9.90%</div><div class="lc2-max">up to ₹50L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">30 min disbursement</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#1a237e"><img src="https://logo.clearbit.com/sbi.co.in" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">SBI</span>'"></div><div class="lc2-name">SBI</div><div class="lc2-rate">9.00%</div><div class="lc2-max">up to ₹20L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">Same day</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#004c97"><img src="https://logo.clearbit.com/hdfcbank.com" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">HDFC</span>'"></div><div class="lc2-name">HDFC Bank</div><div class="lc2-rate">9.50%</div><div class="lc2-max">up to ₹50L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">1 hr disbursement</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
 
   </div>
 </div>
@@ -176,6 +175,211 @@
     <a href="eligibility.html" class="btn btn-lg" style="background:#e8b84b;color:#1a1a1a">Check My Eligibility — Free</a>
   </div>
 </div>
+
+
+<!-- LOAN SCHEMES SECTION -->
+
+<style>
+.schemes-section{padding:5rem 2rem;background:#fff}
+.schemes-wrap{max-width:1100px;margin:0 auto}
+.bank-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btab{background:#f5e6c8;border:none;padding:.6rem 1.4rem;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;transition:all .2s;color:#1a1a1a}
+.btab.active{background:#1a1a1a;color:#fff}
+.btab:hover:not(.active){background:#e8d4a8}
+.bank-panel{display:none}
+.bank-panel.active{display:block}
+.bank-header{display:flex;align-items:center;gap:1.2rem;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:2px solid #f5e6c8}
+.bank-logo-box{width:72px;height:44px;border-radius:8px;background:#fff;border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.bank-logo-box img{max-width:100%;max-height:100%;object-fit:contain}
+.bank-hname{font-size:1.2rem;font-weight:900}
+.bank-htag{font-size:.78rem;color:rgba(26,26,26,.5);margin-top:.15rem}
+.schemes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.scheme-card{background:#f9f5ef;border-radius:10px;padding:1.6rem;border:2px solid transparent;transition:all .25s;position:relative}
+.scheme-card:hover{border-color:#e85d2b;background:#fff;box-shadow:0 12px 32px rgba(232,93,43,.1)}
+.scheme-card.best-scheme{border-color:#e85d2b;background:#fff}
+.best-tag{position:absolute;top:-10px;right:16px;background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .8rem;border-radius:100px}
+.sc-name{font-size:.92rem;font-weight:900;margin-bottom:1rem;line-height:1.3;padding-right:2rem}
+.sc-rate{font-size:2rem;font-weight:900;color:#e85d2b;line-height:1;margin-bottom:.25rem}
+.sc-rate-type{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:1.2rem}
+.sc-details{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem}
+.sc-det-item{background:#fff;border-radius:6px;padding:.5rem .7rem}
+.sc-det-label{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.15rem}
+.sc-det-val{font-size:.82rem;font-weight:800;color:#1a1a1a}
+.sc-features{margin-bottom:1.2rem}
+.sc-feat-item{font-size:.72rem;color:rgba(26,26,26,.6);margin-bottom:.3rem;display:flex;gap:.5rem}
+.sc-feat-item::before{content:"✓";color:#2d7a3a;font-weight:900;flex-shrink:0}
+.sc-eligibility{background:#f0ede8;border-radius:6px;padding:.7rem .9rem;margin-bottom:1.2rem}
+.sc-elig-title{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.4rem}
+.sc-elig-text{font-size:.72rem;color:rgba(26,26,26,.7);line-height:1.5}
+.sc-updated{font-size:.6rem;color:rgba(26,26,26,.3);margin-top:.5rem}
+</style>
+
+<div class="schemes-section reveal">
+  <div class="schemes-wrap">
+    <div class="sec-kicker">All schemes · March 2026 rates</div>
+    <h2 class="sec-h2" style="margin-bottom:2rem">Compare <em>Every Scheme</em></h2>
+    <div class="bank-tabs" id="gold-tabs"><button class="btab active" onclick="showBank('gold',0,this)">Muthoot</button><button class="btab" onclick="showBank('gold',1,this)">Manappuram</button><button class="btab" onclick="showBank('gold',2,this)">SBI</button><button class="btab" onclick="showBank('gold',3,this)">HDFC</button></div>
+    <div id="gold-panels"><div class="bank-panel  active" id="panel-0">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/muthootfinance.com" alt="Muthoot Finance" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Muth</span>'"></div>
+    <div><div class="bank-hname">Muthoot Finance</div><div class="bank-htag">India's #1 gold loan NBFC</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">Muthoot Gold Loan</div>
+  <div class="sc-rate">8.80%</div>
+  <div class="sc-rate-type">p.a. (varies by scheme)</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹50 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">2 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Disbursal in 30 minutes</div><div class="sc-feat-item">No income or employment proof</div><div class="sc-feat-item">No CIBIL score needed</div><div class="sc-feat-item">Gold safely stored in vault</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18+ · Any Indian resident · Gold ornaments 18–22 karat · No income proof required · No CIBIL check</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">Muthoot Quick Gold Loan</div>
+  <div class="sc-rate">12.00%</div>
+  <div class="sc-rate-type">p.a.</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹50 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">12 months</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Bullet repayment — pay at end of tenure</div><div class="sc-feat-item">No EMI pressure</div><div class="sc-feat-item">Renew loan after tenure</div><div class="sc-feat-item">Ideal for seasonal cash needs</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18+ · Any Indian resident · Gold ornaments · Bullet repayment allowed</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">Muthoot Online Gold Loan</div>
+  <div class="sc-rate">10.00%</div>
+  <div class="sc-rate-type">p.a.</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹5 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">12 months</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Top-up existing gold loan online</div><div class="sc-feat-item">Instant credit to bank account</div><div class="sc-feat-item">No branch visit needed</div><div class="sc-feat-item">24/7 digital access</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Existing Muthoot customer · Online application · Gold already pledged with Muthoot branch</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-1">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/manappuram.com" alt="Manappuram Finance" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Mana</span>'"></div>
+    <div><div class="bank-hname">Manappuram Finance</div><div class="bank-htag">South India's trusted gold lender</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">Manappuram Online Gold Loan</div>
+  <div class="sc-rate">9.90%</div>
+  <div class="sc-rate-type">p.a.</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹50 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">12 months</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Disbursal in 5 minutes</div><div class="sc-feat-item">100% digital top-up</div><div class="sc-feat-item">Gold stored in secure vault</div><div class="sc-feat-item">Flexible repayment</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18+ · Any Indian resident · No income proof · No CIBIL · 18–22 karat gold accepted</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">Manappuram Swarna Loan</div>
+  <div class="sc-rate">11.00%</div>
+  <div class="sc-rate-type">p.a.</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹50 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">12 months</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Special scheme for farmers</div><div class="sc-feat-item">No EMI — repay at harvest</div><div class="sc-feat-item">Agricultural purpose preference</div><div class="sc-feat-item">Higher LTV ratio</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18+ · Any Indian resident · Designed for agriculture sector</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-2">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/sbi.co.in" alt="State Bank of India" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Stat</span>'"></div>
+    <div><div class="bank-hname">State Bank of India</div><div class="bank-htag">Trusted PSU bank gold loans</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">SBI Gold Loan</div>
+  <div class="sc-rate">9.00%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹20 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">3 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">0.5%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Low interest rate among banks</div><div class="sc-feat-item">Bullet repayment option</div><div class="sc-feat-item">Part-repayment allowed</div><div class="sc-feat-item">Gold insured by SBI</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18–70 · Any Indian resident · Gold ornaments 18–22 karat · No income proof required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-3">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/hdfcbank.com" alt="HDFC Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>HDFC</span>'"></div>
+    <div><div class="bank-hname">HDFC Bank</div><div class="bank-htag">Fast gold loans from private banking</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">HDFC Gold Loan</div>
+  <div class="sc-rate">9.50%</div>
+  <div class="sc-rate-type">p.a.</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹50 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">2 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">1%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Disbursement in 1 hour</div><div class="sc-feat-item">Renewable after tenure</div><div class="sc-feat-item">Online account management</div><div class="sc-feat-item">Branch network across India</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Age 18–70 · Any Indian resident · 18–22 karat gold jewellery · KYC documents required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div></div>
+  </div>
+</div>
+<script>
+function showBank(prefix,idx,btn){
+  document.querySelectorAll('#'+prefix+'-panels .bank-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+idx).classList.add('active');
+  document.querySelectorAll('#'+prefix+'-tabs .btab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
 
 <!-- FAQ -->
 <div class="section reveal" style="background:#f5e6c8">

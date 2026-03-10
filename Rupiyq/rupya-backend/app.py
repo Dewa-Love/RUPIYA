@@ -243,71 +243,194 @@ def get_application(app_id):
 
 @app.route('/api/eligibility', methods=['POST'])
 def check_eligibility():
-    d = request.get_json()
-    employment  = d.get('employment', 'salaried')
-    age         = int(d.get('age', 30))
-    income      = float(d.get('income', 0))
-    loan_amount = float(d.get('loan_amount', 0))
-    cibil       = d.get('cibil', '700-749')
-    existing_emi= float(d.get('existing_emi', 0))
-    loan_type   = d.get('loan_type', 'personal')
+    d            = request.get_json()
+    employment   = d.get('employment', 'salaried')
+    age          = int(d.get('age', 30))
+    income       = float(d.get('income', 0))
+    loan_amount  = float(d.get('loan_amount', 0))
+    cibil_score  = int(d.get('cibil', 675))
+    existing_emi = float(d.get('existing_emi', 0))
+    loan_type    = d.get('loan_type', 'personal')
+    experience   = int(d.get('experience', 2))  # years
 
-    # Parse CIBIL score midpoint
-    cibil_map = {'below-650': 620, '650-699': 675, '700-749': 725, '750-799': 775, '800+': 820}
-    cibil_score = cibil_map.get(cibil, 700)
-
-    # Basic eligibility rules
+    # ── SCORING ─────────────────────────────────────────────────────────────
+    score  = 0
     issues = []
-    score = 100
+    tips   = []
 
-    if age < 21 or age > 65:
-        issues.append('Age must be between 21–65 years')
-        score -= 40
+    # 1. CIBIL score (35 pts)
+    if cibil_score >= 750:   score += 35
+    elif cibil_score >= 700: score += 27
+    elif cibil_score >= 650: score += 18
+    elif cibil_score >= 600: score += 8;  issues.append('CIBIL score below 650 — most lenders require 700+'); tips.append('Pay all dues on time for 6+ months to improve CIBIL score above 700.')
+    else:                    score += 0;  issues.append('CIBIL score is too low — minimum 600 required by any lender'); tips.append('Clear all overdue payments and wait 12 months before applying.')
 
-    if income < 15000:
-        issues.append('Minimum monthly income required is ₹15,000')
-        score -= 30
+    # 2. FOIR (30 pts)
+    rate_map  = {'personal':10.5,'home':8.4,'car':9.0,'business':11.0,'gold':9.0,'education':8.5,'lap':9.6}
+    tenure_map= {'personal':60,'home':240,'car':84,'business':60,'gold':24,'education':120,'lap':180}
+    r  = rate_map.get(loan_type, 10.5) / (12 * 100)
+    n  = tenure_map.get(loan_type, 60)
+    new_emi = loan_amount * (r * (1+r)**n) / ((1+r)**n - 1) if r > 0 else loan_amount/n
+    total_emi= existing_emi + new_emi
+    foir     = (total_emi / income * 100) if income > 0 else 100
 
-    # FOIR — Fixed Obligation to Income Ratio (max 50–60%)
-    foir = (existing_emi / income * 100) if income > 0 else 0
-    estimated_new_emi = loan_amount * 0.009  # rough EMI estimate
-    total_foir = ((existing_emi + estimated_new_emi) / income * 100) if income > 0 else 0
+    if foir <= 30:   score += 30
+    elif foir <= 40: score += 24
+    elif foir <= 50: score += 16
+    elif foir <= 60: score += 8;  tips.append(f'Your EMI burden is {foir:.0f}% of income. Try reducing loan amount or existing EMIs to below 50%.')
+    else:            score += 0;  issues.append(f'Total EMI ({foir:.0f}% of income) exceeds 60% — too high for any lender'); tips.append('Close existing loans or reduce the loan amount you are requesting.')
 
-    if total_foir > 60:
-        issues.append(f'Total EMI burden ({total_foir:.0f}% of income) exceeds 60% limit')
-        score -= 25
+    # 3. Experience (15 pts)
+    if experience >= 10:   score += 15
+    elif experience >= 5:  score += 12
+    elif experience >= 2:  score += 9
+    elif experience >= 1:  score += 5
+    else:                  score += 0; tips.append('Lenders prefer 2+ years of stable employment. Add a co-applicant with stable income.')
 
-    if cibil_score < 650:
-        issues.append('CIBIL score below 650 — most lenders require 700+')
-        score -= 35
-    elif cibil_score < 700:
-        score -= 15
+    # 4. Age (10 pts)
+    if 25 <= age <= 50:    score += 10
+    elif 21 <= age <= 55:  score += 7
+    elif 18 <= age <= 65:  score += 3
+    else:                  issues.append('Age must be between 18–65 years'); tips.append('Add a younger co-applicant (spouse/child) to strengthen the application.')
 
-    # Loan amount vs income check
-    multiplier = {'personal': 24, 'home': 60, 'car': 36, 'business': 18, 'gold': 12, 'education': 30, 'lap': 48}
+    # 5. Employment type (10 pts)
+    if employment == 'salaried':   score += 10
+    elif employment == 'business': score += 8
+    else:                          score += 6; tips.append('Self-employed applicants need 2+ years of ITR filings showing stable income.')
+
+    # 6. Income vs loan amount check
+    multiplier = {'personal':24,'home':60,'car':36,'business':18,'gold':12,'education':30,'lap':48}
     max_loan = income * multiplier.get(loan_type, 24)
     if loan_amount > max_loan:
-        issues.append(f'Loan amount exceeds recommended limit of ₹{max_loan:,.0f} for your income')
-        score -= 20
+        issues.append(f'Requested amount exceeds max recommended (₹{max_loan:,.0f}) for your income')
+        tips.append(f'Reduce loan amount to ₹{max_loan:,.0f} or add a co-applicant with higher income.')
+        score = max(0, score - 15)
 
     score = max(0, min(100, score))
-    eligible = score >= 60 and len(issues) == 0
 
-    # Match lenders
-    lenders = Lender.query.filter_by(loan_type=loan_type, active=True).all()
-    matched = []
-    for l in lenders:
-        if cibil_score >= (l.min_cibil or 650):
-            matched.append(l.to_dict())
+    # ── SCHEME MATCHING ──────────────────────────────────────────────────────
+    # Full scheme database — each scheme has precise eligibility rules
+    ALL_SCHEMES = [
+        # ── PERSONAL LOANS ──
+        {'id':'sbi-xpress','bank':'SBI','name':'SBI Xpress Credit','type':'personal','rate':10.30,'max_amount':2000000,'min_cibil':650,'min_income':15000,'employment':['salaried'],'min_exp':1,'match_score':0,'tag':'Lowest Rate','url':'personal-loan.html'},
+        {'id':'sbi-quick','bank':'SBI','name':'SBI Quick Personal Loan','type':'personal','rate':11.45,'max_amount':2000000,'min_cibil':700,'min_income':15000,'employment':['salaried'],'min_exp':1,'match_score':0,'tag':'PSU Bank','url':'personal-loan.html'},
+        {'id':'hdfc-personal','bank':'HDFC Bank','name':'HDFC Personal Loan','type':'personal','rate':10.50,'max_amount':4000000,'min_cibil':700,'min_income':25000,'employment':['salaried'],'min_exp':2,'match_score':0,'tag':'High Amount','url':'personal-loan.html'},
+        {'id':'icici-personal','bank':'ICICI Bank','name':'ICICI Personal Loan','type':'personal','rate':10.65,'max_amount':5000000,'min_cibil':700,'min_income':30000,'employment':['salaried'],'min_exp':2,'match_score':0,'tag':'Instant Disbursal','url':'personal-loan.html'},
+        {'id':'bajaj-flexi','bank':'Bajaj Finserv','name':'Bajaj Flexi Personal Loan','type':'personal','rate':11.00,'max_amount':3500000,'min_cibil':685,'min_income':25000,'employment':['salaried'],'min_exp':1,'match_score':0,'tag':'Flexi Repayment','url':'personal-loan.html'},
+        {'id':'tata-personal','bank':'Tata Capital','name':'Tata Capital Personal Loan','type':'personal','rate':10.99,'max_amount':3500000,'min_cibil':700,'min_income':20000,'employment':['salaried','self','business'],'min_exp':1,'match_score':0,'tag':'All Employment','url':'personal-loan.html'},
+        # ── HOME LOANS ──
+        {'id':'sbi-home','bank':'SBI','name':'SBI Regular Home Loan','type':'home','rate':8.40,'max_amount':10000000,'min_cibil':650,'min_income':25000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Lowest Rate','url':'home-loan.html'},
+        {'id':'sbi-home-priv','bank':'SBI','name':'SBI Privilege Home Loan','type':'home','rate':8.40,'max_amount':10000000,'min_cibil':700,'min_income':25000,'employment':['salaried'],'min_exp':2,'match_score':0,'tag':'Govt Employees','url':'home-loan.html'},
+        {'id':'hdfc-home','bank':'HDFC Bank','name':'HDFC Adjustable Rate Home Loan','type':'home','rate':8.50,'max_amount':10000000,'min_cibil':700,'min_income':25000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Fast Approval','url':'home-loan.html'},
+        {'id':'icici-home','bank':'ICICI Bank','name':'ICICI Home Loan','type':'home','rate':8.75,'max_amount':10000000,'min_cibil':700,'min_income':25000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Digital Process','url':'home-loan.html'},
+        {'id':'kotak-home','bank':'Kotak Mahindra','name':'Kotak Home Loan','type':'home','rate':8.70,'max_amount':10000000,'min_cibil':720,'min_income':20000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Competitive Rate','url':'home-loan.html'},
+        {'id':'lic-home','bank':'LIC HFL','name':'LIC HFL Griha Varishtha','type':'home','rate':8.50,'max_amount':15000000,'min_cibil':650,'min_income':20000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Trusted Brand','url':'home-loan.html'},
+        # ── CAR LOANS ──
+        {'id':'sbi-car','bank':'SBI','name':'SBI New Car Loan','type':'car','rate':8.85,'max_amount':10000000,'min_cibil':650,'min_income':25000,'employment':['salaried','self','business'],'min_exp':1,'match_score':0,'tag':'Lowest Rate','url':'car-loan.html'},
+        {'id':'hdfc-car','bank':'HDFC Bank','name':'HDFC New Car Loan','type':'car','rate':9.00,'max_amount':10000000,'min_cibil':700,'min_income':25000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'At Dealership','url':'car-loan.html'},
+        {'id':'icici-car','bank':'ICICI Bank','name':'ICICI New Car Loan','type':'car','rate':9.10,'max_amount':10000000,'min_cibil':700,'min_income':30000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Same Day','url':'car-loan.html'},
+        {'id':'axis-car','bank':'Axis Bank','name':'Axis Bank Car Loan','type':'car','rate':9.20,'max_amount':10000000,'min_cibil':700,'min_income':20000,'employment':['salaried','self','business'],'min_exp':1,'match_score':0,'tag':'Wide Network','url':'car-loan.html'},
+        # ── BUSINESS LOANS ──
+        {'id':'sbi-biz','bank':'SBI','name':'SBI SME Business Loan','type':'business','rate':10.90,'max_amount':5000000,'min_cibil':650,'min_income':30000,'employment':['business','self'],'min_exp':3,'match_score':0,'tag':'Govt Backed','url':'business-loan.html'},
+        {'id':'sbi-mudra','bank':'SBI','name':'SBI Mudra Loan','type':'business','rate':9.75,'max_amount':1000000,'min_cibil':0,'min_income':10000,'employment':['business','self','salaried'],'min_exp':0,'match_score':0,'tag':'No CIBIL Needed','url':'business-loan.html'},
+        {'id':'hdfc-biz','bank':'HDFC Bank','name':'HDFC Business Growth Loan','type':'business','rate':11.00,'max_amount':5000000,'min_cibil':700,'min_income':40000,'employment':['business','self'],'min_exp':3,'match_score':0,'tag':'Fast 48 Hrs','url':'business-loan.html'},
+        {'id':'bajaj-biz','bank':'Bajaj Finserv','name':'Bajaj Business Loan','type':'business','rate':14.00,'max_amount':5000000,'min_cibil':685,'min_income':25000,'employment':['business','self'],'min_exp':3,'match_score':0,'tag':'Flexi Repayment','url':'business-loan.html'},
+        {'id':'tata-biz','bank':'Tata Capital','name':'Tata Capital Business Loan','type':'business','rate':12.00,'max_amount':7500000,'min_cibil':700,'min_income':40000,'employment':['business','self'],'min_exp':3,'match_score':0,'tag':'High Amount','url':'business-loan.html'},
+        # ── GOLD LOANS ──
+        {'id':'muthoot-gold','bank':'Muthoot Finance','name':'Muthoot Gold Loan','type':'gold','rate':8.80,'max_amount':5000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'30 Min Disbursal','url':'gold-loan.html'},
+        {'id':'manappuram-gold','bank':'Manappuram','name':'Manappuram Online Gold Loan','type':'gold','rate':9.90,'max_amount':5000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'5 Min Digital','url':'gold-loan.html'},
+        {'id':'sbi-gold','bank':'SBI','name':'SBI Gold Loan','type':'gold','rate':9.00,'max_amount':2000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'PSU Bank Safety','url':'gold-loan.html'},
+        {'id':'hdfc-gold','bank':'HDFC Bank','name':'HDFC Gold Loan','type':'gold','rate':9.50,'max_amount':5000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'Trusted Bank','url':'gold-loan.html'},
+        # ── EDUCATION LOANS ──
+        {'id':'sbi-edu','bank':'SBI','name':'SBI Student Loan','type':'education','rate':8.05,'max_amount':2000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'Lowest Rate','url':'education-loan.html'},
+        {'id':'sbi-scholar','bank':'SBI','name':'SBI Scholar Loan','type':'education','rate':7.50,'max_amount':4000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'IIT/IIM Special','url':'education-loan.html'},
+        {'id':'bob-edu','bank':'Bank of Baroda','name':'BOB Vidya Loan','type':'education','rate':8.15,'max_amount':4000000,'min_cibil':0,'min_income':0,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'Wide Coverage','url':'education-loan.html'},
+        {'id':'credila-edu','bank':'HDFC Credila','name':'HDFC Credila Education Loan','type':'education','rate':9.55,'max_amount':15000000,'min_cibil':650,'min_income':30000,'employment':['salaried','self','business'],'min_exp':0,'match_score':0,'tag':'Study Abroad','url':'education-loan.html'},
+        # ── LAP ──
+        {'id':'sbi-lap','bank':'SBI','name':'SBI Loan Against Property','type':'lap','rate':9.60,'max_amount':75000000,'min_cibil':650,'min_income':30000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Highest Amount','url':'lap-loan.html'},
+        {'id':'hdfc-lap','bank':'HDFC Bank','name':'HDFC LAP','type':'lap','rate':9.50,'max_amount':50000000,'min_cibil':700,'min_income':30000,'employment':['salaried','self','business'],'min_exp':2,'match_score':0,'tag':'Lowest Rate','url':'lap-loan.html'},
+        {'id':'icici-lap','bank':'ICICI Bank','name':'ICICI Loan Against Property','type':'lap','rate':9.85,'max_amount':50000000,'min_cibil':700,'min_income':35000,'employment':['salaried','self','business'],'min_exp':3,'match_score':0,'tag':'Large Amounts','url':'lap-loan.html'},
+        {'id':'bajaj-lap','bank':'Bajaj Finserv','name':'Bajaj Finserv LAP','type':'lap','rate':9.75,'max_amount':50000000,'min_cibil':685,'min_income':30000,'employment':['salaried','self','business'],'min_exp':3,'match_score':0,'tag':'Flexi Repayment','url':'lap-loan.html'},
+    ]
+
+    # Filter schemes for requested loan type
+    type_schemes = [s for s in ALL_SCHEMES if s['type'] == loan_type]
+
+    matched_schemes   = []
+    unmatched_schemes = []
+
+    for s in type_schemes:
+        reasons_no  = []
+        match_pts   = 100
+
+        # CIBIL check
+        if cibil_score < s['min_cibil']:
+            reasons_no.append(f"Requires CIBIL {s['min_cibil']}+ (yours: {cibil_score})")
+            match_pts -= 40
+
+        # Income check
+        if income < s['min_income']:
+            reasons_no.append(f"Requires min income ₹{s['min_income']:,}/month (yours: ₹{income:,.0f})")
+            match_pts -= 30
+
+        # Employment check
+        if employment not in s['employment']:
+            reasons_no.append(f"Requires {' or '.join(s['employment'])} (yours: {employment})")
+            match_pts -= 25
+
+        # Experience check
+        if experience < s['min_exp']:
+            reasons_no.append(f"Requires {s['min_exp']}+ years experience (yours: {experience})")
+            match_pts -= 15
+
+        # Loan amount check
+        if loan_amount > s['max_amount']:
+            reasons_no.append(f"Max amount for this scheme is ₹{s['max_amount']:,}")
+            match_pts -= 20
+
+        # Calculate EMI for this scheme
+        sr = s['rate'] / (12 * 100)
+        sn = tenure_map.get(loan_type, 60)
+        emi_est = loan_amount * (sr * (1+sr)**sn) / ((1+sr)**sn - 1) if sr > 0 else loan_amount/sn
+
+        scheme_data = {
+            'id':         s['id'],
+            'bank':       s['bank'],
+            'name':       s['name'],
+            'rate':       s['rate'],
+            'tag':        s['tag'],
+            'url':        s['url'],
+            'emi':        round(emi_est),
+            'max_amount': s['max_amount'],
+            'match_pts':  max(0, match_pts),
+            'eligible':   len(reasons_no) == 0,
+            'reasons_no': reasons_no,
+        }
+
+        if len(reasons_no) == 0:
+            matched_schemes.append(scheme_data)
+        else:
+            unmatched_schemes.append(scheme_data)
+
+    # Sort matched by rate (lowest first), unmatched by how close they are
+    matched_schemes.sort(key=lambda x: x['rate'])
+    unmatched_schemes.sort(key=lambda x: -x['match_pts'])
+
+    # Flag best match
+    if matched_schemes:
+        matched_schemes[0]['best_match'] = True
 
     return jsonify({
-        'eligible': eligible,
-        'score': score,
-        'issues': issues,
-        'foir': round(total_foir, 1),
-        'max_recommended_loan': max_loan,
-        'matched_lenders': len(matched),
-        'lenders': matched[:5],
+        'score':             score,
+        'eligible':          score >= 45 and len(matched_schemes) > 0,
+        'issues':            issues,
+        'tips':              tips,
+        'foir':              round(foir, 1),
+        'new_emi':           round(new_emi),
+        'max_recommended':   round(max_loan),
+        'matched_schemes':   matched_schemes,
+        'unmatched_schemes': unmatched_schemes[:3],  # top 3 near-misses
+        'total_matched':     len(matched_schemes),
         'message': 'You qualify for loans!' if eligible else 'Some issues found — see details below.'
     })
 

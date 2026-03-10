@@ -31,7 +31,7 @@
 .lender-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
 .lc2{background:#fff;border-radius:8px;padding:1.4rem;text-align:center;transition:transform .3s,box-shadow .3s;cursor:none}
 .lc2:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
-.lc2-logo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.68rem;color:#fff;margin:0 auto .6rem}
+.lc2-logo{width:56px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.65rem;color:#fff;margin:0 auto .8rem;overflow:hidden;padding:4px;background:#fff;border:1.5px solid #eee}.lc2-logo img{max-width:100%;max-height:100%;object-fit:contain}
 .lc2-name{font-size:.75rem;font-weight:800;margin-bottom:.3rem}
 .lc2-rate{font-size:1.6rem;font-weight:900;color:#e85d2b;line-height:1}
 .lc2-max{font-size:.65rem;color:rgba(26,26,26,.4);margin-top:.2rem}
@@ -152,11 +152,10 @@
   <div class="sec-kicker" style="color:rgba(255,255,255,.3)">Best offers today</div>
   <h2 class="sec-h2" style="color:#fff">Top <em>Lenders</em></h2>
   <div class="lender-row">
-    <div class="lc2" style="border:2px solid #e85d2b;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#0a4d8c">SBI</div><div class="lc2-name">SBI</div><div class="lc2-rate">8.15%</div><div class="lc2-max">up to ₹1.5Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#4a1a8a">Unio</div><div class="lc2-name">Union Bank</div><div class="lc2-rate">8.40%</div><div class="lc2-max">up to ₹1.5Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#5a2a0a">Bank</div><div class="lc2-name">Bank of Baroda</div><div class="lc2-rate">8.50%</div><div class="lc2-max">up to ₹80L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#004c97">HDFC</div><div class="lc2-name">HDFC Credila</div><div class="lc2-rate">9.50%</div><div class="lc2-max">up to ₹1Cr</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
-    <div class="lc2"><div class="lc2-logo" style="background:#2a5a7a">Avan</div><div class="lc2-name">Avanse</div><div class="lc2-rate">10.00%</div><div class="lc2-max">up to ₹75L</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;border:2px solid #e85d2b;"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .7rem;border-radius:100px">Best Rate</div><div class="lc2-logo" style="background:#1a237e"><img src="https://logo.clearbit.com/sbi.co.in" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">SBI</span>'"></div><div class="lc2-name">SBI</div><div class="lc2-rate">8.05%</div><div class="lc2-max">up to ₹20L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">7 days processing</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#f57c00"><img src="https://logo.clearbit.com/bankofbaroda.in" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">Bank</span>'"></div><div class="lc2-name">Bank of Baroda</div><div class="lc2-rate">8.15%</div><div class="lc2-max">up to ₹40L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">7 days processing</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#004c97"><img src="https://logo.clearbit.com/hdfcbank.com" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">HDFC</span>'"></div><div class="lc2-name">HDFC Credila</div><div class="lc2-rate">9.55%</div><div class="lc2-max">up to ₹1.5 Cr</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">5 days processing</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
+    <div class="lc2" style="position:relative;"><div class="lc2-logo" style="background:#8b0000"><img src="https://logo.clearbit.com/axisbank.com" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.outerHTML='<span style=\"font-weight:900;font-size:.65rem;color:#fff\">Axis</span>'"></div><div class="lc2-name">Axis Bank</div><div class="lc2-rate">9.70%</div><div class="lc2-max">up to ₹75L</div><div style="font-size:.6rem;color:rgba(26,26,26,.4);margin-top:.2rem">5 days processing</div><a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.55rem 1rem;font-size:.7rem">Apply</a></div>
 
   </div>
 </div>
@@ -176,6 +175,193 @@
     <a href="eligibility.html" class="btn btn-lg" style="background:#87CEEB;color:#1a1a1a">Check My Eligibility — Free</a>
   </div>
 </div>
+
+
+<!-- LOAN SCHEMES SECTION -->
+
+<style>
+.schemes-section{padding:5rem 2rem;background:#fff}
+.schemes-wrap{max-width:1100px;margin:0 auto}
+.bank-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btab{background:#f5e6c8;border:none;padding:.6rem 1.4rem;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;transition:all .2s;color:#1a1a1a}
+.btab.active{background:#1a1a1a;color:#fff}
+.btab:hover:not(.active){background:#e8d4a8}
+.bank-panel{display:none}
+.bank-panel.active{display:block}
+.bank-header{display:flex;align-items:center;gap:1.2rem;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:2px solid #f5e6c8}
+.bank-logo-box{width:72px;height:44px;border-radius:8px;background:#fff;border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.bank-logo-box img{max-width:100%;max-height:100%;object-fit:contain}
+.bank-hname{font-size:1.2rem;font-weight:900}
+.bank-htag{font-size:.78rem;color:rgba(26,26,26,.5);margin-top:.15rem}
+.schemes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.scheme-card{background:#f9f5ef;border-radius:10px;padding:1.6rem;border:2px solid transparent;transition:all .25s;position:relative}
+.scheme-card:hover{border-color:#e85d2b;background:#fff;box-shadow:0 12px 32px rgba(232,93,43,.1)}
+.scheme-card.best-scheme{border-color:#e85d2b;background:#fff}
+.best-tag{position:absolute;top:-10px;right:16px;background:#e85d2b;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .8rem;border-radius:100px}
+.sc-name{font-size:.92rem;font-weight:900;margin-bottom:1rem;line-height:1.3;padding-right:2rem}
+.sc-rate{font-size:2rem;font-weight:900;color:#e85d2b;line-height:1;margin-bottom:.25rem}
+.sc-rate-type{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:1.2rem}
+.sc-details{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem}
+.sc-det-item{background:#fff;border-radius:6px;padding:.5rem .7rem}
+.sc-det-label{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.15rem}
+.sc-det-val{font-size:.82rem;font-weight:800;color:#1a1a1a}
+.sc-features{margin-bottom:1.2rem}
+.sc-feat-item{font-size:.72rem;color:rgba(26,26,26,.6);margin-bottom:.3rem;display:flex;gap:.5rem}
+.sc-feat-item::before{content:"✓";color:#2d7a3a;font-weight:900;flex-shrink:0}
+.sc-eligibility{background:#f0ede8;border-radius:6px;padding:.7rem .9rem;margin-bottom:1.2rem}
+.sc-elig-title{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(26,26,26,.4);margin-bottom:.4rem}
+.sc-elig-text{font-size:.72rem;color:rgba(26,26,26,.7);line-height:1.5}
+.sc-updated{font-size:.6rem;color:rgba(26,26,26,.3);margin-top:.5rem}
+</style>
+
+<div class="schemes-section reveal">
+  <div class="schemes-wrap">
+    <div class="sec-kicker">All schemes · March 2026 rates</div>
+    <h2 class="sec-h2" style="margin-bottom:2rem">Compare <em>Every Scheme</em></h2>
+    <div class="bank-tabs" id="edu-tabs"><button class="btab active" onclick="showBank('edu',0,this)">SBI</button><button class="btab" onclick="showBank('edu',1,this)">BOB</button><button class="btab" onclick="showBank('edu',2,this)">HDFC Credila</button><button class="btab" onclick="showBank('edu',3,this)">Axis</button></div>
+    <div id="edu-panels"><div class="bank-panel  active" id="panel-0">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/sbi.co.in" alt="State Bank of India" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Stat</span>'"></div>
+    <div><div class="bank-hname">State Bank of India</div><div class="bank-htag">Lowest rates, government-backed</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">SBI Student Loan</div>
+  <div class="sc-rate">8.05%</div>
+  <div class="sc-rate-type">p.a. floating (1% concession for girl students)</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹20 Lakh (India) / ₹1.5 Cr (abroad)</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">No processing fee</div><div class="sc-feat-item">Moratorium period — repay after course + 1 year</div><div class="sc-feat-item">1% interest concession for girls</div><div class="sc-feat-item">Tax benefit under Section 80E</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Indian student · Age 16–35 · Admission to recognized institution · Co-applicant (parent/guardian) required · No CIBIL minimum</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">SBI Scholar Loan</div>
+  <div class="sc-rate">7.50%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹40 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Special low rate for top institutions</div><div class="sc-feat-item">Up to ₹40 lakh without collateral</div><div class="sc-feat-item">Moratorium till course completion</div><div class="sc-feat-item">No processing fee</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Admission to IIT/IIM/NIT/AIIMS/Top 100 NIRF institutions · Co-applicant required · No CIBIL minimum</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-1">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/bankofbaroda.in" alt="Bank of Baroda" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Bank</span>'"></div>
+    <div><div class="bank-hname">Bank of Baroda</div><div class="bank-htag">Wide coverage of courses and colleges</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">BOB Vidya Loan</div>
+  <div class="sc-rate">8.15%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹40 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">NIL</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">0</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Covers tuition, hostel, books, laptop</div><div class="sc-feat-item">Moratorium period available</div><div class="sc-feat-item">Tax benefit under 80E</div><div class="sc-feat-item">No margin for loans up to ₹4 lakh</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Indian student · Admission to recognized institution in India or abroad · Age 16–35 · Co-applicant required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-2">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/hdfcbank.com" alt="HDFC Credila" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>HDFC</span>'"></div>
+    <div><div class="bank-hname">HDFC Credila</div><div class="bank-htag">India's first dedicated education lender</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">HDFC Credila Education Loan</div>
+  <div class="sc-rate">9.55%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹1.5 Crore</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">1%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">Covers 100% of education cost</div><div class="sc-feat-item">All countries and courses covered</div><div class="sc-feat-item">Loan sanctioned before visa application</div><div class="sc-feat-item">Part disbursement as per fee schedule</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Indian student going abroad for higher education · Co-applicant with stable income · CIBIL 650+ for co-applicant</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div><div class="scheme-card">
+  
+  <div class="sc-name">HDFC Credila Domestic Loan</div>
+  <div class="sc-rate">10.00%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹75 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">10 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">1%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">For MBA, engineering, medical, law</div><div class="sc-feat-item">Covers all expenses including laptop</div><div class="sc-feat-item">Doorstep service</div><div class="sc-feat-item">Quick 5-day sanction</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Indian students in India · Reputed institutions · Co-applicant income proof required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div><div class="bank-panel" id="panel-3">
+  <div class="bank-header">
+    <div class="bank-logo-box"><img src="https://logo.clearbit.com/axisbank.com" alt="Axis Bank" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:.7rem\'>Axis</span>'"></div>
+    <div><div class="bank-hname">Axis Bank</div><div class="bank-htag">Flexible study loan for India and abroad</div></div>
+  </div>
+  <div class="schemes-grid"><div class="scheme-card best-scheme">
+  <div class="best-tag">Lowest Rate</div>
+  <div class="sc-name">Axis Bank Education Loan</div>
+  <div class="sc-rate">9.70%</div>
+  <div class="sc-rate-type">p.a. floating</div>
+  <div class="sc-details">
+    <div class="sc-det-item"><div class="sc-det-label">Max Amount</div><div class="sc-det-val">₹75 Lakh</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Max Tenure</div><div class="sc-det-val">15 years</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Processing Fee</div><div class="sc-det-val">1%</div></div>
+    <div class="sc-det-item"><div class="sc-det-label">Min CIBIL</div><div class="sc-det-val">650</div></div>
+  </div>
+  <div class="sc-features"><div class="sc-feat-item">For India and abroad studies</div><div class="sc-feat-item">All recognized courses covered</div><div class="sc-feat-item">Moratorium during study period</div><div class="sc-feat-item">Tax deduction benefit under 80E</div></div>
+  <div class="sc-eligibility">
+    <div class="sc-elig-title">Eligibility</div>
+    <div class="sc-elig-text">Indian student · Age 16–35 · Admission confirmed · Co-applicant income required</div>
+  </div>
+  <div class="sc-updated">Rates updated: March 2026</div>
+  <a href="apply.html" class="btn btn-og btn-full" style="margin-top:.8rem;padding:.65rem 1rem;font-size:.75rem">Apply for this Scheme →</a>
+</div></div>
+</div></div>
+  </div>
+</div>
+<script>
+function showBank(prefix,idx,btn){
+  document.querySelectorAll('#'+prefix+'-panels .bank-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+idx).classList.add('active');
+  document.querySelectorAll('#'+prefix+'-tabs .btab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
 
 <!-- FAQ -->
 <div class="section reveal" style="background:#f5e6c8">
